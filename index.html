@@ -493,7 +493,7 @@ body.lock{overflow:hidden}
 
 <!-- ===== HERO : 풀스크린 쇼릴 (웅필름) ===== -->
 <section class="video-section hero in-view" id="top">
-  <div class="video-bg"><iframe src="https://www.youtube.com/embed/kq8nZ11LvPU?autoplay=1&mute=1&loop=1&playlist=kq8nZ11LvPU&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
+  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/kq8nZ11LvPU?autoplay=1&mute=1&loop=1&playlist=kq8nZ11LvPU&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
   <div class="dim"></div>
   <div class="caption">
     <h1><span class="brandname">skARTe</span></h1>
@@ -504,7 +504,7 @@ body.lock{overflow:hidden}
 
 <!-- ===== WORKS : 카테고리 대표영상 풀스크린 스택 ===== -->
 <section class="video-section ws" id="w-performance">
-  <div class="video-bg"><iframe data-src="https://www.youtube.com/embed/5mmhRzYOGhc?autoplay=1&mute=1&loop=1&playlist=5mmhRzYOGhc&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
+  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/5mmhRzYOGhc?autoplay=1&mute=1&loop=1&playlist=5mmhRzYOGhc&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
   <div class="dim"></div>
   <span class="ghost">01</span>
   <div class="caption">
@@ -515,7 +515,7 @@ body.lock{overflow:hidden}
 </section>
 
 <section class="video-section ws alt" id="w-film">
-  <div class="video-bg"><iframe data-src="https://www.youtube.com/embed/lTuiHLEhGTA?autoplay=1&mute=1&loop=1&playlist=lTuiHLEhGTA&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
+  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/lTuiHLEhGTA?autoplay=1&mute=1&loop=1&playlist=lTuiHLEhGTA&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
   <div class="dim"></div>
   <span class="ghost">02</span>
   <div class="caption">
@@ -526,7 +526,7 @@ body.lock{overflow:hidden}
 </section>
 
 <section class="video-section ws" id="w-ad">
-  <div class="video-bg"><iframe data-src="https://www.youtube.com/embed/fdv-0pa9wwA?autoplay=1&mute=1&loop=1&playlist=fdv-0pa9wwA&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
+  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/fdv-0pa9wwA?autoplay=1&mute=1&loop=1&playlist=fdv-0pa9wwA&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
   <div class="dim"></div>
   <span class="ghost">03</span>
   <div class="caption">
@@ -537,7 +537,7 @@ body.lock{overflow:hidden}
 </section>
 
 <section class="video-section ws alt" id="w-highlight">
-  <div class="video-bg"><iframe data-src="https://www.youtube.com/embed/Q1ARupFFLqI?autoplay=1&mute=1&loop=1&playlist=Q1ARupFFLqI&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
+  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/Q1ARupFFLqI?autoplay=1&mute=1&loop=1&playlist=Q1ARupFFLqI&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
   <div class="dim"></div>
   <span class="ghost">04</span>
   <div class="caption">
@@ -646,7 +646,7 @@ const spSoon = sub.querySelector('.wc-soon');
 const bindPlay = c => c.addEventListener('click', () => {
   if (c.classList.contains('on')) return;
   c.classList.add('on');
-  c.innerHTML = '<iframe src="https://www.youtube.com/embed/' + c.dataset.id +
+  c.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + c.dataset.id +
     '?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
 });
 
@@ -690,12 +690,13 @@ document.getElementById('spBack').addEventListener('click', () => { location.has
 route();
 
 /* 홈 대표영상 lazy-load */
+// 화면 근처에 오면 로드해 재생 (여러 개 동시재생 허용)
 const ioBg = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   const f = e.target.querySelector('iframe[data-src]');
   if (f) { f.src = f.dataset.src; f.removeAttribute('data-src'); }
   ioBg.unobserve(e.target);
-}), {rootMargin:'120% 0px'});
+}), {rootMargin:'150% 0px'});
 document.querySelectorAll('.video-section').forEach(s => ioBg.observe(s));
 
 </script>
