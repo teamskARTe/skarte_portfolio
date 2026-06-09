@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>skARTe · Admin</title>
+<style>
+  :root{--bd:#e3e3e3;--mut:#777;--ac:#111}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#f5f5f5;color:#111;line-height:1.5}
+  header{position:sticky;top:0;z-index:10;background:#111;color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  header h1{font-size:18px;letter-spacing:.04em}
+  header .actions{display:flex;gap:8px;flex-wrap:wrap}
+  button{font:inherit;cursor:pointer;border:1px solid var(--bd);background:#fff;color:#111;padding:8px 14px;border-radius:8px}
+  button.primary{background:#111;color:#fff;border-color:#111}
+  button.ghost{background:transparent;color:#fff;border-color:#555}
+  button.danger{color:#c0392b;border-color:#e7b7b1}
+  button.sm{padding:4px 9px;font-size:13px;border-radius:6px}
+  main{max-width:920px;margin:0 auto;padding:24px}
+  .hint{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;color:#444}
+  .hint b{color:#111}
+  .field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+  .field label{font-size:12.5px;color:var(--mut);letter-spacing:.02em}
+  .field input,.field textarea{font:inherit;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:#fff;width:100%}
+  .field textarea{resize:vertical;min-height:54px}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .row>*{flex:1;min-width:160px}
+  .card{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:16px}
+  .cat-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .cat-head .num{font-size:13px;color:var(--mut);min-width:24px}
+  .cat-head .grow{flex:1;min-width:140px}
+  .cat-head label.chk{display:flex;align-items:center;gap:6px;font-size:13px;color:#444;flex:none}
+  .vid{border:1px solid #eee;border-radius:9px;padding:12px;margin-bottom:10px;background:#fafafa}
+  .vid .vid-top{display:flex;gap:10px;align-items:center}
+  .vid .thumb{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:#ddd;flex:none}
+  .vid .vid-fields{flex:1;display:flex;flex-direction:column;gap:8px}
+  .vid .vid-fields .field{margin:0}
+  .vid .vtools{display:flex;flex-direction:column;gap:6px;flex:none}
+  .sec-title{font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.12em;margin:26px 0 10px}
+  .muted{color:var(--mut);font-size:13px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .25s;pointer-events:none;font-size:14px}
+  .toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header>
+  <h1>skARTe · Works Admin</h1>
+  <div class="actions">
+    <button class="ghost" id="reloadDefault">기본값 불러오기</button>
+    <button class="ghost" id="importBtn">JSON 가져오기</button>
+    <input type="file" id="importFile" accept="application/json" hidden>
+    <button class="ghost" id="previewBtn">미리보기 저장</button>
+    <button class="primary" id="downloadBtn">works.json 다운로드</button>
+  </div>
+</header>
+<main>
+  <div class="hint">
+    <b>사용법</b> — 카테고리·영상을 편집한 뒤,<br>
+    ① <b>미리보기 저장</b>: 이 브라우저에서 사이트를 열면 바로 반영(공개 사이트는 아직 그대로).<br>
+    ② <b>works.json 다운로드</b> → 받은 파일을 배포 폴더 루트의 <b>works.json</b>으로 교체하고 다시 배포(git push)하면 <b>모든 방문자에게 반영</b>됩니다.<br>
+    <span class="muted">영상 ID는 유튜브 링크의 v= 뒤 또는 youtu.be/ 뒤 11자리입니다. 전체 링크를 붙여넣어도 자동으로 ID만 추출합니다.</span>
+  </div>
+
+  <div class="card">
+    <div class="field" style="max-width:340px">
+      <label>히어로(메인) 대표영상 ID 또는 링크</label>
+      <input id="hero" placeholder="예: kq8nZ11LvPU">
+    </div>
+  </div>
+
+  <div class="sec-title">카테고리</div>
+  <div id="cats"></div>
+  <button class="primary" id="addCat">+ 카테고리 추가</button>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const LS_KEY='skarte_works';
+const DEFAULT_WORKS={hero:'kq8nZ11LvPU',categories:[
+  {key:'performance',title:'Performance',videos:[{id:'5mmhRzYOGhc',title:'',parts:''},{id:'-6QlZQ424Xs',title:'',parts:''},{id:'AE2iS8KZ9HI',title:'',parts:''}]},
+  {key:'film',title:'Film & Drama',playlist:'PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C',videos:[{id:'lTuiHLEhGTA',title:'',parts:''},{id:'_8TW_QYIiAI',title:'',parts:''},{id:'P7TWmt3zvag',title:'',parts:''}]},
+  {key:'ad',title:'Advertisement',videos:[{id:'fdv-0pa9wwA',title:'',parts:''},{id:'xGnmC1ujFW0',title:'',parts:''},{id:'nOU01K35SVc',title:'',parts:''},{id:'nCoN0HPrR8Y',title:'',parts:''},{id:'p3od_uTnYeA',title:'',parts:''},{id:'SucKk5_LUms',title:'',parts:''}]},
+  {key:'highlight',title:'Highlight Video',videos:[{id:'kq8nZ11LvPU',title:'',parts:''},{id:'Q1ARupFFLqI',title:'',parts:''},{id:'lnyRXiWcKIQ',title:'',parts:''},{id:'yL15xZtbd9w',title:'',parts:''}]},
+  {key:'live',title:'Live Broadcast',soon:true,videos:[]}
+]};
+
+let data;
+const $=s=>document.querySelector(s);
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800);};
+const extractId=s=>{ s=(s||'').trim(); const m=s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/); return m?m[1]:s; };
+const extractList=s=>{ s=(s||'').trim(); const m=s.match(/[?&]list=([A-Za-z0-9_-]+)/); return m?m[1]:s; };
+const slug=s=>(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||('cat'+Date.now());
+
+async function init(){
+  try{ const l=localStorage.getItem(LS_KEY); if(l){ data=JSON.parse(l); } }catch(e){}
+  if(!data){ try{ const r=await fetch('../works.json',{cache:'no-store'}); if(r.ok) data=await r.json(); }catch(e){} }
+  if(!data) data=structuredClone(DEFAULT_WORKS);
+  $('#hero').value=data.hero||'';
+  render();
+}
+$('#hero').addEventListener('input',e=>{ data.hero=extractId(e.target.value); });
+
+function render(){
+  const wrap=$('#cats'); wrap.innerHTML='';
+  data.categories.forEach((c,ci)=>{
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <div class="cat-head">
+        <span class="num">${String(ci+1).padStart(2,'0')}</span>
+        <input class="grow" data-k="title" placeholder="카테고리 이름" value="${(c.title||'').replace(/"/g,'&quot;')}">
+        <label class="chk"><input type="checkbox" data-k="soon" ${c.soon?'checked':''}> 업로드 예정(soon)</label>
+        <button class="sm" data-act="up">↑</button>
+        <button class="sm" data-act="down">↓</button>
+        <button class="sm danger" data-act="delcat">카테고리 삭제</button>
+      </div>
+      <div class="field" style="max-width:420px">
+        <label>재생목록 링크/ID (선택 — 있으면 카드에 'Playlist' 표시)</label>
+        <input data-k="playlist" placeholder="PL... 또는 재생목록 링크" value="${(c.playlist||'').replace(/"/g,'&quot;')}">
+      </div>
+      <div class="vids"></div>
+      <button class="sm" data-act="addvid">+ 영상 추가</button>
+    `;
+    // 카테고리 필드
+    card.querySelector('[data-k="title"]').addEventListener('input',e=>{c.title=e.target.value;});
+    card.querySelector('[data-k="soon"]').addEventListener('change',e=>{c.soon=e.target.checked; if(!c.soon)delete c.soon;});
+    card.querySelector('[data-k="playlist"]').addEventListener('input',e=>{const v=extractList(e.target.value); if(v)c.playlist=v; else delete c.playlist;});
+    card.querySelector('[data-act="up"]').onclick=()=>{ if(ci>0){[data.categories[ci-1],data.categories[ci]]=[data.categories[ci],data.categories[ci-1]];render();} };
+    card.querySelector('[data-act="down"]').onclick=()=>{ if(ci<data.categories.length-1){[data.categories[ci+1],data.categories[ci]]=[data.categories[ci],data.categories[ci+1]];render();} };
+    card.querySelector('[data-act="delcat"]').onclick=()=>{ if(confirm('이 카테고리를 삭제할까요?')){ data.categories.splice(ci,1); render(); } };
+    card.querySelector('[data-act="addvid"]').onclick=()=>{ (c.videos=c.videos||[]).push({id:'',title:'',parts:''}); render(); };
+
+    const vbox=card.querySelector('.vids');
+    (c.videos||[]).forEach((v,vi)=>{
+      const row=document.createElement('div'); row.className='vid';
+      row.innerHTML=`
+        <div class="vid-top">
+          <img class="thumb" src="${v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''}" alt="">
+          <div class="vid-fields">
+            <div class="field"><label>영상 ID / 링크</label><input data-vk="id" value="${(v.id||'').replace(/"/g,'&quot;')}" placeholder="유튜브 링크 또는 ID"></div>
+            <div class="field"><label>행사 제목</label><input data-vk="title" value="${(v.title||'').replace(/"/g,'&quot;')}" placeholder="예: 2025 OO 페스티벌"></div>
+            <div class="field"><label>참여 파트</label><textarea data-vk="parts" placeholder="예: 촬영 · 편집 · 송출">${(v.parts||'').replace(/</g,'&lt;')}</textarea></div>
+          </div>
+          <div class="vtools">
+            <button class="sm" data-act="vup">↑</button>
+            <button class="sm" data-act="vdown">↓</button>
+            <button class="sm danger" data-act="vdel">삭제</button>
+          </div>
+        </div>`;
+      const idInput=row.querySelector('[data-vk="id"]');
+      idInput.addEventListener('input',e=>{ v.id=extractId(e.target.value); });
+      idInput.addEventListener('blur',e=>{ e.target.value=v.id; row.querySelector('.thumb').src=v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''; });
+      row.querySelector('[data-vk="title"]').addEventListener('input',e=>{v.title=e.target.value;});
+      row.querySelector('[data-vk="parts"]').addEventListener('input',e=>{v.parts=e.target.value;});
+      row.querySelector('[data-act="vup"]').onclick=()=>{ if(vi>0){[c.videos[vi-1],c.videos[vi]]=[c.videos[vi],c.videos[vi-1]];render();} };
+      row.querySelector('[data-act="vdown"]').onclick=()=>{ if(vi<c.videos.length-1){[c.videos[vi+1],c.videos[vi]]=[c.videos[vi],c.videos[vi+1]];render();} };
+      row.querySelector('[data-act="vdel"]').onclick=()=>{ c.videos.splice(vi,1); render(); };
+      vbox.appendChild(row);
+    });
+    wrap.appendChild(card);
+  });
+}
+
+$('#addCat').onclick=()=>{ const t='새 카테고리'; data.categories.push({key:slug(t)+'-'+Date.now().toString(36).slice(-3),title:t,videos:[]}); render(); };
+
+function normalize(){
+  // key 자동 보정(빈 값/중복 방지)
+  const seen={};
+  data.categories.forEach(c=>{
+    let k=c.key||slug(c.title); if(seen[k]) k=k+'-'+Date.now().toString(36).slice(-3); seen[k]=1; c.key=k;
+    c.videos=(c.videos||[]).filter(v=>v.id);
+  });
+  data.hero=extractId(data.hero||'');
+}
+$('#previewBtn').onclick=()=>{ normalize(); localStorage.setItem(LS_KEY,JSON.stringify(data)); toast('미리보기 저장됨 — 사이트 새로고침'); };
+$('#downloadBtn').onclick=()=>{ normalize(); const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='works.json'; a.click(); toast('works.json 다운로드'); };
+$('#reloadDefault').onclick=()=>{ if(confirm('기본값으로 되돌릴까요? (저장 전까지 반영 안 됨)')){ data=structuredClone(DEFAULT_WORKS); $('#hero').value=data.hero; render(); } };
+$('#importBtn').onclick=()=>$('#importFile').click();
+$('#importFile').onchange=e=>{ const f=e.target.files[0]; if(!f)return; const r=new FileReader(); r.onload=()=>{ try{ data=JSON.parse(r.result); $('#hero').value=data.hero||''; render(); toast('가져오기 완료'); }catch(err){ alert('JSON 파싱 오류: '+err.message); } }; r.readAsText(f); };
+
+init();
+</script>
+</body>
+</html>

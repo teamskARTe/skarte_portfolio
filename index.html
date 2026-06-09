@@ -207,6 +207,12 @@ ul{list-style:none}
 .vcard.pl:hover{border-color:#555}
 .wc-soon{color:#777;font-size:clamp(16px,2vw,20px);letter-spacing:.25em}
 .wp-row .soon{font-style:normal;font-size:11px;letter-spacing:.18em;color:#999;vertical-align:super;margin-left:6px}
+/* ===== 서브페이지 작업 카드 (영상+제목+파트) ===== */
+.work-item{display:flex;flex-direction:column}
+.work-item .vcard{width:100%}
+.wi-title{margin-top:13px;font-size:16px;font-weight:600;color:#fff;letter-spacing:.01em;line-height:1.4}
+.wi-parts{margin-top:5px;font-size:13px;color:#9a9a9a;line-height:1.55}
+
 .brandname{text-transform:none!important}
 
 /* 홈 캡션 부가요소 */
@@ -482,13 +488,7 @@ body.lock{overflow:hidden}
     <button id="wpClose" aria-label="닫기">&times;</button>
   </div>
   <h2 class="wp-title"><span class="brandname">skARTe</span><br>Works</h2>
-  <nav class="wp-list">
-    <a class="wp-row" href="#works/performance"><i>01</i><strong>Performance</strong><span class="wp-thumb"></span><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg></a>
-    <a class="wp-row" href="#works/film"><i>02</i><strong>Film &amp; Drama</strong><span class="wp-thumb" style="filter:brightness(1.3)"></span><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg></a>
-    <a class="wp-row" href="#works/ad"><i>03</i><strong>Advertisement</strong><span class="wp-thumb" style="filter:brightness(.8)"></span><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg></a>
-    <a class="wp-row" href="#works/highlight"><i>04</i><strong>Highlight Video</strong><span class="wp-thumb" style="filter:brightness(1.15)"></span><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg></a>
-    <a class="wp-row" href="#works/live"><i>05</i><strong>Live Broadcast <em class="soon">soon</em></strong><span class="wp-thumb" style="filter:brightness(.9)"></span><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg></a>
-  </nav>
+  <nav class="wp-list" id="wpList"></nav>
 </aside>
 
 <!-- ===== HERO : 풀스크린 쇼릴 (웅필름) ===== -->
@@ -502,61 +502,7 @@ body.lock{overflow:hidden}
   <div class="scroll-hint">Scroll</div>
 </section>
 
-<!-- ===== WORKS : 카테고리 대표영상 풀스크린 스택 ===== -->
-<section class="video-section ws" id="w-performance">
-  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/5mmhRzYOGhc?autoplay=1&mute=1&loop=1&playlist=5mmhRzYOGhc&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
-  <div class="dim"></div>
-  <span class="ghost">01</span>
-  <div class="caption">
-    <p class="cat">WORKS &mdash; 01</p>
-    <h2>Performance</h2>
-    <a class="view-all" href="#works/performance">전체 보기 &rarr;</a>
-  </div>
-</section>
-
-<section class="video-section ws alt" id="w-film">
-  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/lTuiHLEhGTA?autoplay=1&mute=1&loop=1&playlist=lTuiHLEhGTA&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
-  <div class="dim"></div>
-  <span class="ghost">02</span>
-  <div class="caption">
-    <p class="cat">WORKS &mdash; 02</p>
-    <h2>Film &amp; Drama</h2>
-    <a class="view-all" href="#works/film">전체 보기 &rarr;</a>
-  </div>
-</section>
-
-<section class="video-section ws" id="w-ad">
-  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/fdv-0pa9wwA?autoplay=1&mute=1&loop=1&playlist=fdv-0pa9wwA&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
-  <div class="dim"></div>
-  <span class="ghost">03</span>
-  <div class="caption">
-    <p class="cat">WORKS &mdash; 03</p>
-    <h2>Advertisement</h2>
-    <a class="view-all" href="#works/ad">전체 보기 &rarr;</a>
-  </div>
-</section>
-
-<section class="video-section ws alt" id="w-highlight">
-  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/Q1ARupFFLqI?autoplay=1&mute=1&loop=1&playlist=Q1ARupFFLqI&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
-  <div class="dim"></div>
-  <span class="ghost">04</span>
-  <div class="caption">
-    <p class="cat">WORKS &mdash; 04</p>
-    <h2>Highlight Video</h2>
-    <a class="view-all" href="#works/highlight">전체 보기 &rarr;</a>
-  </div>
-</section>
-
-<section class="video-section ws" id="w-live">
-  <div class="video-ph" style="animation-duration:16s;animation-delay:-6s"></div>
-  <div class="dim"></div>
-  <span class="ghost">05</span>
-  <div class="caption">
-    <p class="cat">WORKS &mdash; 05</p>
-    <h2>Live Broadcast</h2>
-    <p class="soon-note">업로드 예정</p>
-  </div>
-</section>
+<div id="worksStack"></div>
 
 <!-- ===== WORKS 서브페이지 (카테고리 전체 영상) ===== -->
 <div id="subpage" aria-hidden="true">
@@ -631,73 +577,118 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), {threshold:.35});
 document.querySelectorAll('.video-section').forEach(s => io.observe(s));
 
-/* ===== Works 데이터 & 서브페이지 라우팅 ===== */
-const WORKS = {
-  performance:{num:'01',title:'Performance',videos:['5mmhRzYOGhc','-6QlZQ424Xs','AE2iS8KZ9HI']},
-  film:{num:'02',title:'Film & Drama',playlist:'PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C',videos:['lTuiHLEhGTA','_8TW_QYIiAI','P7TWmt3zvag']},
-  ad:{num:'03',title:'Advertisement',videos:['fdv-0pa9wwA','xGnmC1ujFW0','nOU01K35SVc','nCoN0HPrR8Y','p3od_uTnYeA','SucKk5_LUms']},
-  highlight:{num:'04',title:'Highlight Video',videos:['kq8nZ11LvPU','Q1ARupFFLqI','lnyRXiWcKIQ','yL15xZtbd9w']},
-  live:{num:'05',title:'Live Broadcast',soon:true},
+/* ===== Works: 데이터 기반 렌더 + 서브페이지 ===== */
+const DEFAULT_WORKS = {
+  hero:'kq8nZ11LvPU',
+  categories:[
+    {key:'performance',title:'Performance',videos:[
+      {id:'5mmhRzYOGhc',title:'',parts:''},{id:'-6QlZQ424Xs',title:'',parts:''},{id:'AE2iS8KZ9HI',title:'',parts:''}]},
+    {key:'film',title:'Film & Drama',playlist:'PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C',videos:[
+      {id:'lTuiHLEhGTA',title:'',parts:''},{id:'_8TW_QYIiAI',title:'',parts:''},{id:'P7TWmt3zvag',title:'',parts:''}]},
+    {key:'ad',title:'Advertisement',videos:[
+      {id:'fdv-0pa9wwA',title:'',parts:''},{id:'xGnmC1ujFW0',title:'',parts:''},{id:'nOU01K35SVc',title:'',parts:''},
+      {id:'nCoN0HPrR8Y',title:'',parts:''},{id:'p3od_uTnYeA',title:'',parts:''},{id:'SucKk5_LUms',title:'',parts:''}]},
+    {key:'highlight',title:'Highlight Video',videos:[
+      {id:'kq8nZ11LvPU',title:'',parts:''},{id:'Q1ARupFFLqI',title:'',parts:''},{id:'lnyRXiWcKIQ',title:'',parts:''},{id:'yL15xZtbd9w',title:'',parts:''}]},
+    {key:'live',title:'Live Broadcast',soon:true,videos:[]}
+  ]
 };
+let WORKS = DEFAULT_WORKS;
+
+const esc = s => (s||'').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const pad2 = n => String(n).padStart(2,'0');
+const bgUrl = id => 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&loop=1&playlist='+id+'&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1';
+
 const sub = document.getElementById('subpage');
 const spGrid = sub.querySelector('.wc-grid');
 const spSoon = sub.querySelector('.wc-soon');
 
-const bindPlay = c => c.addEventListener('click', () => {
-  if (c.classList.contains('on')) return;
-  c.classList.add('on');
-  c.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + c.dataset.id +
-    '?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
-});
+function buildPanel(){
+  const list = document.getElementById('wpList'); list.innerHTML='';
+  WORKS.categories.forEach((c,i)=>{
+    const a=document.createElement('a'); a.className='wp-row'; a.href='#works/'+c.key;
+    a.innerHTML='<i>'+pad2(i+1)+'</i><strong>'+esc(c.title)+(c.soon?' <em class="soon">soon</em>':'')
+      +'</strong><span class="wp-thumb"></span><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg>';
+    list.appendChild(a);
+  });
+}
+function buildStack(){
+  const stack=document.getElementById('worksStack'); stack.innerHTML='';
+  WORKS.categories.forEach((c,i)=>{
+    const num=pad2(i+1), alt=(i%2===1)?' alt':'';
+    const rep=(c.videos&&c.videos[0])?c.videos[0].id:null;
+    const media=(c.soon||!rep)
+      ? '<div class="video-ph" style="animation-duration:16s;animation-delay:-6s"></div>'
+      : '<div class="video-bg"><iframe data-src="'+bgUrl(rep)+'" title="" allow="autoplay; encrypted-media"></iframe></div>';
+    const cta=c.soon ? '<p class="soon-note">업로드 예정</p>'
+                     : '<a class="view-all" href="#works/'+c.key+'">전체 보기 &rarr;</a>';
+    const sec=document.createElement('section'); sec.className='video-section ws'+alt; sec.id='w-'+c.key;
+    sec.innerHTML=media+'<div class="dim"></div><span class="ghost">'+num+'</span>'
+      +'<div class="caption"><p class="cat">WORKS &mdash; '+num+'</p><h2>'+esc(c.title)+'</h2>'+cta+'</div>';
+    stack.appendChild(sec);
+  });
+}
+function setHero(){ const f=document.querySelector('#top iframe'); if(f&&WORKS.hero) f.dataset.src=bgUrl(WORKS.hero); }
+
+function bindPlay(item){
+  const v=item.querySelector('.vthumb'); if(!v) return;
+  v.addEventListener('click',()=>{
+    if(v.classList.contains('on')) return;
+    v.classList.add('on');
+    v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+v.dataset.id
+      +'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  });
+}
+const findCat = key => WORKS.categories.find(c=>c.key===key);
 
 const openSub = key => {
-  const w = WORKS[key];
-  sub.querySelector('.sp-num').textContent = w.num;
-  sub.querySelector('.sp-title').textContent = w.title;
-  spGrid.innerHTML = '';
-  spSoon.hidden = !w.soon;
-  if (w.playlist) {
-    const a = document.createElement('a');
-    a.className = 'vcard pl';
-    a.href = 'https://www.youtube.com/playlist?list=' + w.playlist;
-    a.target = '_blank'; a.rel = 'noopener';
-    a.innerHTML = '<span class="pl-label">Playlist<br><em>전체 보기 &rarr;</em></span>';
-    spGrid.appendChild(a);
+  const w=findCat(key); if(!w) return;
+  const idx=WORKS.categories.indexOf(w);
+  sub.querySelector('.sp-num').textContent=pad2(idx+1);
+  sub.querySelector('.sp-title').textContent=w.title;
+  spGrid.innerHTML=''; spSoon.hidden=!w.soon;
+  if(w.playlist){
+    const it=document.createElement('div'); it.className='work-item';
+    it.innerHTML='<a class="vcard pl" href="https://www.youtube.com/playlist?list='+w.playlist
+      +'" target="_blank" rel="noopener"><span class="pl-label">Playlist<br><em>전체 보기 &rarr;</em></span></a>';
+    spGrid.appendChild(it);
   }
-  (w.videos || []).forEach(id => {
-    const a = document.createElement('a');
-    a.className = 'vcard'; a.dataset.id = id;
-    a.innerHTML = '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span>';
-    bindPlay(a);
-    spGrid.appendChild(a);
+  (w.videos||[]).forEach(v=>{
+    const it=document.createElement('div'); it.className='work-item';
+    it.innerHTML='<div class="vcard vthumb" data-id="'+v.id+'"><img src="https://i.ytimg.com/vi/'+v.id
+      +'/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></div>'
+      +(v.title?'<p class="wi-title">'+esc(v.title)+'</p>':'')
+      +(v.parts?'<p class="wi-parts">'+esc(v.parts).replace(/\n/g,'<br>')+'</p>':'');
+    bindPlay(it); spGrid.appendChild(it);
   });
-  sub.classList.add('show'); sub.setAttribute('aria-hidden','false');
-  sub.scrollTop = 0;
+  sub.classList.add('show'); sub.setAttribute('aria-hidden','false'); sub.scrollTop=0;
   document.body.classList.add('lock');
 };
 const closeSub = () => {
-  if (!sub.classList.contains('show')) return;
+  if(!sub.classList.contains('show')) return;
   sub.classList.remove('show'); sub.setAttribute('aria-hidden','true');
-  document.body.classList.remove('lock');
-  spGrid.innerHTML = '';   // 재생 중인 iframe 정지
+  document.body.classList.remove('lock'); spGrid.innerHTML='';
 };
 const route = () => {
-  const m = location.hash.match(/^#works\/([a-z]+)$/);
-  if (m && WORKS[m[1]]) { closePanel(); openSub(m[1]); } else closeSub();
+  const m=location.hash.match(/^#works\/([A-Za-z0-9_-]+)$/);
+  if(m && findCat(m[1])){ closePanel(); openSub(m[1]); } else closeSub();
 };
 window.addEventListener('hashchange', route);
-document.getElementById('spBack').addEventListener('click', () => { location.hash = ''; });
-route();
+document.getElementById('spBack').addEventListener('click', ()=>{ location.hash=''; });
 
-/* 홈 대표영상 lazy-load */
-// 화면 근처에 오면 로드해 재생 (여러 개 동시재생 허용)
-const ioBg = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  const f = e.target.querySelector('iframe[data-src]');
-  if (f) { f.src = f.dataset.src; f.removeAttribute('data-src'); }
+const ioBg = new IntersectionObserver(es => es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  const f=e.target.querySelector('iframe[data-src]');
+  if(f){ f.src=f.dataset.src; f.removeAttribute('data-src'); }
   ioBg.unobserve(e.target);
 }), {rootMargin:'150% 0px'});
-document.querySelectorAll('.video-section').forEach(s => ioBg.observe(s));
+function observeVideos(){ document.querySelectorAll('.video-section').forEach(s=>ioBg.observe(s)); }
+
+async function loadWorks(){
+  try{ const l=localStorage.getItem('skarte_works'); if(l){ WORKS=JSON.parse(l); return; } }catch(e){}
+  try{ const r=await fetch('works.json',{cache:'no-store'}); if(r.ok) WORKS=await r.json(); }catch(e){}
+}
+loadWorks().then(()=>{ buildPanel(); buildStack(); setHero(); observeVideos(); route(); });
 
 </script>
 </body>
