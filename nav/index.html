@@ -698,7 +698,7 @@ const ioBg = new IntersectionObserver(es => es.forEach(e=>{
   if(f){ f.src=f.dataset.src; f.removeAttribute('data-src'); }
   ioBg.unobserve(e.target);
 }), {rootMargin:'150% 0px'});
-function observeVideos(){ document.querySelectorAll('.video-section').forEach(s=>ioBg.observe(s)); }
+function observeVideos(){ document.querySelectorAll('.video-section').forEach(s=>{ ioBg.observe(s); io.observe(s); }); }
 
 async function loadWorks(){
   try{ const l=localStorage.getItem('skarte_works'); if(l){ WORKS=JSON.parse(l); return; } }catch(e){}
