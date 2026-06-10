@@ -77,13 +77,122 @@
 
 <script>
 const LS_KEY='skarte_works';
-const DEFAULT_WORKS={hero:'kq8nZ11LvPU',categories:[
-  {key:'performance',title:'Performance',videos:[{id:'5mmhRzYOGhc',title:'',parts:''},{id:'-6QlZQ424Xs',title:'',parts:''},{id:'AE2iS8KZ9HI',title:'',parts:''}]},
-  {key:'film',title:'Film & Drama',playlist:'PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C',videos:[{id:'lTuiHLEhGTA',title:'',parts:''},{id:'_8TW_QYIiAI',title:'',parts:''},{id:'P7TWmt3zvag',title:'',parts:''}]},
-  {key:'ad',title:'Advertisement',videos:[{id:'fdv-0pa9wwA',title:'',parts:''},{id:'xGnmC1ujFW0',title:'',parts:''},{id:'nOU01K35SVc',title:'',parts:''},{id:'nCoN0HPrR8Y',title:'',parts:''},{id:'p3od_uTnYeA',title:'',parts:''},{id:'SucKk5_LUms',title:'',parts:''}]},
-  {key:'highlight',title:'Highlight Video',videos:[{id:'kq8nZ11LvPU',title:'',parts:''},{id:'Q1ARupFFLqI',title:'',parts:''},{id:'lnyRXiWcKIQ',title:'',parts:''},{id:'yL15xZtbd9w',title:'',parts:''}]},
-  {key:'live',title:'Live Broadcast',soon:true,videos:[]}
-]};
+const DEFAULT_WORKS={
+  "hero": "kq8nZ11LvPU",
+  "categories": [
+    {
+      "key": "performance",
+      "title": "Performance",
+      "videos": [
+        {
+          "id": "5mmhRzYOGhc",
+          "title": "2025 OO대학교 대동제 메인 공연",
+          "parts": "촬영 · 편집 · 실시간 송출"
+        },
+        {
+          "id": "-6QlZQ424Xs",
+          "title": "△△ 댄스 컴퍼니 정기공연",
+          "parts": "멀티캠 촬영 · 색보정"
+        },
+        {
+          "id": "AE2iS8KZ9HI",
+          "title": "□□ 뮤지컬 갈라쇼",
+          "parts": "기획 · 촬영 · 편집"
+        }
+      ]
+    },
+    {
+      "key": "film",
+      "title": "Film & Drama",
+      "playlist": "PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C",
+      "videos": [
+        {
+          "id": "lTuiHLEhGTA",
+          "title": "단편영화 〈무제〉",
+          "parts": "촬영감독 · 편집"
+        },
+        {
+          "id": "_8TW_QYIiAI",
+          "title": "웹드라마 〈OO〉 EP.01",
+          "parts": "연출 · 촬영 · 편집"
+        },
+        {
+          "id": "P7TWmt3zvag",
+          "title": "브랜드 필름 〈△△〉",
+          "parts": "기획 · 촬영 · 색보정"
+        }
+      ]
+    },
+    {
+      "key": "ad",
+      "title": "Advertisement",
+      "videos": [
+        {
+          "id": "fdv-0pa9wwA",
+          "title": "OO 브랜드 캠페인 광고",
+          "parts": "기획 · 촬영 · 편집"
+        },
+        {
+          "id": "xGnmC1ujFW0",
+          "title": "△△ 신제품 런칭 광고",
+          "parts": "촬영 · 색보정"
+        },
+        {
+          "id": "nOU01K35SVc",
+          "title": "□□ 앱 프로모션 영상",
+          "parts": "모션그래픽 · 편집"
+        },
+        {
+          "id": "nCoN0HPrR8Y",
+          "title": "◇◇ 뷰티 브랜드 TVC",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "p3od_uTnYeA",
+          "title": "☆☆ 식음료 브랜드 광고",
+          "parts": "기획 · 촬영"
+        },
+        {
+          "id": "SucKk5_LUms",
+          "title": "○○ 패션 룩북 필름",
+          "parts": "촬영 · 편집"
+        }
+      ]
+    },
+    {
+      "key": "highlight",
+      "title": "Highlight Video",
+      "videos": [
+        {
+          "id": "kq8nZ11LvPU",
+          "title": "2025 SKARTE 하이라이트 릴",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "Q1ARupFFLqI",
+          "title": "OO 페스티벌 애프터무비",
+          "parts": "멀티캠 · 편집"
+        },
+        {
+          "id": "lnyRXiWcKIQ",
+          "title": "△△ 기업 행사 스케치",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "yL15xZtbd9w",
+          "title": "□□ 연말 결산 영상",
+          "parts": "편집 · 모션그래픽"
+        }
+      ]
+    },
+    {
+      "key": "live",
+      "title": "Live Broadcast",
+      "soon": true,
+      "videos": []
+    }
+  ]
+};
 
 let data;
 const $=s=>document.querySelector(s);
