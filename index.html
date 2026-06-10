@@ -237,6 +237,8 @@ ul{list-style:none}
 #subpage .sp-inner{padding:34px 6vw 90px;min-height:100%}
 .sp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:64px}
 .sp-head small{letter-spacing:.3em;color:#8a8a8a;font-size:11px}
+.sp-works{background:none;border:0;cursor:pointer;font-family:inherit;letter-spacing:.3em;color:#8a8a8a;font-size:11px;padding:6px 2px;transition:color .25s}
+.sp-works:hover{color:#fff}
 #spBack{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;padding:10px 22px;font-size:13px;letter-spacing:.03em;cursor:pointer;font-family:inherit;transition:background .3s,color .3s}
 #spBack:hover{background:#fff;color:#000}
 .sp-num{font-size:13px;letter-spacing:.35em;color:#8a8a8a;margin-bottom:10px}
@@ -383,12 +385,12 @@ body.lock{overflow:hidden}
 
 /* ===================== WORKS 사이드 패널 ===================== */
 #panelDim{
-  position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.55);
+  position:fixed;inset:0;z-index:4100;background:rgba(0,0,0,.55);
   opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;
 }
 #panelDim.show{opacity:1;visibility:visible}
 #worksPanel{
-  position:fixed;top:0;right:0;bottom:0;z-index:1200;
+  position:fixed;top:0;right:0;bottom:0;z-index:4200;
   width:min(520px,92vw);background:#ffffff;color:#0a0a0a;
   transform:translateX(102%);transition:transform .55s cubic-bezier(.76,0,.18,1);
   display:flex;flex-direction:column;overflow-y:auto;
@@ -509,7 +511,7 @@ body.lock{overflow:hidden}
   <div class="sp-inner">
     <div class="sp-head">
       <button id="spBack" aria-label="뒤로">&larr; Back</button>
-      <small><span class="brandname">skARTe</span> &mdash; WORKS</small>
+      <button id="spWorks" class="sp-works"><span class="brandname">skARTe</span> &mdash; WORKS</button>
     </div>
     <p class="sp-num"></p>
     <h2 class="sp-title"></h2>
@@ -559,6 +561,7 @@ const dim = document.getElementById('panelDim');
 const openPanel = () => { panel.classList.add('show'); dim.classList.add('show'); panel.setAttribute('aria-hidden','false'); };
 const closePanel = () => { panel.classList.remove('show'); dim.classList.remove('show'); panel.setAttribute('aria-hidden','true'); };
 document.getElementById('worksLink').addEventListener('click', e => { e.preventDefault(); openPanel(); });
+document.getElementById('spWorks').addEventListener('click', openPanel);
 document.getElementById('wpClose').addEventListener('click', closePanel);
 dim.addEventListener('click', closePanel);
 document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; closePanel(); if (location.hash.startsWith('#works/')) location.hash = ''; });
