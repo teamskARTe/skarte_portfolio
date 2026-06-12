@@ -3,16 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>skARTe</title>
+<title>skARTe | 영상 제작사 — 브랜드필름·광고·공연·하이라이트 영상</title>
 <meta name="description" content="skARTe(skartefilms) — 영상 제작사. Performance, Film & Drama, Advertisement, Highlight, Live Broadcast.">
 <meta name="theme-color" content="#000000">
 <link rel="canonical" href="https://skarte.kr/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="skARTe">
-<meta property="og:title" content="skARTe — skartefilms">
-<meta property="og:description" content="영상 제작사 skARTe의 작업물.">
+<meta property="og:title" content="skARTe | 영상 제작사">
+<meta property="og:description" content="공연·브랜드필름·광고·하이라이트 영상 제작. skARTe(skartefilms).">
 <meta property="og:url" content="https://skarte.kr/">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://skarte.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:image" content="https://skarte.kr/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -217,6 +222,7 @@ ul{list-style:none}
 .wi-parts{margin-top:5px;font-size:13px;color:#9a9a9a;line-height:1.55}
 
 .brandname{text-transform:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* 홈 캡션 부가요소 */
 .caption .view-all{display:inline-block;margin-top:28px;padding:12px 28px;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;font-size:13px;letter-spacing:.08em;background:rgba(0,0,0,.25);transition:background .3s,color .3s}
@@ -501,13 +507,14 @@ body.lock{overflow:hidden}
   <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/kq8nZ11LvPU?autoplay=1&mute=1&loop=1&playlist=kq8nZ11LvPU&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
   <div class="dim"></div>
   <div class="caption">
-    <h1><span class="brandname">skARTe</span></h1>
+    <h1><span class="brandname">skARTe</span><span class="sr-only"> — 인천 영상 제작사. 브랜드필름·광고·공연·하이라이트 영상 제작</span></h1>
     <p class="sub">showreel</p>
   </div>
   <div class="scroll-hint">Scroll</div>
 </section>
 
 <div id="worksStack"></div>
+<noscript><section style="padding:80px 6vw;color:#fff"><h2>Performance</h2><h2>Film &amp; Drama</h2><h2>Advertisement</h2><h2>Highlight Video</h2><h2>Live Broadcast</h2><p>skARTe(skartefilms)는 인천 연수구 기반 영상 제작사로 공연·브랜드필름·광고·하이라이트·라이브 중계 영상을 제작합니다. 문의: contact@skarte.kr</p></section></noscript>
 
 <!-- ===== WORKS 서브페이지 (카테고리 전체 영상) ===== -->
 <div id="subpage" aria-hidden="true">
@@ -726,7 +733,7 @@ function buildStack(){
     const rep=(c.videos&&c.videos[0])?c.videos[0].id:null;
     const media=(c.soon||!rep)
       ? '<div class="video-ph" style="animation-duration:16s;animation-delay:-6s"></div>'
-      : '<div class="video-bg"><iframe data-src="'+bgUrl(rep)+'" title="" allow="autoplay; encrypted-media"></iframe></div>';
+      : '<div class="video-bg"><iframe data-src="'+bgUrl(rep)+'" title="'+esc(c.title)+' 대표영상" allow="autoplay; encrypted-media"></iframe></div>';
     const cta=c.soon ? '<p class="soon-note">업로드 예정</p>'
                      : '<a class="view-all" href="#works/'+c.key+'">전체 보기 &rarr;</a>';
     const sec=document.createElement('section'); sec.className='video-section ws'+alt; sec.id='w-'+c.key;
@@ -763,7 +770,7 @@ const openSub = key => {
   (w.videos||[]).forEach(v=>{
     const it=document.createElement('div'); it.className='work-item';
     it.innerHTML='<div class="vcard vthumb" data-id="'+v.id+'"><img src="https://i.ytimg.com/vi/'+v.id
-      +'/hqdefault.jpg" alt="" loading="lazy"><span class="play"></span></div>'
+      +'/hqdefault.jpg" alt="'+esc(v.title||w.title)+' 영상 썸네일" loading="lazy"><span class="play"></span></div>'
       +(v.title?'<p class="wi-title">'+esc(v.title)+'</p>':'')
       +(v.parts?'<p class="wi-parts">'+esc(v.parts).replace(/\n/g,'<br>')+'</p>':'');
     bindPlay(it); spGrid.appendChild(it);
@@ -797,6 +804,23 @@ async function loadWorks(){
 }
 loadWorks().then(()=>{ buildPanel(); buildStack(); setHero(); observeVideos(); route(); });
 
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "@id":"https://skarte.kr/#org",
+  "name":"skARTe",
+  "alternateName":"skartefilms",
+  "description":"인천 기반 영상 제작사. 공연·브랜드필름·광고·하이라이트·라이브 중계 영상 제작.",
+  "url":"https://skarte.kr/",
+  "logo":"https://skarte.kr/icon-512.png",
+  "image":"https://skarte.kr/og-image.png",
+  "email":"contact@skarte.kr",
+  "address":{"@type":"PostalAddress","streetAddress":"먼우금로 194 728호","addressLocality":"연수구","addressRegion":"인천광역시","addressCountry":"KR"},
+  "areaServed":"KR",
+  "knowsAbout":["영상 제작","브랜드 필름","광고 영상","공연 촬영","라이브 중계","하이라이트 영상"]
+}
 </script>
 </body>
 </html>
