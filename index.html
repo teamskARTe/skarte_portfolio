@@ -101,7 +101,7 @@
   --header-h:80px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
 body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:300}
 button,input,select,textarea{font-family:var(--display);font:inherit}
 a{color:inherit;text-decoration:none}
@@ -289,6 +289,7 @@ ul{list-style:none}
 /* ===================== CONTACT / FOOTER (RNS식) ===================== */
 .contact{
   text-align:center;padding:130px 24px 0;background:var(--black);
+  scroll-snap-align:end;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
 }
 .contact .cat{font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--grey);margin-bottom:24px}
 .contact h2{
