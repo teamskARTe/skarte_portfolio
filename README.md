@@ -99,3 +99,22 @@ vercel --prod   # 프로덕션 배포
 
 ### 보안 참고
 `/admin`은 검색 비노출(noindex)만 적용돼 있고 URL을 아는 누구나 열 수 있습니다. 다만 어드민에서 할 수 있는 건 "내 브라우저 미리보기"와 "파일 다운로드"뿐이고, 실제 공개 반영은 저장소 push 권한이 있어야 하므로 외부인이 사이트를 바꿀 수는 없습니다. 그래도 가리고 싶으면 Vercel의 비밀번호 보호(Deployment Protection) 또는 별도 경로로 옮기는 방법이 있습니다.
+
+---
+
+## 카테고리 정적 페이지 (SEO)
+
+검색 색인을 위해 카테고리마다 실제 URL 페이지가 있습니다: `/works/performance`, `/works/film`, `/works/ad`, `/works/highlight`, `/works/live`.
+- 각 페이지는 고유 title·description·canonical·OG를 가지며, 영상·제목·참여파트가 HTML에 그대로 들어가 크롤러가 읽습니다.
+- 홈에서 "전체 보기"/사이드바를 누르면 JS가 부드러운 오버레이로 열고 주소도 `/works/<키>`로 바뀝니다. JS가 없거나 크롤러/직접 접속이면 정적 페이지가 그대로 로드됩니다(점진적 향상).
+- `sitemap.xml`에 홈 + 카테고리 URL이 포함됩니다.
+
+### works.json을 바꾼 뒤에는 반드시 재생성
+어드민에서 받은 `works.json`으로 교체했다면, 정적 페이지·사이트맵을 다시 만들어야 합니다:
+```bash
+cd skarte-deploy
+python3 gen_works_pages.py   # /works/<키>/index.html + sitemap.xml 재생성
+```
+그런 다음 배포(git push)하면 정적 페이지까지 최신 내용으로 반영됩니다.
+
+> (선택) Vercel 빌드 단계에서 이 스크립트를 자동 실행하게 만들면 수동 재생성이 필요 없습니다. 원하면 빌드 설정을 안내해 드립니다.
