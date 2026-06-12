@@ -229,6 +229,16 @@ ul{list-style:none}
 .caption .view-all{display:inline-block;margin-top:28px;padding:12px 28px;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;font-size:13px;letter-spacing:.08em;background:rgba(0,0,0,.25);transition:background .3s,color .3s}
 .caption .view-all:hover{background:#fff;color:#000}
 .caption .soon-note{margin-top:24px;color:#9a9a9a;letter-spacing:.3em;font-size:14px}
+/* ===== ABOUT 섹션 ===== */
+.about{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;justify-content:center;padding:0 8vw;background:#000;position:relative}
+.about-inner{max-width:760px}
+.about-eyebrow{font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:#8a8a8a;margin-bottom:26px}
+.about-h{font-size:clamp(30px,5vw,60px);font-weight:800;letter-spacing:.01em;margin-bottom:30px;color:#fff;line-height:1.15}
+.about-text{font-size:clamp(15px,1.7vw,19px);line-height:1.95;color:#c4c4c4}
+/* 카테고리 캡션 소개 한 줄 */
+.caption .cat-desc{margin-top:14px;max-width:30ch;font-size:14px;line-height:1.6;color:#cfcfcf}
+.video-section.ws.alt .caption .cat-desc{margin-left:auto}
+
 
 /* ===== 카테고리 섹션 구분 강화 ===== */
 .video-section.ws{border-top:1px solid rgba(255,255,255,.16)}
@@ -515,6 +525,15 @@ body.lock{overflow:hidden}
   <div class="scroll-hint">Scroll</div>
 </section>
 
+<!-- ===== ABOUT (회사 소개) ===== -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <p class="about-eyebrow">ABOUT</p>
+    <h2 class="about-h">영상으로 남기는 순간</h2>
+    <p class="about-text">skARTe(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다.</p>
+  </div>
+</section>
+
 <div id="worksStack"></div>
 <noscript><section style="padding:80px 6vw;color:#fff"><h2>Performance</h2><h2>Film &amp; Drama</h2><h2>Advertisement</h2><h2>Highlight Video</h2><h2>Live Broadcast</h2><p>skARTe(skartefilms)는 인천 연수구 기반 영상 제작사로 공연·브랜드필름·광고·하이라이트·라이브 중계 영상을 제작합니다. 문의: contact@skarte.kr</p></section></noscript>
 
@@ -631,7 +650,8 @@ const DEFAULT_WORKS = {
           "title": "□□ 뮤지컬 갈라쇼",
           "parts": "기획 · 촬영 · 편집"
         }
-      ]
+      ],
+      "desc": "무대 위 퍼포먼스의 에너지를 멀티캠과 정교한 편집으로 담아냅니다. 공연·축제·쇼케이스 현장의 순간을 생생한 영상으로 기록합니다."
     },
     {
       "key": "film",
@@ -653,7 +673,8 @@ const DEFAULT_WORKS = {
           "title": "브랜드 필름 〈△△〉",
           "parts": "기획 · 촬영 · 색보정"
         }
-      ]
+      ],
+      "desc": "브랜드와 이야기를 담은 필름·드라마 작업. 기획·연출부터 촬영·색보정까지 하나의 흐름으로 완성합니다."
     },
     {
       "key": "ad",
@@ -689,7 +710,8 @@ const DEFAULT_WORKS = {
           "title": "○○ 패션 룩북 필름",
           "parts": "촬영 · 편집"
         }
-      ]
+      ],
+      "desc": "제품과 브랜드의 메시지를 또렷하게 전하는 광고 영상. 기획·촬영·편집·모션그래픽을 한 팀에서 책임집니다."
     },
     {
       "key": "highlight",
@@ -715,15 +737,18 @@ const DEFAULT_WORKS = {
           "title": "□□ 연말 결산 영상",
           "parts": "편집 · 모션그래픽"
         }
-      ]
+      ],
+      "desc": "행사와 프로젝트의 핵심 순간만 모은 하이라이트·애프터무비. 짧지만 강한 한 편으로 분위기를 전합니다."
     },
     {
       "key": "live",
       "title": "Live Broadcast",
       "soon": true,
-      "videos": []
+      "videos": [],
+      "desc": "현장을 실시간으로 송출하는 라이브 중계. 안정적인 송출과 멀티캠 구성으로 생생함을 그대로 전합니다."
     }
-  ]
+  ],
+  "about": "skARTe(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다."
 };
 let WORKS = DEFAULT_WORKS;
 
@@ -756,7 +781,7 @@ function buildStack(){
                      : '<a class="view-all" href="/works/'+c.key+'/">전체 보기 &rarr;</a>';
     const sec=document.createElement('section'); sec.className='video-section ws'+alt; sec.id='w-'+c.key;
     sec.innerHTML=media+'<div class="dim"></div><span class="ghost">'+num+'</span>'
-      +'<div class="caption"><p class="cat">WORKS &mdash; '+num+'</p><h2>'+esc(c.title)+'</h2>'+cta+'</div>';
+      +'<div class="caption"><p class="cat">WORKS &mdash; '+num+'</p><h2>'+esc(c.title)+'</h2>'+(c.desc?'<p class="cat-desc">'+esc(c.desc)+'</p>':'')+cta+'</div>';
     stack.appendChild(sec);
   });
 }
@@ -831,7 +856,8 @@ async function loadWorks(){
   try{ const l=localStorage.getItem('skarte_works'); if(l){ WORKS=JSON.parse(l); return; } }catch(e){}
   try{ const r=await fetch('works.json',{cache:'no-store'}); if(r.ok) WORKS=await r.json(); }catch(e){}
 }
-loadWorks().then(()=>{ buildPanel(); buildStack(); setHero(); observeVideos(); route(); });
+function setAbout(){ const a=document.querySelector('.about-text'); if(a && WORKS.about) a.textContent=WORKS.about; }
+loadWorks().then(()=>{ buildPanel(); buildStack(); setHero(); setAbout(); observeVideos(); route(); });
 
 </script>
 <script type="application/ld+json">

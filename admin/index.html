@@ -144,7 +144,8 @@ const DEFAULT_WORKS={
           "title": "□□ 뮤지컬 갈라쇼",
           "parts": "기획 · 촬영 · 편집"
         }
-      ]
+      ],
+      "desc": "무대 위 퍼포먼스의 에너지를 멀티캠과 정교한 편집으로 담아냅니다. 공연·축제·쇼케이스 현장의 순간을 생생한 영상으로 기록합니다."
     },
     {
       "key": "film",
@@ -166,7 +167,8 @@ const DEFAULT_WORKS={
           "title": "브랜드 필름 〈△△〉",
           "parts": "기획 · 촬영 · 색보정"
         }
-      ]
+      ],
+      "desc": "브랜드와 이야기를 담은 필름·드라마 작업. 기획·연출부터 촬영·색보정까지 하나의 흐름으로 완성합니다."
     },
     {
       "key": "ad",
@@ -202,7 +204,8 @@ const DEFAULT_WORKS={
           "title": "○○ 패션 룩북 필름",
           "parts": "촬영 · 편집"
         }
-      ]
+      ],
+      "desc": "제품과 브랜드의 메시지를 또렷하게 전하는 광고 영상. 기획·촬영·편집·모션그래픽을 한 팀에서 책임집니다."
     },
     {
       "key": "highlight",
@@ -228,15 +231,18 @@ const DEFAULT_WORKS={
           "title": "□□ 연말 결산 영상",
           "parts": "편집 · 모션그래픽"
         }
-      ]
+      ],
+      "desc": "행사와 프로젝트의 핵심 순간만 모은 하이라이트·애프터무비. 짧지만 강한 한 편으로 분위기를 전합니다."
     },
     {
       "key": "live",
       "title": "Live Broadcast",
       "soon": true,
-      "videos": []
+      "videos": [],
+      "desc": "현장을 실시간으로 송출하는 라이브 중계. 안정적인 송출과 멀티캠 구성으로 생생함을 그대로 전합니다."
     }
-  ]
+  ],
+  "about": "skARTe(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다."
 };
 
 let data;
@@ -272,6 +278,10 @@ function render(){
         <label>재생목록 링크/ID (선택 — 있으면 카드에 'Playlist' 표시)</label>
         <input data-k="playlist" placeholder="PL... 또는 재생목록 링크" value="${(c.playlist||'').replace(/"/g,'&quot;')}">
       </div>
+      <div class="field">
+        <label>카테고리 소개문 (카테고리 페이지 상단·홈 캡션에 표시)</label>
+        <textarea data-k="desc" placeholder="이 카테고리에 대한 한두 문장 소개">${(c.desc||'').replace(/</g,'&lt;')}</textarea>
+      </div>
       <div class="vids"></div>
       <button class="sm" data-act="addvid">+ 영상 추가</button>
     `;
@@ -279,6 +289,7 @@ function render(){
     card.querySelector('[data-k="title"]').addEventListener('input',e=>{c.title=e.target.value;});
     card.querySelector('[data-k="soon"]').addEventListener('change',e=>{c.soon=e.target.checked; if(!c.soon)delete c.soon;});
     card.querySelector('[data-k="playlist"]').addEventListener('input',e=>{const v=extractList(e.target.value); if(v)c.playlist=v; else delete c.playlist;});
+    card.querySelector('[data-k="desc"]').addEventListener('input',e=>{ c.desc=e.target.value; });
     card.querySelector('[data-act="up"]').onclick=()=>{ if(ci>0){[data.categories[ci-1],data.categories[ci]]=[data.categories[ci],data.categories[ci-1]];render();} };
     card.querySelector('[data-act="down"]').onclick=()=>{ if(ci<data.categories.length-1){[data.categories[ci+1],data.categories[ci]]=[data.categories[ci],data.categories[ci+1]];render();} };
     card.querySelector('[data-act="delcat"]').onclick=()=>{ if(confirm('이 카테고리를 삭제할까요?')){ data.categories.splice(ci,1); render(); } };
