@@ -71,7 +71,16 @@ hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
   padding:11px 20px;border-radius:999px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;font-size:14px;font-weight:600;letter-spacing:.02em}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-#addCat{width:100%;padding:13px;border-style:dashed}
+.cat-tabs{position:sticky;top:69px;z-index:9;display:flex;gap:8px;flex-wrap:wrap;padding:12px 0 16px;background:var(--bg)}
+.cat-tab{font:inherit;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--mut);
+  padding:8px 15px;border-radius:999px;font-size:13px;letter-spacing:.03em;transition:all .2s;display:flex;align-items:center;gap:7px}
+.cat-tab:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.cat-tab.active{background:#fff;color:#000;border-color:#fff}
+.cat-tab .tnum{font-size:11px;opacity:.6}
+.cat-tab.add{border-style:dashed;color:#bdbdbd}
+#cats .card{display:none}
+#cats .card.show{display:block}
+#addCat{display:none}
 </style>
 </head>
 <body>
@@ -104,6 +113,7 @@ hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
   </div>
 
   <p class="eyebrow">Categories</p>
+  <div id="catTabs" class="cat-tabs"></div>
   <div id="cats"></div>
   <button class="sm" id="addCat">+ 카테고리 추가</button>
 </main>
@@ -248,7 +258,7 @@ $('#hero').addEventListener('input',e=>{ data.hero=extractId(e.target.value); })
 function render(){
   const wrap=$('#cats'); wrap.innerHTML='';
   data.categories.forEach((c,ci)=>{
-    const card=document.createElement('div'); card.className='card';
+    const card=document.createElement('div'); card.className='card'; card.dataset.idx=ci;
     card.innerHTML=`
       <div class="cat-head">
         <span class="num">${String(ci+1).padStart(2,'0')}</span>
@@ -301,9 +311,28 @@ function render(){
       row.querySelector('[data-act="vdel"]').onclick=()=>{ c.videos.splice(vi,1); render(); };
       vbox.appendChild(row);
     });
+    // 카테고리명 입력 시 탭 라벨도 갱신
+    card.querySelector('[data-k="title"]').addEventListener('input',e=>{ const t=document.querySelector('.cat-tab[data-idx="'+ci+'"] .tlabel'); if(t)t.textContent=e.target.value||'(이름 없음)'; });
     wrap.appendChild(card);
   });
+  if(activeIdx>=data.categories.length) activeIdx=data.categories.length-1;
+  if(activeIdx<0) activeIdx=0;
+  buildTabs(); showActive();
 }
+let activeIdx=0;
+function buildTabs(){
+  const t=$('#catTabs'); t.innerHTML='';
+  data.categories.forEach((c,i)=>{
+    const b=document.createElement('button'); b.className='cat-tab'+(i===activeIdx?' active':''); b.dataset.idx=i;
+    b.innerHTML='<span class="tnum">'+String(i+1).padStart(2,'0')+'</span><span class="tlabel">'+((c.title||'(이름 없음)')).replace(/</g,'&lt;')+'</span>'+(c.soon?' · soon':'');
+    b.onclick=()=>{ activeIdx=i; buildTabs(); showActive(); window.scrollTo({top:0,behavior:'smooth'}); };
+    t.appendChild(b);
+  });
+  const add=document.createElement('button'); add.className='cat-tab add'; add.textContent='+ 카테고리 추가';
+  add.onclick=()=>{ const tt='새 카테고리'; data.categories.push({key:slug(tt)+'-'+Date.now().toString(36).slice(-3),title:tt,videos:[]}); activeIdx=data.categories.length-1; render(); };
+  t.appendChild(add);
+}
+function showActive(){ document.querySelectorAll('#cats .card').forEach(card=>{ card.classList.toggle('show', +card.dataset.idx===activeIdx); }); }
 
 $('#addCat').onclick=()=>{ const t='새 카테고리'; data.categories.push({key:slug(t)+'-'+Date.now().toString(36).slice(-3),title:t,videos:[]}); render(); };
 
