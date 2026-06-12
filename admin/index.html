@@ -305,6 +305,7 @@ function render(){
             <div class="field"><label>영상 ID / 링크</label><input data-vk="id" value="${(v.id||'').replace(/"/g,'&quot;')}" placeholder="유튜브 링크 또는 ID"></div>
             <div class="field"><label>행사 제목</label><input data-vk="title" value="${(v.title||'').replace(/"/g,'&quot;')}" placeholder="예: 2025 OO 페스티벌"></div>
             <div class="field"><label>참여 파트</label><textarea data-vk="parts" placeholder="예: 촬영 · 편집 · 송출">${(v.parts||'').replace(/</g,'&lt;')}</textarea></div>
+            <div class="field"><label>업로드일 (선택 · YYYY-MM-DD, 영상 SEO용)</label><input data-vk="date" value="${(v.date||'').replace(/"/g,'&quot;')}" placeholder="2025-06-01"></div>
           </div>
           <div class="vtools">
             <button class="sm" data-act="vup">↑</button>
@@ -317,6 +318,7 @@ function render(){
       idInput.addEventListener('blur',e=>{ e.target.value=v.id; row.querySelector('.thumb').src=v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''; });
       row.querySelector('[data-vk="title"]').addEventListener('input',e=>{v.title=e.target.value;});
       row.querySelector('[data-vk="parts"]').addEventListener('input',e=>{v.parts=e.target.value;});
+      row.querySelector('[data-vk="date"]').addEventListener('input',e=>{ const d=e.target.value.trim(); if(d)v.date=d; else delete v.date; });
       row.querySelector('[data-act="vup"]').onclick=()=>{ if(vi>0){[c.videos[vi-1],c.videos[vi]]=[c.videos[vi],c.videos[vi-1]];render();} };
       row.querySelector('[data-act="vdown"]').onclick=()=>{ if(vi<c.videos.length-1){[c.videos[vi+1],c.videos[vi]]=[c.videos[vi],c.videos[vi+1]];render();} };
       row.querySelector('[data-act="vdel"]').onclick=()=>{ c.videos.splice(vi,1); render(); };

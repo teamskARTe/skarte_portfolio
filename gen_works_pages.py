@@ -24,16 +24,46 @@ def playlist_card(pl):
             f'target="_blank" rel="noopener"><span class="pl-label">Playlist<br><em>전체 보기 &rarr;</em></span></a></div>')
 
 def nav(cats, active):
-    links = "".join(
-        f'<a href="/works/{c["key"]}"{" aria-current=\"page\"" if c["key"]==active else ""}>{esc(c["title"])}</a>'
-        for c in cats)
+    rows = "".join(
+        f'<a class="wp-row{" cur" if c["key"]==active else ""}" href="/works/{c["key"]}">'
+        f'<i>{str(i+1).zfill(2)}</i><strong>{esc(c["title"])}</strong>'
+        f'<svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg></a>'
+        for i,c in enumerate(cats))
     return f'''<header class="nav">
   <a class="brand" href="/" aria-label="skARTe 홈">
     <svg viewBox="0 0 481 361" width="30" aria-hidden="true"><path d="{LOGO_PATH}" fill="#fff" fill-rule="evenodd"/></svg>
     <span class="bt"><b>skARTe</b><small>skartefilms</small></span>
   </a>
-  <nav class="catnav" aria-label="작업 카테고리">{links}<a href="/#contact">Contact</a></nav>
-</header>'''
+  <nav class="topnav" aria-label="메뉴">
+    <button id="wbtn" class="worksbtn" aria-expanded="false">WORKS <span class="caret">&#9662;</span></button>
+    <a href="/#contact">Contact</a>
+  </nav>
+</header>
+<div id="pdim" class="pdim"></div>
+<aside id="wpanel" class="wpanel" aria-hidden="true" aria-label="작업 카테고리">
+  <div class="wp-head"><small>skARTe &mdash; WORKS</small><button id="wclose" class="wclose" aria-label="닫기">&times;</button></div>
+  <nav class="wp-list">{rows}</nav>
+</aside>'''
+
+def video_ld(cat):
+    vids=cat.get("videos",[]) if not cat.get("soon") else []
+    items=[]
+    for v in vids:
+        vid=v.get("id","")
+        if not vid: continue
+        obj={
+          "@type":"VideoObject",
+          "name":v.get("title") or f'skARTe {cat["title"]} 영상',
+          "description":v.get("parts") or cat.get("desc") or f'skARTe {cat["title"]} 작업 영상',
+          "thumbnailUrl":[f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg"],
+          "embedUrl":f"https://www.youtube.com/embed/{vid}",
+          "contentUrl":f"https://youtu.be/{vid}",
+          "publisher":{"@type":"Organization","name":"skARTe","logo":{"@type":"ImageObject","url":SITE+"/icon-512.png"}}
+        }
+        if v.get("date"): obj["uploadDate"]=v["date"]
+        items.append(obj)
+    if not items: return ""
+    return '<script type="application/ld+json">'+json.dumps(items,ensure_ascii=False)+'</script>'
 
 def page(cat, cats):
     key=cat["key"]; title=esc(cat["title"])
@@ -84,9 +114,30 @@ a{{color:inherit;text-decoration:none}}
 .brand .bt{{display:flex;flex-direction:column;line-height:1.05}}
 .brand .bt b{{font-size:17px;font-weight:800;letter-spacing:.01em}}
 .brand .bt small{{font-size:9px;letter-spacing:.22em;color:#9a9a9a;text-transform:lowercase;text-align:center}}
-.catnav{{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;letter-spacing:.06em}}
-.catnav a{{color:#9a9a9a;padding:4px 0;transition:color .2s}}
-.catnav a:hover,.catnav a[aria-current]{{color:#fff}}
+.topnav{{display:flex;align-items:center;gap:22px;font-size:13px;letter-spacing:.08em}}
+.topnav a{{color:#9a9a9a;transition:color .2s}}
+.topnav a:hover{{color:#fff}}
+.worksbtn{{font:inherit;cursor:pointer;background:none;border:0;color:#fff;letter-spacing:.08em;display:flex;align-items:center;gap:7px;padding:0}}
+.worksbtn .caret{{font-size:10px;color:#9a9a9a;transition:transform .3s}}
+.worksbtn[aria-expanded="true"] .caret{{transform:rotate(180deg)}}
+.pdim{{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}}
+.pdim.show{{opacity:1;visibility:visible}}
+.wpanel{{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(460px,92vw);background:#fff;color:#0a0a0a;
+  transform:translateX(102%);transition:transform .5s cubic-bezier(.76,0,.18,1);display:flex;flex-direction:column;overflow-y:auto;padding:0 30px}}
+.wpanel.show{{transform:none}}
+.wp-head{{display:flex;align-items:center;justify-content:space-between;padding:26px 4px 18px}}
+.wp-head small{{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#999}}
+.wclose{{font:inherit;cursor:pointer;background:none;border:0;font-size:30px;line-height:1;color:#0a0a0a}}
+.wp-list{{display:flex;flex-direction:column;padding-bottom:40px}}
+.wp-row{{display:flex;align-items:center;gap:16px;padding:22px 4px;border-top:1px solid #eee;color:#0a0a0a;text-decoration:none}}
+.wp-row:last-child{{border-bottom:1px solid #eee}}
+.wp-row i{{font-style:normal;font-size:10px;letter-spacing:.1em;color:#aaa;min-width:20px;align-self:flex-start;padding-top:6px}}
+.wp-row strong{{flex:1;font-size:clamp(20px,4vw,28px);font-weight:700;letter-spacing:.01em;transition:transform .35s cubic-bezier(.2,.7,.2,1)}}
+.wp-row .arr{{width:20px;height:20px;stroke:#0a0a0a;fill:none;stroke-width:1.6;opacity:0;transition:opacity .3s}}
+.wp-row:hover strong{{transform:translateX(10px)}}
+.wp-row:hover .arr{{opacity:1}}
+.wp-row.cur strong{{text-decoration:underline;text-underline-offset:5px}}
+.wp-row.cur i{{color:#0a0a0a}}
 main{{max-width:1180px;margin:0 auto;padding:54px 6vw 100px}}
 .crumb{{font-size:12px;letter-spacing:.1em;color:#7a7a7a;margin-bottom:20px}}
 .crumb a:hover{{color:#fff}}
@@ -127,6 +178,12 @@ footer a{{color:#cfcfcf}}
   <p>© skARTe 2026</p>
 </footer>
 <script>
+var wb=document.getElementById('wbtn'),wp=document.getElementById('wpanel'),pd=document.getElementById('pdim'),wc=document.getElementById('wclose');
+function openP(){{wp.classList.add('show');pd.classList.add('show');wb.setAttribute('aria-expanded','true');wp.setAttribute('aria-hidden','false');}}
+function closeP(){{wp.classList.remove('show');pd.classList.remove('show');wb.setAttribute('aria-expanded','false');wp.setAttribute('aria-hidden','true');}}
+wb.addEventListener('click',function(){{wp.classList.contains('show')?closeP():openP();}});
+pd.addEventListener('click',closeP);wc.addEventListener('click',closeP);
+document.addEventListener('keydown',function(e){{if(e.key==='Escape')closeP();}});
 document.querySelectorAll('.vthumb').forEach(function(v){{
   v.addEventListener('click',function(){{
     if(v.classList.contains('on'))return; v.classList.add('on');
@@ -135,6 +192,7 @@ document.querySelectorAll('.vthumb').forEach(function(v){{
 }});
 </script>
 <script type="application/ld+json">{json.dumps(breadcrumb_ld,ensure_ascii=False)}</script>
+{video_ld(cat)}
 </body>
 </html>'''
 
