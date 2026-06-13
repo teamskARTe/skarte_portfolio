@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>skARTe | 영상 제작사 — 브랜드필름·광고·공연·하이라이트 영상</title>
-<meta name="description" content="skARTe(skartefilms) — 영상 제작사. Performance, Film & Drama, Advertisement, Highlight, Live Broadcast.">
+<meta name="description" content="skARTe(skartefilms)는 인천 기반 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계 영상을 기획·촬영·편집합니다.">
 <meta name="theme-color" content="#000000">
 <link rel="canonical" href="https://skarte.kr/">
 <meta property="og:type" content="website">
@@ -640,7 +640,7 @@ const DEFAULT_WORKS = {
       "desc": "무대 위 퍼포먼스의 에너지를 멀티캠과 정교한 편집으로 담아냅니다. 공연·축제·쇼케이스 현장의 순간을 생생한 영상으로 기록합니다."
     },
     {
-      "key": "film",
+      "key": "film-drama",
       "title": "Film & Drama",
       "playlist": "PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C",
       "videos": [
@@ -663,7 +663,7 @@ const DEFAULT_WORKS = {
       "desc": "브랜드와 이야기를 담은 필름·드라마 작업. 기획·연출부터 촬영·색보정까지 하나의 흐름으로 완성합니다."
     },
     {
-      "key": "ad",
+      "key": "advertisement",
       "title": "Advertisement",
       "videos": [
         {
@@ -700,7 +700,7 @@ const DEFAULT_WORKS = {
       "desc": "제품과 브랜드의 메시지를 또렷하게 전하는 광고 영상. 기획·촬영·편집·모션그래픽을 한 팀에서 책임집니다."
     },
     {
-      "key": "highlight",
+      "key": "highlight-video",
       "title": "Highlight Video",
       "videos": [
         {
@@ -727,7 +727,7 @@ const DEFAULT_WORKS = {
       "desc": "행사와 프로젝트의 핵심 순간만 모은 하이라이트·애프터무비. 짧지만 강한 한 편으로 분위기를 전합니다."
     },
     {
-      "key": "live",
+      "key": "live-broadcast",
       "title": "Live Broadcast",
       "soon": true,
       "videos": [],
@@ -749,7 +749,7 @@ const spSoon = sub.querySelector('.wc-soon');
 function buildPanel(){
   const list = document.getElementById('wpList'); list.innerHTML='';
   WORKS.categories.forEach((c,i)=>{
-    const a=document.createElement('a'); a.className='wp-row'; a.href='/works/'+c.key+'/';
+    const a=document.createElement('a'); a.className='wp-row'; a.href='/works/'+c.key;
     a.innerHTML='<i>'+pad2(i+1)+'</i><strong>'+esc(c.title)+(c.soon?' <em class="soon">soon</em>':'')
       +'</strong><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg>';
     list.appendChild(a);
@@ -764,7 +764,7 @@ function buildStack(){
       ? '<div class="video-ph" style="animation-duration:16s;animation-delay:-6s"></div>'
       : '<div class="video-bg"><iframe data-src="'+bgUrl(rep)+'" title="'+esc(c.title)+' 대표영상" allow="autoplay; encrypted-media"></iframe></div>';
     const cta=c.soon ? '<p class="soon-note">업로드 예정</p>'
-                     : '<a class="view-all" href="/works/'+c.key+'/">전체 보기 &rarr;</a>';
+                     : '<a class="view-all" href="/works/'+c.key+'">전체 보기 &rarr;</a>';
     const sec=document.createElement('section'); sec.className='video-section ws'+alt; sec.id='w-'+c.key;
     sec.innerHTML=media+'<div class="dim"></div><span class="ghost">'+num+'</span>'
       +'<div class="caption"><p class="cat">WORKS &mdash; '+num+'</p><h2>'+esc(c.title)+'</h2>'+(c.desc?'<p class="cat-desc">'+esc(c.desc)+'</p>':'')+cta+'</div>';

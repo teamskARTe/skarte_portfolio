@@ -24,7 +24,7 @@
       "desc": "무대 위 퍼포먼스의 에너지를 멀티캠과 정교한 편집으로 담아냅니다. 공연·축제·쇼케이스 현장의 순간을 생생한 영상으로 기록합니다."
     },
     {
-      "key": "film",
+      "key": "film-drama",
       "title": "Film & Drama",
       "playlist": "PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C",
       "videos": [
@@ -47,7 +47,7 @@
       "desc": "브랜드와 이야기를 담은 필름·드라마 작업. 기획·연출부터 촬영·색보정까지 하나의 흐름으로 완성합니다."
     },
     {
-      "key": "ad",
+      "key": "advertisement",
       "title": "Advertisement",
       "videos": [
         {
@@ -84,7 +84,7 @@
       "desc": "제품과 브랜드의 메시지를 또렷하게 전하는 광고 영상. 기획·촬영·편집·모션그래픽을 한 팀에서 책임집니다."
     },
     {
-      "key": "highlight",
+      "key": "highlight-video",
       "title": "Highlight Video",
       "videos": [
         {
@@ -111,7 +111,7 @@
       "desc": "행사와 프로젝트의 핵심 순간만 모은 하이라이트·애프터무비. 짧지만 강한 한 편으로 분위기를 전합니다."
     },
     {
-      "key": "live",
+      "key": "live-broadcast",
       "title": "Live Broadcast",
       "soon": true,
       "videos": [],
