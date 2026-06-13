@@ -336,6 +336,8 @@ body.lock{overflow:hidden}
 }
 @keyframes introOut{to{transform:translateY(-101%)}}
 #intro.skip{animation:none;transition:opacity .35s;opacity:0;pointer-events:none}
+#introSkip{position:absolute;right:24px;bottom:22px;z-index:5001;background:none;border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.82);font:inherit;font-size:12px;letter-spacing:.18em;padding:9px 16px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+#introSkip:hover{background:#fff;color:#000;border-color:#fff}
 /* 클랩 순간 화이트 플래시 */
 #intro::after{
   content:"";position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;
@@ -489,6 +491,7 @@ body.lock{overflow:hidden}
     <img class="wh" style="left:53.315%;top:70.472%;width:12.341%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5OSA5OCI+PGNpcmNsZSBjeD0iNDkuMzEiIGN5PSI0Ny45MSIgcj0iNDguMjciIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="">
     <img class="wh" style="left:69.394%;top:70.472%;width:12.271%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5OCA5OCI+PGNpcmNsZSBjeD0iNDguMTEiIGN5PSI0Ny44OSIgcj0iNDguMTciIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="">
   </div>
+  <button id="introSkip" type="button" aria-label="인트로 건너뛰기">SKIP &#9656;</button>
 </div>
 
 <!-- ===== 상단 고정 네비 : 웅필름식 카테고리 드롭다운 ===== -->
@@ -564,7 +567,10 @@ body.lock{overflow:hidden}
 <script>
 /* 인트로 시퀀스 종료 처리 */
 const intro = document.getElementById('intro');
-if (intro) {
+if (intro && sessionStorage.getItem('skarte_intro_seen')) {
+  intro.remove();
+} else if (intro) {
+  sessionStorage.setItem('skarte_intro_seen', '1');
   document.body.classList.add('lock');
   const endIntro = () => {
     if (!intro.parentNode) return;
