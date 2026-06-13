@@ -150,7 +150,6 @@ const DEFAULT_WORKS={
     {
       "key": "film-drama",
       "title": "Film & Drama",
-      "playlist": "PL1lJ3Fk1unU6QiUqKaSjR1tOUT4KFVr-C",
       "videos": [
         {
           "id": "lTuiHLEhGTA",
@@ -249,7 +248,6 @@ let data;
 const $=s=>document.querySelector(s);
 const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800);};
 const extractId=s=>{ s=(s||'').trim(); const m=s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/); return m?m[1]:s; };
-const extractList=s=>{ s=(s||'').trim(); const m=s.match(/[?&]list=([A-Za-z0-9_-]+)/); return m?m[1]:s; };
 const slug=s=>(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||('cat'+Date.now());
 
 async function init(){
@@ -274,10 +272,6 @@ function render(){
         <button class="sm" data-act="down">↓</button>
         <button class="sm danger" data-act="delcat">카테고리 삭제</button>
       </div>
-      <div class="field" style="max-width:420px">
-        <label>재생목록 링크/ID (선택 — 있으면 카드에 'Playlist' 표시)</label>
-        <input data-k="playlist" placeholder="PL... 또는 재생목록 링크" value="${(c.playlist||'').replace(/"/g,'&quot;')}">
-      </div>
       <div class="field">
         <label>카테고리 소개문 (카테고리 페이지 상단·홈 캡션에 표시)</label>
         <textarea data-k="desc" placeholder="이 카테고리에 대한 한두 문장 소개">${(c.desc||'').replace(/</g,'&lt;')}</textarea>
@@ -288,7 +282,6 @@ function render(){
     // 카테고리 필드
     card.querySelector('[data-k="title"]').addEventListener('input',e=>{c.title=e.target.value;});
     card.querySelector('[data-k="soon"]').addEventListener('change',e=>{c.soon=e.target.checked; if(!c.soon)delete c.soon;});
-    card.querySelector('[data-k="playlist"]').addEventListener('input',e=>{const v=extractList(e.target.value); if(v)c.playlist=v; else delete c.playlist;});
     card.querySelector('[data-k="desc"]').addEventListener('input',e=>{ c.desc=e.target.value; });
     card.querySelector('[data-act="up"]').onclick=()=>{ if(ci>0){[data.categories[ci-1],data.categories[ci]]=[data.categories[ci],data.categories[ci-1]];render();} };
     card.querySelector('[data-act="down"]').onclick=()=>{ if(ci<data.categories.length-1){[data.categories[ci+1],data.categories[ci]]=[data.categories[ci],data.categories[ci+1]];render();} };

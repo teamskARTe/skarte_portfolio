@@ -62,9 +62,6 @@ h1{font-size:clamp(34px,6vw,68px);font-weight:800;letter-spacing:.01em;margin-bo
 .vcard .play::after{content:"";position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);
   border:9px solid transparent;border-left:15px solid #fff;border-right:0}
 .vcard iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.vcard.pl{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#191919,#0a0a0a);border:1px solid #2b2b2b}
-.vcard.pl .pl-label{text-align:center;font-size:18px;font-weight:700;letter-spacing:.08em;line-height:1.7}
-.vcard.pl .pl-label em{font-style:normal;font-size:13px;color:#9a9a9a;font-weight:500}
 .wi-title{margin-top:13px;font-size:16px;font-weight:600}
 .wi-parts{margin-top:5px;font-size:13px;color:#9a9a9a}
 .soon{color:#888;letter-spacing:.2em;font-size:18px;padding:40px 0}
@@ -84,10 +81,6 @@ def card(v):
     return (f'<div class="work-item"><div class="vcard vthumb" data-id="{vid}">'
             f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="{t or "skARTe 작업"} 영상 썸네일" loading="lazy">'
             f'<span class="play"></span></div>{title_html}{parts_html}</div>')
-
-def playlist_card(pl):
-    return (f'<div class="work-item"><a class="vcard pl" href="https://www.youtube.com/playlist?list={pl}" '
-            f'target="_blank" rel="noopener"><span class="pl-label">Playlist<br><em>전체 보기 &rarr;</em></span></a></div>')
 
 def nav(cats, active):
     rows = "".join(
@@ -265,7 +258,6 @@ def page(cat, cats):
         body = '<p class="soon">업로드 예정입니다.</p>'
     else:
         items=""
-        if cat.get("playlist"): items+=playlist_card(cat["playlist"])
         items+="".join(card(v) for v in cat.get("videos",[]))
         body=f'<div class="wc-grid">{items}</div>'
     others=[c for c in cats]
