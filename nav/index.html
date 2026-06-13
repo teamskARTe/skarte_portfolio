@@ -500,6 +500,7 @@ body.lock{overflow:hidden}
   <button class="hamburger" id="ham" aria-label="menu"><span></span><span></span><span></span></button>
   <ul class="nav-menu" id="menu">
     <li><a href="#works" id="worksLink">Works</a></li>
+    <li><a href="/about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -528,14 +529,6 @@ body.lock{overflow:hidden}
 </section>
 
 <!-- ===== ABOUT (회사 소개) ===== -->
-<section class="about" id="about">
-  <div class="about-inner">
-    <p class="about-eyebrow">ABOUT</p>
-    <h2 class="about-h">영상으로 남기는 순간</h2>
-    <p class="about-text">skARTe(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다.</p>
-  </div>
-</section>
-
 <div id="worksStack"></div>
 <noscript><section style="padding:80px 6vw;color:#fff"><h2>Performance</h2><h2>Film &amp; Drama</h2><h2>Advertisement</h2><h2>Highlight Video</h2><h2>Live Broadcast</h2><p>skARTe(skartefilms)는 인천 연수구 기반 영상 제작사로 공연·브랜드필름·광고·하이라이트·라이브 중계 영상을 제작합니다. 문의: contact@skarte.kr</p></section></noscript>
 
@@ -859,7 +852,7 @@ async function loadWorks(){
   try{ const r=await fetch('works.json',{cache:'no-store'}); if(r.ok) WORKS=await r.json(); }catch(e){}
 }
 function setAbout(){ const a=document.querySelector('.about-text'); if(a && WORKS.about) a.textContent=WORKS.about; }
-loadWorks().then(()=>{ buildPanel(); buildStack(); setHero(); setAbout(); observeVideos(); route(); });
+loadWorks().then(()=>{ buildPanel(); buildStack(); setHero(); observeVideos(); route(); });
 
 </script>
 <script type="application/ld+json">
