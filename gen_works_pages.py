@@ -103,7 +103,7 @@ def nav(cats, active):
   <nav class="topnav" aria-label="메뉴">
     <button id="wbtn" class="worksbtn" aria-expanded="false">WORKS <span class="caret">&#9662;</span></button>
     <a href="/about">About</a>
-    <a href="/#contact">Contact</a>
+    <a href="/contact">Contact</a>
   </nav>
 </header>
 <div id="pdim" class="pdim"></div>
@@ -132,6 +132,75 @@ def video_ld(cat):
         items.append(obj)
     if not items: return ""
     return '<script type="application/ld+json">'+json.dumps(items,ensure_ascii=False)+'</script>'
+
+def contact_page(cats):
+    url=SITE+"/contact"
+    desc="skARTe(skartefilms) 문의 — 이메일 contact@skarte.kr · 인천광역시 연수구 먼우금로 194 728호. 영상 제작 문의 환영합니다."
+    bc={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":SITE+"/"},
+        {"@type":"ListItem","position":2,"name":"Contact","item":url}]}
+    org={"@context":"https://schema.org","@type":"Organization","name":"skARTe","url":SITE+"/",
+         "email":"contact@skarte.kr","logo":SITE+"/icon-512.png",
+         "address":{"@type":"PostalAddress","streetAddress":"먼우금로 194 728호","addressLocality":"연수구","addressRegion":"인천광역시","addressCountry":"KR"},
+         "contactPoint":{"@type":"ContactPoint","contactType":"customer service","email":"contact@skarte.kr","areaServed":"KR"}}
+    return f'''<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — skARTe | 영상 제작 문의</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{url}">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="skARTe">
+<meta property="og:title" content="Contact — skARTe">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE}/og-image.png">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE}/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+{STYLE}
+.cinfo{{margin-top:10px;display:flex;flex-direction:column;gap:26px;max-width:640px}}
+.cinfo .row .k{{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#8a8a8a;margin-bottom:8px}}
+.cinfo .row .v{{font-size:clamp(18px,2.4vw,24px);color:#fff}}
+.cinfo .row .v a{{text-decoration:underline;text-underline-offset:4px}}
+.cinfo .row .soonv{{color:#7a7a7a;font-size:16px;letter-spacing:.04em}}
+</style>
+</head>
+<body>
+{nav(cats,None)}
+<main>
+  <p class="crumb"><a href="/">Home</a> &nbsp;/&nbsp; Contact</p>
+  <p class="eyebrow">CONTACT</p>
+  <h1>Contact</h1>
+  <p class="intro">영상 제작 문의를 환영합니다. 아래로 연락 주세요.</p>
+  <div class="cinfo">
+    <div class="row"><div class="k">Email</div><div class="v"><a href="mailto:contact@skarte.kr">contact@skarte.kr</a></div></div>
+    <div class="row"><div class="k">Address</div><div class="v">인천광역시 연수구 먼우금로 194 728호</div></div>
+    <div class="row"><div class="k">Instagram</div><div class="v soonv">추후 첨부 예정입니다.</div></div>
+  </div>
+</main>
+<footer>
+  <p>skARTe · skartefilms — 인천광역시 연수구 먼우금로 194 728호 · <a href="mailto:contact@skarte.kr">contact@skarte.kr</a></p>
+  <p>© skARTe 2026</p>
+</footer>
+<script>
+var wb=document.getElementById('wbtn'),wp=document.getElementById('wpanel'),pd=document.getElementById('pdim'),wc=document.getElementById('wclose');
+function openP(){{wp.classList.add('show');pd.classList.add('show');wb.setAttribute('aria-expanded','true');wp.setAttribute('aria-hidden','false');}}
+function closeP(){{wp.classList.remove('show');pd.classList.remove('show');wb.setAttribute('aria-expanded','false');wp.setAttribute('aria-hidden','true');}}
+wb.addEventListener('click',function(){{wp.classList.contains('show')?closeP():openP();}});
+pd.addEventListener('click',closeP);wc.addEventListener('click',closeP);
+document.addEventListener('keydown',function(e){{if(e.key==='Escape')closeP();}});
+</script>
+<script type="application/ld+json">{json.dumps(bc,ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(org,ensure_ascii=False)}</script>
+</body>
+</html>'''
 
 def about_page(cats):
     url=SITE+"/about"
@@ -274,7 +343,9 @@ def main():
     # sitemap 갱신
     adir=os.path.join(BASE,"about"); os.makedirs(adir,exist_ok=True)
     open(os.path.join(adir,"index.html"),"w",encoding="utf-8").write(about_page(cats)); print("generated /about")
-    urls=[SITE+"/", SITE+"/about"]+[f"{SITE}/works/{k}" for k in keys]
+    cdir=os.path.join(BASE,"contact"); os.makedirs(cdir,exist_ok=True)
+    open(os.path.join(cdir,"index.html"),"w",encoding="utf-8").write(contact_page(cats)); print("generated /contact")
+    urls=[SITE+"/", SITE+"/about", SITE+"/contact"]+[f"{SITE}/works/{k}" for k in keys]
     sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     for i,u in enumerate(urls):
         pr="1.0" if i==0 else "0.8"
