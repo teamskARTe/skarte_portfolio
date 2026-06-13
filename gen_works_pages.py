@@ -27,7 +27,6 @@ def nav(cats, active):
     rows = "".join(
         f'<a class="wp-row{" cur" if c["key"]==active else ""}" href="/works/{c["key"]}">'
         f'<i>{str(i+1).zfill(2)}</i><strong>{esc(c["title"])}{" <em class=\"soon\">soon</em>" if c.get("soon") else ""}</strong>'
-        f'<span class="wp-thumb"></span>'
         f'<svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg></a>'
         for i,c in enumerate(cats))
     return f'''<header class="nav">

@@ -751,7 +751,7 @@ function buildPanel(){
   WORKS.categories.forEach((c,i)=>{
     const a=document.createElement('a'); a.className='wp-row'; a.href='/works/'+c.key+'/';
     a.innerHTML='<i>'+pad2(i+1)+'</i><strong>'+esc(c.title)+(c.soon?' <em class="soon">soon</em>':'')
-      +'</strong><span class="wp-thumb"></span><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg>';
+      +'</strong><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg>';
     list.appendChild(a);
   });
 }
