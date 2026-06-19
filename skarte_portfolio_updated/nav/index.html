@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>skARTe Film | 영상 제작사 — 브랜드필름·광고·공연·하이라이트 영상</title>
+<meta name="description" content="skARTe Film(skartefilms)는 인천 기반 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계 영상을 기획·촬영·편집합니다.">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://skarte.kr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="skARTe Film">
+<meta property="og:title" content="skARTe Film | 영상 제작사">
+<meta property="og:description" content="공연·브랜드필름·광고·하이라이트 영상 제작. skARTe Film(skartefilms).">
+<meta property="og:url" content="https://skarte.kr/">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://skarte.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:image" content="https://skarte.kr/og-image.png">
+<link rel="preload" href="/fonts/Paperlogy-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Paperlogy-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+@font-face{
+  font-family:'Paperlogy';
+  font-weight:300;
+  font-style:normal;
+  font-display:swap;
+  src:url('/fonts/Paperlogy-300.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Paperlogy';
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+  src:url('/fonts/Paperlogy-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Paperlogy';
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+  src:url('/fonts/Paperlogy-500.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Paperlogy';
+  font-weight:800;
+  font-style:normal;
+  font-display:swap;
+  src:url('/fonts/Paperlogy-800.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Pretendard';
+  font-weight:300;
+  font-style:normal;
+  font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Light.woff2) format('woff2');
+  unicode-range:U+1100-11FF,U+3001-303F,U+3130-318F,U+A960-A97F,U+AC00-D7A3,U+D7B0-D7FF,U+FF01-FF60;
+}
+@font-face{
+  font-family:'Pretendard';
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2) format('woff2');
+  unicode-range:U+1100-11FF,U+3001-303F,U+3130-318F,U+A960-A97F,U+AC00-D7A3,U+D7B0-D7FF,U+FF01-FF60;
+}
+@font-face{
+  font-family:'Pretendard';
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Medium.woff2) format('woff2');
+  unicode-range:U+1100-11FF,U+3001-303F,U+3130-318F,U+A960-A97F,U+AC00-D7A3,U+D7B0-D7FF,U+FF01-FF60;
+}
+@font-face{
+  font-family:'Pretendard';
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2) format('woff2');
+  unicode-range:U+1100-11FF,U+3001-303F,U+3130-318F,U+A960-A97F,U+AC00-D7A3,U+D7B0-D7FF,U+FF01-FF60;
+}
+@font-face{
+  font-family:'Pretendard';
+  font-weight:800;
+  font-style:normal;
+  font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-ExtraBold.woff2) format('woff2');
+  unicode-range:U+1100-11FF,U+3001-303F,U+3130-318F,U+A960-A97F,U+AC00-D7A3,U+D7B0-D7FF,U+FF01-FF60;
+}
+:root{
+  --black:#000;
+  --white:#fff;
+  --grey:#9a9a9a;
+  --display:'Pretendard','Paperlogy',sans-serif;
+  --serif-en:'Pretendard','Paperlogy',sans-serif;
+  --serif-ko:'Pretendard','Paperlogy',sans-serif;
+  --sans:'Pretendard','Paperlogy',sans-serif;
+  --header-h:80px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:300}
+button,input,select,textarea{font-family:var(--display);font:inherit}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* ===================== NAV (고정 상단바) ===================== */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--header-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:background .3s;
+}
+.navbar .brand{
+  font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:.01em;color:var(--white);
+}
+.navbar .brand>span{display:inline-block;text-align:center;vertical-align:middle}
+.navbar .brand small{
+  display:block;font-family:var(--sans);font-weight:300;font-size:9px;letter-spacing:.16em;
+  color:var(--grey);text-transform:lowercase;margin-top:1px;
+}
+.nav-menu{display:flex;align-items:center;gap:42px}
+.nav-menu > li{position:relative}
+.nav-menu > li > a{
+  font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  padding:10px 0;display:block;color:#ddd;transition:color .25s;
+}
+.nav-menu > li > a:hover{color:var(--white)}
+
+
+/* mobile */
+.hamburger{display:none;flex-direction:column;gap:6px;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{width:26px;height:1.5px;background:var(--white);transition:.3s}
+@media(max-width:860px){
+  .navbar{padding:0 22px}
+  .nav-menu{
+    position:fixed;inset:var(--header-h) 0 0 0;background:var(--black);
+    flex-direction:column;gap:0;padding:30px 0;align-items:flex-start;
+    transform:translateX(100%);transition:transform .35s;overflow-y:auto;
+  }
+  .nav-menu.open{transform:none}
+  .nav-menu > li{width:100%}
+  .nav-menu > li > a{padding:16px 30px;font-size:15px}
+  .hamburger{display:flex}
+}
+
+/* ===================== 풀스크린 영상 섹션 (공통) ===================== */
+.video-section{
+  position:relative;height:100vh;height:100svh;width:100%;
+  position:sticky;top:0;
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:#000;
+}
+/* 16:9 영상을 화면에 cover로 채우는 래퍼 — 유튜브 iframe 교체용 */
+.video-bg{
+  position:absolute;top:50%;left:50%;
+  width:max(100vw, 177.78vh);   /* 16:9 cover */
+  height:max(100vh, 56.25vw);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.video-bg iframe{width:100%;height:100%;border:0}
+
+/* 영상이 없을 때의 플레이스홀더 (실제 배포 시 iframe으로 교체) */
+.video-ph{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at var(--gx,30%) var(--gy,40%), rgba(255,255,255,.16), transparent 60%),
+    linear-gradient(160deg,#0c0c0c,#000 55%,#161616);
+  animation:drift 14s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  from{--gx:25%;--gy:35%;filter:brightness(.95)}
+  to{--gx:72%;--gy:62%;filter:brightness(1.15)}
+}
+@property --gx{syntax:'<percentage>';inherits:false;initial-value:30%}
+@property --gy{syntax:'<percentage>';inherits:false;initial-value:40%}
+/* 필름 스캔라인 */
+.video-ph::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.022) 3px 4px);
+}
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.42)}
+
+/* 오버레이 캡션 — RNS 스타일 (작은 카테고리 + 큰 타이틀) */
+.caption{
+  position:relative;z-index:5;text-align:center;padding:0 24px;
+  opacity:0;transform:translateY(36px);
+  transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1);
+}
+.in-view .caption{opacity:1;transform:none}
+
+/* ===== Works 카테고리 그리드 ===== */
+.work-cat{background:#000;padding:110px 6vw}
+.wc-head{display:flex;align-items:baseline;gap:16px;margin-bottom:36px;opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.wc-head .cat{font-size:13px;letter-spacing:.35em;color:#8a8a8a}
+.wc-head h2{font-size:clamp(28px,4vw,52px);font-weight:800;letter-spacing:.02em;color:#fff}
+.work-cat .wc-grid,.work-cat .wc-soon{opacity:0;transform:translateY(26px);transition:opacity .7s ease .15s,transform .7s ease .15s}
+.work-cat.in-view .wc-head,.work-cat.in-view .wc-grid,.work-cat.in-view .wc-soon{opacity:1;transform:none}
+.wc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:18px}
+.vcard{position:relative;aspect-ratio:16/9;background:#101010;overflow:hidden;border-radius:6px;cursor:pointer;display:block}
+.vcard img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:transform .5s ease,opacity .3s ease}
+.vcard:hover img{transform:scale(1.04);opacity:1}
+.vcard .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.75);transition:background .3s ease}
+.vcard .play::after{content:"";position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);border-style:solid;border-width:9px 0 9px 15px;border-color:transparent transparent transparent #fff}
+.vcard:hover .play{background:rgba(255,255,255,.18)}
+.vcard iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vcard.pl:hover{border-color:#555}
+.wc-soon{color:#777;font-size:clamp(16px,2vw,20px);letter-spacing:.25em}
+.wp-row .soon{font-style:normal;font-size:11px;letter-spacing:.18em;color:#999;vertical-align:super;margin-left:6px}
+/* ===== 서브페이지 작업 카드 (영상+제목+파트) ===== */
+.work-item{display:flex;flex-direction:column}
+.work-item .vcard{width:100%}
+.wi-title{margin-top:13px;font-size:16px;font-weight:600;color:#fff;letter-spacing:.01em;line-height:1.4}
+.wi-parts{margin-top:5px;font-size:13px;color:#9a9a9a;line-height:1.55}
+
+.brandname{text-transform:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* 홈 캡션 부가요소 */
+.caption .view-all{display:inline-block;margin-top:28px;padding:12px 28px;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;font-size:13px;letter-spacing:.08em;background:rgba(0,0,0,.25);transition:background .3s,color .3s}
+.caption .view-all:hover{background:#fff;color:#000}
+.caption .soon-note{margin-top:24px;color:#9a9a9a;letter-spacing:.3em;font-size:14px}
+/* ===== ABOUT 섹션 ===== */
+.about{min-height:100vh;position:sticky;top:0;display:flex;align-items:center;justify-content:center;padding:0 8vw;background:#000;position:relative}
+.about-inner{max-width:760px}
+.about-eyebrow{font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:#8a8a8a;margin-bottom:26px}
+.about-h{font-size:clamp(30px,5vw,60px);font-weight:800;letter-spacing:.01em;margin-bottom:30px;color:#fff;line-height:1.15}
+.about-text{font-size:clamp(15px,1.7vw,19px);line-height:1.95;color:#c4c4c4}
+/* 카테고리 캡션 소개 한 줄 */
+.caption .cat-desc{margin-top:14px;max-width:30ch;font-size:14px;line-height:1.6;color:#cfcfcf}
+.video-section.ws.alt .caption .cat-desc{margin-left:auto}
+
+
+/* ===== 카테고리 섹션 구분 강화 ===== */
+.video-section.ws{border-top:1px solid rgba(255,255,255,.16)}
+.video-section.ws .ghost{position:absolute;top:9vh;right:6vw;z-index:4;font-size:min(34vmin,300px);font-weight:800;line-height:1;letter-spacing:.06em;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.45);text-stroke:2px rgba(255,255,255,.45);pointer-events:none;user-select:none}
+.video-section.ws.alt .ghost{right:auto;left:6vw}
+.video-section.ws .dim{background:linear-gradient(25deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.28) 50%,rgba(0,0,0,.4) 100%)}
+.video-section.ws.alt .dim{background:linear-gradient(-25deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.28) 50%,rgba(0,0,0,.4) 100%)}
+.video-section.ws .caption{position:absolute;left:6vw;bottom:9vh;text-align:left;padding:0}
+.video-section.ws.alt .caption{left:auto;right:6vw;text-align:right}
+.video-section.ws .caption .cat{display:inline-block;border:1px solid rgba(255,255,255,.4);padding:7px 16px;border-radius:999px;font-size:11px;letter-spacing:.28em;color:#d6d6d6;margin-bottom:20px}
+
+
+/* Works 서브페이지 */
+#subpage{position:fixed;inset:0;z-index:4000;background:#000;overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+#subpage.show{opacity:1;visibility:visible}
+#subpage .sp-inner{padding:34px 6vw 90px;min-height:100%}
+.sp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:64px}
+.sp-head small{letter-spacing:.3em;color:#8a8a8a;font-size:11px}
+.sp-works{background:none;border:0;cursor:pointer;font-family:inherit;letter-spacing:.3em;color:#8a8a8a;font-size:11px;padding:6px 2px;transition:color .25s}
+.sp-works:hover{color:#fff}
+#spBack{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;padding:10px 22px;font-size:13px;letter-spacing:.03em;cursor:pointer;font-family:inherit;transition:background .3s,color .3s}
+#spBack:hover{background:#fff;color:#000}
+.sp-num{font-size:13px;letter-spacing:.35em;color:#8a8a8a;margin-bottom:10px}
+.sp-title{font-size:clamp(34px,5vw,64px);font-weight:800;color:#fff;margin-bottom:44px}
+
+
+.caption .cat{
+  font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:#cfcfcf;
+  margin-bottom:22px;font-weight:400;
+}
+.caption h2{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(38px,7vw,86px);letter-spacing:.02em;line-height:1.08;
+  text-transform:uppercase;
+}
+.caption h2 .ko{font-weight:800}
+
+/* ===================== HERO (웅필름식 쇼릴) ===================== */
+.hero .caption h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(52px,10vw,128px);letter-spacing:.04em;line-height:1;
+}
+.hero .caption .sub{
+  font-weight:300;font-size:clamp(15px,2vw,21px);
+  letter-spacing:.45em;margin-top:16px;color:#e8e8e8;
+}
+.hero .scroll-hint{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:6;
+  font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#999;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.hero .scroll-hint::after{
+  content:"";width:1px;height:46px;background:rgba(255,255,255,.6);
+  animation:line 1.8s ease-in-out infinite;transform-origin:top;
+}
+@keyframes line{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ===================== CONTACT / FOOTER (RNS식) ===================== */
+.contact{
+  text-align:center;padding:130px 24px 0;background:var(--black);
+  position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+}
+.contact .cat{font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--grey);margin-bottom:24px}
+.contact h2{
+  font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,84px);
+  text-transform:uppercase;margin-bottom:36px;
+}
+.contact .info{font-size:13.5px;letter-spacing:.14em;line-height:2.3;color:#ccc}
+.sns{
+  display:flex;justify-content:center;gap:70px;margin:80px 0 90px;
+}
+.sns a{
+  font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:#ddd;
+  position:relative;padding-bottom:6px;
+}
+.sns a::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--white);
+  transform:scaleX(0);transition:transform .4s cubic-bezier(.7,0,.2,1);transform-origin:left;
+}
+.sns a:hover::after{transform:scaleX(1)}
+.copyright{
+  border-top:1px solid rgba(255,255,255,.1);
+  text-align:center;padding:30px 20px;
+  font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:#777;
+}
+
+/* ===================== INTRO : 클래퍼보드 로고 시퀀스 ===================== */
+body.lock{overflow:hidden}
+#intro{
+  position:fixed;inset:0;z-index:5000;background:#000;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background-color .55s ease .2s;
+}
+#intro.toNav{background-color:transparent;pointer-events:none}
+#intro.skip{animation:none;transition:opacity .35s;opacity:0;pointer-events:none}
+#introSkip{position:absolute;right:24px;bottom:22px;z-index:5001;background:none;border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.82);font:inherit;font-size:12px;letter-spacing:.18em;padding:9px 16px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+#introSkip:hover{background:#fff;color:#000;border-color:#fff}
+/* 클랩 순간 화이트 플래시 */
+#intro::after{
+  content:"";position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;
+  animation:flash .32s ease-out 1.62s;
+}
+@keyframes flash{12%{opacity:.85}100%{opacity:0}}
+
+#introLogo{position:relative;width:min(56vmin,400px);aspect-ratio:1418/1419;animation:clapShake .34s linear 1.62s;transition:transform .85s cubic-bezier(.76,0,.18,1),opacity .3s ease;will-change:transform}
+#introLogo img{position:absolute;display:block;height:auto}
+@keyframes clapShake{
+  0%,100%{transform:none}
+  18%{transform:translate(4px,3px) rotate(.7deg)}
+  38%{transform:translate(-5px,-2px) rotate(-.6deg)}
+  58%{transform:translate(3px,2px)}
+  78%{transform:translate(-2px,1px)}
+}
+
+/* 2) 바퀴 4개 — 왼쪽에서 굴러 들어와 제자리에 */
+#intro .wh{
+  transform:translateX(-140vw) rotate(-720deg);
+  animation:wheelIn .55s cubic-bezier(.2,.7,.25,1) forwards;
+}
+#intro .wh:nth-of-type(1){animation-delay:.2s}
+#intro .wh:nth-of-type(2){animation-delay:.3s}
+#intro .wh:nth-of-type(3){animation-delay:.4s}
+#intro .wh:nth-of-type(4){animation-delay:.5s}
+@keyframes wheelIn{to{transform:translateX(0) rotate(0deg)}}
+
+/* 1) 몸판(슬레이트 전체) — 클래퍼보드 자세(-90°)로 시작, 클랩 후 로고 방향으로 회전 복귀 */
+#intro .clap{
+  position:absolute;
+  left:21.439%;top:21.494%;width:60.085%;height:45.032%;
+  transform-origin:50% 50%;
+  transform:translateY(-24%) rotate(-90deg);
+  animation:bodyTurn .7s cubic-bezier(.68,0,.22,1) 1.8s forwards;
+  /* 클랩/반동 시 슬레이트 날 꼬리가 보드 왼쪽으로 삐져나오는 것 방지 (보드 왼쪽 모서리만 클리핑) */
+  clip-path:polygon(-500% -0.3%, 600% -0.3%, 600% 600%, -500% 600%);
+}
+@keyframes bodyTurn{
+  to{transform:translateY(0) rotate(0deg)}
+}
+#intro .clap .bodyimg{left:0.000%;top:0.000%;width:42.136%}
+
+/* 3) 슬레이트 스틱 — 들어올림 → 4) 클랩 (바퀴 도착 직후) */
+#intro .slate{
+  left:28.991%;top:0.000%;width:71.009%;
+  transform-origin:18.35% 31.61%;
+  animation:slateGo 1.1s 1.05s forwards, swapHide .01s linear 2.56s forwards;
+}
+@keyframes slateGo{
+  0%  {transform:rotate(0deg);animation-timing-function:cubic-bezier(.3,.75,.3,1)}
+  30% {transform:rotate(-28deg)}                                                   /* 들어올림 */
+  40% {transform:rotate(-28deg);animation-timing-function:cubic-bezier(.85,0,1,.5)}/* 짧은 홀드 */
+  52% {transform:rotate(24deg);animation-timing-function:ease-out}                 /* 착! (보드와 평행) */
+  64% {transform:rotate(-6deg);animation-timing-function:ease-in-out}              /* 반동 */
+  78% {transform:rotate(2deg)}
+  100%{transform:rotate(0deg)}
+}
+
+@media (prefers-reduced-motion: reduce){#intro{display:none}}
+
+
+/* 시작은 파츠(클래퍼보드) 상태, 회전이 끝나는 순간 통짜 로고로 스왑 (이음새 원천 차단) */
+#intro .fullmark{opacity:0;animation:swapShow .01s linear 2.50s forwards}
+#intro .clap .bodyimg{animation:swapHide .01s linear 2.56s forwards}
+@keyframes swapShow{to{opacity:1}}
+@keyframes swapHide{to{opacity:0}}
+
+
+
+/* ===================== WORKS 사이드 패널 ===================== */
+#panelDim{
+  position:fixed;inset:0;z-index:4100;background:rgba(0,0,0,.55);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;
+}
+#panelDim.show{opacity:1;visibility:visible}
+#worksPanel{
+  position:fixed;top:0;right:0;bottom:0;z-index:4200;
+  width:min(520px,92vw);background:#ffffff;color:#0a0a0a;
+  transform:translateX(102%);transition:transform .55s cubic-bezier(.76,0,.18,1);
+  display:flex;flex-direction:column;overflow-y:auto;
+}
+#worksPanel.show{transform:none}
+.wp-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:34px 34px 10px;
+}
+.wp-head small{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#999;padding-top:14px}
+#wpClose{
+  background:none;border:none;cursor:pointer;font-size:30px;line-height:1;
+  color:#0a0a0a;padding:4px 8px;font-weight:300;transition:transform .3s;
+}
+#wpClose:hover{transform:rotate(90deg)}
+.wp-title{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(34px,6.5vw,56px);line-height:.95;letter-spacing:.01em;
+  padding:6px 34px 28px;text-transform:uppercase;
+}
+.wp-list{display:flex;flex-direction:column;padding:0 34px 50px}
+.wp-row{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 2px;border-top:1px solid #0a0a0a;
+  color:#0a0a0a;position:relative;
+}
+.wp-row:last-child{border-bottom:1px solid #0a0a0a}
+.wp-row i{
+  font-style:normal;font-size:10px;letter-spacing:.1em;color:#999;
+  align-self:flex-start;padding-top:4px;min-width:18px;
+}
+.wp-row strong{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(17px,3.4vw,24px);letter-spacing:.01em;line-height:1.05;
+  flex:1;transition:transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.wp-row:hover strong{transform:translateX(10px)}
+.wp-thumb{
+  width:74px;height:46px;flex-shrink:0;overflow:hidden;
+  background:
+    radial-gradient(ellipse 90% 80% at 30% 40%, rgba(255,255,255,.25), transparent 60%),
+    linear-gradient(150deg,#202020,#000 60%,#1a1a1a);
+}
+.wp-row .arr{
+  flex-shrink:0;width:22px;height:22px;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.wp-row:hover .arr{transform:translate(4px,4px)}
+.wp-row .arr path{stroke:#0a0a0a;stroke-width:1.6;fill:none}
+@media(max-width:520px){
+  .wp-head,.wp-title{padding-left:24px;padding-right:24px}
+  .wp-list{padding:0 24px 40px}
+  .wp-thumb{width:60px;height:38px}
+}
+
+/* 네비 로고 마크 */
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:30px;height:30px;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- ===== INTRO : 스케아트 클래퍼보드 로고 ===== -->
+<div id="intro" title="클릭하면 건너뛰기">
+  <div id="introLogo">
+    <div class="clap">
+      <img class="fullmark" style="left:0.000%;top:0.000%;width:100.000%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0ODEgMzYxIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHBhdGggZD0iTTEsMSBMMSwzNjAgTDIwMCwzNTkgTDIwMCwxMTMgTDMzNSwzNjAgTDQ4MCwzNjAgTDI4NSw1IEwyNzYsMVogTTMyNCwyOTggTDQyOSwyOTggTDQ1MiwzNDMgTDM0OSwzNDNaIE0yOTIsMjM3IEwzOTcsMjM3IEw0MjAsMjgyIEwzMTcsMjgyWiBNMjU5LDE3NSBMMzY0LDE3NSBMMzg3LDIyMCBMMjg0LDIyMFogTTIyNywxMTQgTDMzMiwxMTQgTDM1NSwxNTkgTDI1MiwxNTlaIiBmaWxsPSIjZmZmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=" alt="">
+      <img class="bodyimg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDMgMzYxIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHBhdGggZD0iTTIsMCBMMSwzNjAgTDIwMCwzNjAgTDIwMiwxWiIgZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" alt="">
+      <img class="slate" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNDEgMzYxIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHBhdGggZD0iTTAsMSBMMTk0LDM1OCBMMzQwLDM2MCBMMTUxLDExIEwxMzYsMVogTTE4NCwyOTggTDI4OCwyOTggTDMxMywzNDMgTDIwOCwzNDNaIE0xNTIsMjM3IEwyNTYsMjM3IEwyODEsMjgyIEwxNzYsMjgyWiBNMTE5LDE3NSBMMjIzLDE3NSBMMjQ4LDIyMCBMMTQzLDIyMFogTTg3LDExNCBMMTkxLDExNCBMMjE2LDE1OSBMMTExLDE1OVoiIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==" alt="">
+    </div>
+    <img class="wh" style="left:21.439%;top:70.472%;width:12.271%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5OSA5OCI+PGNpcmNsZSBjeD0iNDkuMTUiIGN5PSI0Ny44NyIgcj0iNDguMzAiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="">
+    <img class="wh" style="left:37.306%;top:70.472%;width:12.341%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5OCA5OCI+PGNpcmNsZSBjeD0iNDguMjYiIGN5PSI0Ny44OCIgcj0iNDguMTUiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="">
+    <img class="wh" style="left:53.315%;top:70.472%;width:12.341%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5OSA5OCI+PGNpcmNsZSBjeD0iNDkuMzEiIGN5PSI0Ny45MSIgcj0iNDguMjciIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="">
+    <img class="wh" style="left:69.394%;top:70.472%;width:12.271%" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5OCA5OCI+PGNpcmNsZSBjeD0iNDguMTEiIGN5PSI0Ny44OSIgcj0iNDguMTciIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="">
+  </div>
+  <button id="introSkip" type="button" aria-label="인트로 건너뛰기">SKIP &#9656;</button>
+</div>
+
+<!-- ===== 상단 고정 네비 : 웅필름식 카테고리 드롭다운 ===== -->
+<nav class="navbar">
+  <a class="brand" href="#top">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0ODIgNDkwIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+PHBhdGggZD0iTTEsMSBMMiwzNjAgTDIwMCwzNTkgTDIwMCwxMTIgTDMzNSwzNjAgTDQ3OSwzNjAgTDI5MiwxNCBMMjg0LDUgTDI3MywxWiBNMzI0LDI5OCBMNDI5LDI5OCBMNDUyLDM0MyBMMzQ5LDM0M1ogTTI4OCwyMzAgTDM5MywyMzAgTDQxNiwyNzUgTDMxMywyNzVaIE0yNTIsMTYyIEwzNTcsMTYyIEwzODAsMjA3IEwyNzcsMjA3WiBNMjEyLDk0IEwzMTcsOTQgTDM0MCwxMzkgTDIzNywxMzlaIiBmaWxsPSIjZmZmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48Y2lyY2xlIGN4PSI0MzIuMTIiIGN5PSI0NDAuMTQiIHI9IjQ4LjEzIiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMzA0LjEyIiBjeT0iNDQwLjE1IiByPSI0OC4xMyIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjE3Ni4xMiIgY3k9IjQ0MC4xNSIgcj0iNDguMTMiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSI0OC4xNiIgY3k9IjQ0MC4xMyIgcj0iNDguMDkiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" alt="skARTe Film" style="width:30px;height:auto">
+    <span><span class="brandname">skARTe Film</span><small>skartefilms</small></span>
+  </a>
+  <button class="hamburger" id="ham" aria-label="menu"><span></span><span></span><span></span></button>
+  <ul class="nav-menu" id="menu">
+    <li><a href="#works" id="worksLink">Works</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</nav>
+
+
+<!-- ===== WORKS 사이드 패널 ===== -->
+<div id="panelDim"></div>
+<aside id="worksPanel" aria-hidden="true">
+  <div class="wp-head">
+    <small><span class="brandname">skARTe Film</span> — Works</small>
+    <button id="wpClose" aria-label="닫기">&times;</button>
+  </div>
+  <h2 class="wp-title"><span class="brandname">skARTe Film</span><br>Works</h2>
+  <nav class="wp-list" id="wpList"></nav>
+</aside>
+
+<!-- ===== HERO : 풀스크린 쇼릴 (웅필름) ===== -->
+<section class="video-section hero in-view" id="top">
+  <div class="video-bg"><iframe data-src="https://www.youtube-nocookie.com/embed/kq8nZ11LvPU?autoplay=1&mute=1&loop=1&playlist=kq8nZ11LvPU&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1" title="" allow="autoplay; encrypted-media"></iframe></div>
+  <div class="dim"></div>
+  <div class="caption">
+    <h1><span class="brandname">skARTe Film</span><span class="sr-only"> — 인천 영상 제작사. 브랜드필름·광고·공연·하이라이트 영상 제작</span></h1>
+    <p class="sub">showreel</p>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ===== ABOUT (회사 소개) ===== -->
+<div id="worksStack"></div>
+<noscript><section style="padding:80px 6vw;color:#fff"><h2>Performance</h2><h2>Film &amp; Drama</h2><h2>Advertisement</h2><h2>Highlight Video</h2><h2>Live Broadcast</h2><p>skARTe Film(skartefilms)는 인천 연수구 기반 영상 제작사로 공연·브랜드필름·광고·하이라이트·라이브 중계 영상을 제작합니다. 문의: contact@skarte.kr</p></section></noscript>
+
+<!-- ===== WORKS 서브페이지 (카테고리 전체 영상) ===== -->
+<div id="subpage" aria-hidden="true">
+  <div class="sp-inner">
+    <div class="sp-head">
+      <button id="spBack" aria-label="뒤로">&larr; Back</button>
+      <button id="spWorks" class="sp-works"><span class="brandname">skARTe Film</span> &mdash; WORKS</button>
+    </div>
+    <p class="sp-num"></p>
+    <h2 class="sp-title"></h2>
+    <div class="wc-grid"></div>
+    <p class="wc-soon" hidden>업로드 예정</p>
+  </div>
+</div>
+
+<!-- ===== CONTACT + 푸터 (RNS) ===== -->
+<section class="contact" id="contact">
+  <h2>Contact</h2>
+  <p class="info">
+    contact@skarte.kr<br>
+    010 5949 0686<br>
+    인천광역시 연수구 먼우금로 194 728호
+  </p>
+  <div class="sns">
+    <a href="https://instagram.com/skartefilm" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <p class="copyright">Copyright © <span class="brandname">skARTe Film</span> 2026. All rights reserved.</p>
+</section>
+
+<script src="/supabase.js"></script>
+<script>
+/* 인트로 시퀀스 종료 처리 */
+const intro = document.getElementById('intro');
+if (intro && sessionStorage.getItem('skarte_intro_seen')) {
+  intro.remove();
+} else if (intro) {
+  sessionStorage.setItem('skarte_intro_seen', '1');
+  document.body.classList.add('lock');
+  const endIntro = () => {
+    if (!intro.parentNode) return;
+    intro.remove();
+    document.body.classList.remove('lock');
+  };
+  // 3.9초: 로고가 상단바 로고 위치·크기로 날아가 안착
+  const logo = document.getElementById('introLogo');
+  const flyToNav = () => {
+    const navImg = document.querySelector('.navbar .brand img');
+    if (!navImg || !intro.parentNode) { endIntro(); return; }
+    const CONTENT_H = 0.828;                                  // 로고 콘텐츠(바퀴 하단까지) 높이 비율
+    const l = logo.getBoundingClientRect();
+    const n = navImg.getBoundingClientRect();
+    const s = n.height / (l.height * CONTENT_H);
+    logo.style.transformOrigin = `${l.width/2}px ${(l.height*CONTENT_H)/2}px`;
+    const dx = (n.left + n.width/2) - (l.left + l.width/2);
+    const dy = (n.top  + n.height/2) - (l.top + (l.height*CONTENT_H)/2);
+    logo.style.transform = `translate(${dx}px, ${dy}px) scale(${s})`;
+    intro.classList.add('toNav');
+    setTimeout(() => { logo.style.opacity = '0'; }, 900);     // 안착 후 네비 로고와 크로스페이드
+    setTimeout(endIntro, 1250);
+  };
+  setTimeout(flyToNav, 3210);
+  // 클릭 시 건너뛰기
+  intro.addEventListener('click', () => { intro.classList.add('skip'); setTimeout(endIntro, 360); });
+  // 모션 최소화 환경이거나 예외 상황 대비
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) endIntro();
+  setTimeout(endIntro, 4900);
+}
+
+
+/* Works 사이드 패널 */
+const panel = document.getElementById('worksPanel');
+const dim = document.getElementById('panelDim');
+const openPanel = () => { panel.classList.add('show'); dim.classList.add('show'); panel.setAttribute('aria-hidden','false'); };
+const closePanel = () => { panel.classList.remove('show'); dim.classList.remove('show'); panel.setAttribute('aria-hidden','true'); };
+document.getElementById('worksLink').addEventListener('click', e => { e.preventDefault(); openPanel(); });
+document.getElementById('spWorks').addEventListener('click', openPanel);
+document.getElementById('wpClose').addEventListener('click', closePanel);
+dim.addEventListener('click', closePanel);
+document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; closePanel(); if (location.hash.startsWith('#works/')) location.hash = ''; });
+panel.querySelectorAll('.wp-row').forEach(a => a.addEventListener('click', closePanel));
+
+/* 모바일 메뉴 */
+const ham = document.getElementById('ham'), menu = document.getElementById('menu');
+ham.addEventListener('click', () => menu.classList.toggle('open'));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  if (innerWidth <= 860) menu.classList.remove('open');
+}));
+
+/* 섹션 진입 시 캡션 페이드업 (RNS의 slide-effect) */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in-view');
+}), {threshold:.35});
+document.querySelectorAll('.video-section').forEach(s => io.observe(s));
+
+/* ===== Works: 데이터 기반 렌더 + 서브페이지 ===== */
+const DEFAULT_WORKS = {
+  "hero": "kq8nZ11LvPU",
+  "categories": [
+    {
+      "key": "performance",
+      "title": "Performance",
+      "videos": [
+        {
+          "id": "5mmhRzYOGhc",
+          "title": "2025 OO대학교 대동제 메인 공연",
+          "parts": "촬영 · 편집 · 실시간 송출"
+        },
+        {
+          "id": "-6QlZQ424Xs",
+          "title": "△△ 댄스 컴퍼니 정기공연",
+          "parts": "멀티캠 촬영 · 색보정"
+        },
+        {
+          "id": "AE2iS8KZ9HI",
+          "title": "□□ 뮤지컬 갈라쇼",
+          "parts": "기획 · 촬영 · 편집"
+        }
+      ],
+      "desc": "무대 위 퍼포먼스의 에너지를 멀티캠과 정교한 편집으로 담아냅니다. 공연·축제·쇼케이스 현장의 순간을 생생한 영상으로 기록합니다."
+    },
+    {
+      "key": "film-drama",
+      "title": "Film & Drama",
+      "videos": [
+        {
+          "id": "lTuiHLEhGTA",
+          "title": "단편영화 〈무제〉",
+          "parts": "촬영감독 · 편집"
+        },
+        {
+          "id": "_8TW_QYIiAI",
+          "title": "웹드라마 〈OO〉 EP.01",
+          "parts": "연출 · 촬영 · 편집"
+        },
+        {
+          "id": "P7TWmt3zvag",
+          "title": "브랜드 필름 〈△△〉",
+          "parts": "기획 · 촬영 · 색보정"
+        }
+      ],
+      "desc": "브랜드와 이야기를 담은 필름·드라마 작업. 기획·연출부터 촬영·색보정까지 하나의 흐름으로 완성합니다."
+    },
+    {
+      "key": "advertisement",
+      "title": "Advertisement",
+      "videos": [
+        {
+          "id": "fdv-0pa9wwA",
+          "title": "OO 브랜드 캠페인 광고",
+          "parts": "기획 · 촬영 · 편집"
+        },
+        {
+          "id": "xGnmC1ujFW0",
+          "title": "△△ 신제품 런칭 광고",
+          "parts": "촬영 · 색보정"
+        },
+        {
+          "id": "nOU01K35SVc",
+          "title": "□□ 앱 프로모션 영상",
+          "parts": "모션그래픽 · 편집"
+        },
+        {
+          "id": "nCoN0HPrR8Y",
+          "title": "◇◇ 뷰티 브랜드 TVC",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "p3od_uTnYeA",
+          "title": "☆☆ 식음료 브랜드 광고",
+          "parts": "기획 · 촬영"
+        },
+        {
+          "id": "SucKk5_LUms",
+          "title": "○○ 패션 룩북 필름",
+          "parts": "촬영 · 편집"
+        }
+      ],
+      "desc": "제품과 브랜드의 메시지를 또렷하게 전하는 광고 영상. 기획·촬영·편집·모션그래픽을 한 팀에서 책임집니다."
+    },
+    {
+      "key": "highlight-video",
+      "title": "Highlight Video",
+      "videos": [
+        {
+          "id": "kq8nZ11LvPU",
+          "title": "2025 SKARTE Film 하이라이트 릴",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "Q1ARupFFLqI",
+          "title": "OO 페스티벌 애프터무비",
+          "parts": "멀티캠 · 편집"
+        },
+        {
+          "id": "lnyRXiWcKIQ",
+          "title": "△△ 기업 행사 스케치",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "yL15xZtbd9w",
+          "title": "□□ 연말 결산 영상",
+          "parts": "편집 · 모션그래픽"
+        }
+      ],
+      "desc": "행사와 프로젝트의 핵심 순간만 모은 하이라이트·애프터무비. 짧지만 강한 한 편으로 분위기를 전합니다."
+    },
+    {
+      "key": "live-broadcast",
+      "title": "Live Broadcast",
+      "soon": true,
+      "videos": [],
+      "desc": "현장을 실시간으로 송출하는 라이브 중계. 안정적인 송출과 멀티캠 구성으로 생생함을 그대로 전합니다."
+    }
+  ],
+  "about": "skARTe Film(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다."
+};
+let WORKS = DEFAULT_WORKS;
+
+const esc = s => (s||'').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const pad2 = n => String(n).padStart(2,'0');
+const bgUrl = id => 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&loop=1&playlist='+id+'&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&disablekb=1';
+
+const sub = document.getElementById('subpage');
+const spGrid = sub.querySelector('.wc-grid');
+const spSoon = sub.querySelector('.wc-soon');
+
+function buildPanel(){
+  const list = document.getElementById('wpList'); list.innerHTML='';
+  WORKS.categories.forEach((c,i)=>{
+    const a=document.createElement('a'); a.className='wp-row'; a.href='/works/'+c.key;
+    a.innerHTML='<i>'+pad2(i+1)+'</i><strong>'+esc(c.title)+(c.soon?' <em class="soon">soon</em>':'')
+      +'</strong><svg class="arr" viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 8 V19 H8"/></svg>';
+    list.appendChild(a);
+  });
+}
+function buildStack(){
+  const stack=document.getElementById('worksStack'); stack.innerHTML='';
+  WORKS.categories.forEach((c,i)=>{
+    const num=pad2(i+1), alt=(i%2===1)?' alt':'';
+    const rep=(c.videos&&c.videos[0])?c.videos[0].id:null;
+    const media=(c.soon||!rep)
+      ? '<div class="video-ph" style="animation-duration:16s;animation-delay:-6s"></div>'
+      : '<div class="video-bg"><iframe data-src="'+bgUrl(rep)+'" title="'+esc(c.title)+' 대표영상" allow="autoplay; encrypted-media"></iframe></div>';
+    const cta=c.soon ? '<p class="soon-note">업로드 예정</p>'
+                     : '<a class="view-all" href="/works/'+c.key+'">전체 보기 &rarr;</a>';
+    const sec=document.createElement('section'); sec.className='video-section ws'+alt; sec.id='w-'+c.key;
+    sec.innerHTML=media+'<div class="dim"></div><span class="ghost">'+num+'</span>'
+      +'<div class="caption"><p class="cat">WORKS &mdash; '+num+'</p><h2>'+esc(c.title)+'</h2>'+(c.desc?'<p class="cat-desc">'+esc(c.desc)+'</p>':'')+cta+'</div>';
+    stack.appendChild(sec);
+  });
+}
+function setHero(){ const f=document.querySelector('#top iframe'); if(f&&WORKS.hero) f.dataset.src=bgUrl(WORKS.hero); }
+
+function bindPlay(item){
+  const v=item.querySelector('.vthumb'); if(!v) return;
+  v.addEventListener('click',()=>{
+    if(v.classList.contains('on')) return;
+    v.classList.add('on');
+    v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+v.dataset.id
+      +'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  });
+}
+const findCat = key => WORKS.categories.find(c=>c.key===key);
+
+const openSub = key => {
+  const w=findCat(key); if(!w) return;
+  const idx=WORKS.categories.indexOf(w);
+  sub.querySelector('.sp-num').textContent=pad2(idx+1);
+  sub.querySelector('.sp-title').textContent=w.title;
+  spGrid.innerHTML=''; spSoon.hidden=!w.soon;
+  (w.videos||[]).forEach(v=>{
+    const it=document.createElement('div'); it.className='work-item';
+    it.innerHTML='<div class="vcard vthumb" data-id="'+v.id+'"><img src="https://i.ytimg.com/vi/'+v.id
+      +'/hqdefault.jpg" alt="'+esc(v.title||w.title)+' 영상 썸네일" loading="lazy"><span class="play"></span></div>'
+      +(v.title?'<p class="wi-title">'+esc(v.title)+'</p>':'')
+      +(v.parts?'<p class="wi-parts">'+esc(v.parts).replace(/\n/g,'<br>')+'</p>':'');
+    bindPlay(it); spGrid.appendChild(it);
+  });
+  sub.classList.add('show'); sub.setAttribute('aria-hidden','false'); sub.scrollTop=0;
+  document.body.classList.add('lock');
+};
+const closeSub = () => {
+  if(!sub.classList.contains('show')) return;
+  sub.classList.remove('show'); sub.setAttribute('aria-hidden','true');
+  document.body.classList.remove('lock'); spGrid.innerHTML='';
+};
+const openPath = key => { closePanel(); openSub(key); history.pushState({k:key},'', '/works/'+key); };
+document.addEventListener('click', e=>{
+  const a=e.target.closest('a[href^="/works/"]'); if(!a) return;
+  const m=a.getAttribute('href').match(/^\/works\/([A-Za-z0-9_-]+)\/?$/);
+  if(m && findCat(m[1])){ e.preventDefault(); openPath(m[1]); }
+});
+window.addEventListener('popstate', ()=>{
+  const m=location.pathname.match(/^\/works\/([A-Za-z0-9_-]+)\/?$/);
+  if(m && findCat(m[1])) openSub(m[1]); else closeSub();
+});
+document.getElementById('spBack').addEventListener('click', ()=>{ history.pushState(null,'','/'); closeSub(); });
+const route = () => {
+  const m=location.pathname.match(/^\/works\/([A-Za-z0-9_-]+)\/?$/);
+  if(m && findCat(m[1])){ closePanel(); openSub(m[1]); return; }
+  const h=location.hash.match(/^#works\/([A-Za-z0-9_-]+)$/);
+  if(h && findCat(h[1])){ closePanel(); openSub(h[1]); } else closeSub();
+};
+
+const ioBg = new IntersectionObserver(es => es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  const f=e.target.querySelector('iframe[data-src]');
+  if(f){ f.src=f.dataset.src; f.removeAttribute('data-src'); }
+  ioBg.unobserve(e.target);
+}), {rootMargin:'150% 0px'});
+function observeVideos(){ document.querySelectorAll('.video-section').forEach(s=>{ ioBg.observe(s); io.observe(s); }); }
+
+async function loadWorks(){
+  try{ if(window.SKARTE_SUPABASE && window.SKARTE_SUPABASE.isConfigured()){
+    const c=await window.SKARTE_SUPABASE.loadWorks(); if(c){ WORKS=c; return; }
+  } }catch(e){}
+  try{ const l=localStorage.getItem('skarte_works'); if(l){ WORKS=JSON.parse(l); return; } }catch(e){}
+  try{ const r=await fetch('works.json',{cache:'no-store'}); if(r.ok) WORKS=await r.json(); }catch(e){}
+}
+function setAbout(){ const a=document.querySelector('.about-text'); if(a && WORKS.about) a.textContent=WORKS.about; }
+loadWorks().then(()=>{ buildPanel(); buildStack(); setHero(); observeVideos(); route(); });
+
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "@id":"https://skarte.kr/#org",
+  "name":"skARTe Film",
+  "alternateName":"skartefilms",
+  "description":"인천 기반 영상 제작사. 공연·브랜드필름·광고·하이라이트·라이브 중계 영상 제작.",
+  "url":"https://skarte.kr/",
+  "logo":"https://skarte.kr/icon-512.png",
+  "image":"https://skarte.kr/og-image.png",
+  "email":"contact@skarte.kr",
+  "address":{"@type":"PostalAddress","streetAddress":"먼우금로 194 728호","addressLocality":"연수구","addressRegion":"인천광역시","addressCountry":"KR"},
+  "areaServed":"KR",
+  "knowsAbout":["영상 제작","브랜드 필름","광고 영상","공연 촬영","라이브 중계","하이라이트 영상"]
+}
+</script>
+</body>
+</html>

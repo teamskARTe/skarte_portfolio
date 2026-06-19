@@ -1,0 +1,65 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.skarte.kr"
+        }
+      ],
+      "destination": "https://skarte.kr/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/works/ad",
+      "destination": "/works/advertisement",
+      "permanent": true
+    },
+    {
+      "source": "/works/film",
+      "destination": "/works/film-drama",
+      "permanent": true
+    },
+    {
+      "source": "/works/highlight",
+      "destination": "/works/highlight-video",
+      "permanent": true
+    },
+    {
+      "source": "/works/live",
+      "destination": "/works/live-broadcast",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>skARTe Film · Admin</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
+:root{
+  --bg:#0a0a0a; --panel:#121212; --panel2:#171717;
+  --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.07);
+  --tx:#f2f2f2; --mut:#8a8a8a; --acc:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;-webkit-font-smoothing:antialiased}
+::selection{background:#fff;color:#000}
+
+header{position:sticky;top:0;z-index:20;background:rgba(10,10,10,.86);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:30px;height:30px;border-radius:0}
+.brand .bt{display:flex;flex-direction:column;line-height:1.1}
+.brand .bt b{font-size:16px;font-weight:800;letter-spacing:.02em}
+.brand .bt small{font-size:9.5px;letter-spacing:.28em;color:var(--mut);text-transform:uppercase;margin-top:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--tx);
+  padding:9px 16px;border-radius:0;letter-spacing:.04em;transition:background .25s,color .25s,border-color .25s}
+button:hover{background:#fff;color:#000;border-color:#fff}
+button.primary{background:#fff;color:#000;border-color:#fff}
+button.primary:hover{background:#d8d8d8;border-color:#d8d8d8}
+button.sm{padding:5px 11px;font-size:12.5px;border-radius:0}
+button.danger{color:#ff6b5e;border-color:rgba(255,107,94,.45)}
+button.danger:hover{background:#ff6b5e;color:#0a0a0a;border-color:#ff6b5e}
+
+main{max-width:940px;margin:0 auto;padding:30px 24px 90px}
+.hint{background:linear-gradient(180deg,#141414,#101010);border:1px solid var(--line);border-radius:0;padding:16px 18px;margin-bottom:26px;font-size:13.5px;color:#c7c7c7}
+.hint b{color:#fff}
+.hint .muted{color:var(--mut)}
+
+.eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mut);margin:30px 2px 12px}
+
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+.field label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.field input,.field textarea{font:inherit;color:var(--tx);padding:10px 12px;border:1px solid var(--line);border-radius:0;background:#0e0e0e;width:100%;transition:border-color .2s}
+.field input:focus,.field textarea:focus{outline:none;border-color:rgba(255,255,255,.45)}
+.field textarea{resize:vertical;min-height:56px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:0;padding:18px;margin-bottom:18px}
+.cat-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.cat-head .num{font-size:13px;letter-spacing:.18em;color:var(--mut);min-width:26px}
+.cat-head .grow{flex:1;min-width:150px;font-size:17px;font-weight:700;font-family:inherit;color:#fff;
+  background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:6px 2px}
+.cat-head .grow:focus{outline:none;border-bottom-color:rgba(255,255,255,.55)}
+.cat-head label.chk{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#bdbdbd;flex:none;letter-spacing:.02em}
+.cat-head input[type=checkbox]{accent-color:#fff;width:15px;height:15px}
+
+.vid{border:1px solid var(--line2);border-radius:0;padding:13px;margin-bottom:11px;background:var(--panel2)}
+.vid .vid-top{display:flex;gap:13px;align-items:flex-start}
+.vid .thumb{width:130px;aspect-ratio:16/9;object-fit:cover;border-radius:0;background:#000;border:1px solid var(--line2);flex:none}
+.vid .vid-fields{flex:1;display:flex;flex-direction:column;gap:9px;min-width:0}
+.vid .vid-fields .field{margin:0}
+.vid .vtools{display:flex;flex-direction:column;gap:7px;flex:none}
+
+.muted{color:var(--mut);font-size:13px}
+hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(8px);background:#fff;color:#000;
+  padding:11px 20px;border-radius:0;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;font-size:14px;font-weight:600;letter-spacing:.02em}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.cat-tabs{position:sticky;top:69px;z-index:9;display:flex;gap:8px;flex-wrap:wrap;padding:12px 0 16px;background:var(--bg)}
+.cat-tab{font:inherit;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--mut);
+  padding:8px 15px;border-radius:0;font-size:13px;letter-spacing:.03em;transition:all .2s;display:flex;align-items:center;gap:7px}
+.cat-tab:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.cat-tab.active{background:#fff;color:#000;border-color:#fff}
+.cat-tab .tnum{font-size:11px;opacity:.6}
+.cat-tab.add{border-style:dashed;color:#bdbdbd}
+#cats .card{display:none}
+#cats .card.show{display:block}
+#addCat{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img src="/favicon.svg" alt="skARTe Film">
+    <div class="bt"><b>skARTe Film</b><small>Works Admin</small></div>
+  </div>
+  <div class="actions">
+    <button id="reloadDefault">기본값</button>
+    <button id="importBtn">JSON 가져오기</button>
+    <input type="file" id="importFile" accept="application/json" hidden>
+    <button id="previewBtn">미리보기 저장</button>
+    <button id="downloadBtn">works.json 다운로드</button>
+    <button class="primary" id="cloudSaveBtn">☁ 클라우드 저장(공개 반영)</button>
+  </div>
+</header>
+<div id="authbar" style="position:sticky;top:69px;z-index:15;background:#0e0e0e;border-bottom:1px solid var(--line);padding:11px 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px">
+  <span id="authStatus" style="color:var(--mut)">클라우드: 확인 중…</span>
+  <span style="flex:1"></span>
+  <input id="authEmail" type="email" placeholder="관리자 이메일" autocomplete="username"
+    style="font:inherit;color:var(--tx);padding:7px 11px;border:1px solid var(--line);background:#0a0a0a;width:200px">
+  <input id="authPw" type="password" placeholder="비밀번호" autocomplete="current-password"
+    style="font:inherit;color:var(--tx);padding:7px 11px;border:1px solid var(--line);background:#0a0a0a;width:150px">
+  <button class="sm" id="loginBtn">로그인</button>
+  <button class="sm" id="logoutBtn" hidden>로그아웃</button>
+<main>
+  <div class="hint">
+    <b>사용법</b> — 카테고리·영상을 편집한 뒤,<br>
+    ① <b>로그인</b>(우측 상단): Supabase 관리자 계정으로 로그인하면 클라우드 저장이 가능합니다.<br>
+    ② <b>☁ 클라우드 저장</b>: 변경 내용이 <b>모든 방문자에게 바로 공개 반영</b>됩니다 (재배포 불필요).<br>
+    ③ <b>미리보기 저장</b>: 이 브라우저에서만 임시로 확인 (공개 사이트는 그대로).<br>
+    <span class="muted">영상 ID는 유튜브 링크의 v= 뒤 또는 youtu.be/ 뒤 11자리입니다. 전체 링크를 붙여넣어도 자동으로 ID만 추출합니다.</span>
+  </div>
+
+  <div class="card">
+    <div class="field" style="max-width:360px;margin:0">
+      <label>히어로(메인) 대표영상 ID 또는 링크</label>
+      <input id="hero" placeholder="예: kq8nZ11LvPU">
+    </div>
+  </div>
+
+  <p class="eyebrow">Categories</p>
+  <div id="catTabs" class="cat-tabs"></div>
+  <div id="cats"></div>
+  <button class="sm" id="addCat">+ 카테고리 추가</button>
+</main>
+<div class="toast" id="toast"></div>
+
+<script src="/supabase.js"></script>
+<script>
+
+const LS_KEY='skarte_works';
+
+/* ===== Supabase 클라우드 연동 ===== */
+const SB = window.SKARTE_SUPABASE;
+const TOKEN_KEY = 'skarte_admin_token';
+let authToken = null;
+try{ authToken = sessionStorage.getItem(TOKEN_KEY) || null; }catch(e){}
+
+function refreshAuthUI(){
+  const st=document.getElementById('authStatus');
+  const loginBtn=document.getElementById('loginBtn');
+  const logoutBtn=document.getElementById('logoutBtn');
+  const emailIn=document.getElementById('authEmail');
+  const pwIn=document.getElementById('authPw');
+  const cloudBtn=document.getElementById('cloudSaveBtn');
+  if(!SB || !SB.isConfigured()){
+    st.textContent='클라우드: Supabase 미설정 (supabase.js 에 URL/KEY 입력 필요)';
+    st.style.color='#ff6b5e';
+    loginBtn.disabled=true; cloudBtn.disabled=true;
+    return;
+  }
+  if(authToken){
+    st.textContent='클라우드: 로그인됨 ✓ — 저장 시 공개 사이트에 즉시 반영';
+    st.style.color='#7CFFB0';
+    loginBtn.hidden=true; logoutBtn.hidden=false; emailIn.hidden=true; pwIn.hidden=true;
+    cloudBtn.disabled=false;
+  }else{
+    st.textContent='클라우드: 로그아웃 상태 — 저장하려면 로그인하세요';
+    st.style.color='var(--mut)';
+    loginBtn.hidden=false; logoutBtn.hidden=true; emailIn.hidden=false; pwIn.hidden=false;
+    cloudBtn.disabled=false; // 누르면 로그인 안내
+  }
+}
+
+document.getElementById('loginBtn').onclick=async()=>{
+  const email=document.getElementById('authEmail').value.trim();
+  const pw=document.getElementById('authPw').value;
+  if(!email||!pw){ toast('이메일과 비밀번호를 입력하세요'); return; }
+  try{
+    const res=await SB.signIn(email,pw);
+    authToken=res.access_token;
+    try{ sessionStorage.setItem(TOKEN_KEY,authToken); }catch(e){}
+    document.getElementById('authPw').value='';
+    toast('로그인 성공'); refreshAuthUI();
+  }catch(err){ alert('로그인 실패: '+err.message); }
+};
+document.getElementById('logoutBtn').onclick=()=>{
+  authToken=null; try{ sessionStorage.removeItem(TOKEN_KEY); }catch(e){}
+  toast('로그아웃됨'); refreshAuthUI();
+};
+
+const DEFAULT_WORKS={
+  "hero": "kq8nZ11LvPU",
+  "categories": [
+    {
+      "key": "performance",
+      "title": "Performance",
+      "videos": [
+        {
+          "id": "5mmhRzYOGhc",
+          "title": "2025 OO대학교 대동제 메인 공연",
+          "parts": "촬영 · 편집 · 실시간 송출"
+        },
+        {
+          "id": "-6QlZQ424Xs",
+          "title": "△△ 댄스 컴퍼니 정기공연",
+          "parts": "멀티캠 촬영 · 색보정"
+        },
+        {
+          "id": "AE2iS8KZ9HI",
+          "title": "□□ 뮤지컬 갈라쇼",
+          "parts": "기획 · 촬영 · 편집"
+        }
+      ],
+      "desc": "무대 위 퍼포먼스의 에너지를 멀티캠과 정교한 편집으로 담아냅니다. 공연·축제·쇼케이스 현장의 순간을 생생한 영상으로 기록합니다."
+    },
+    {
+      "key": "film-drama",
+      "title": "Film & Drama",
+      "videos": [
+        {
+          "id": "lTuiHLEhGTA",
+          "title": "단편영화 〈무제〉",
+          "parts": "촬영감독 · 편집"
+        },
+        {
+          "id": "_8TW_QYIiAI",
+          "title": "웹드라마 〈OO〉 EP.01",
+          "parts": "연출 · 촬영 · 편집"
+        },
+        {
+          "id": "P7TWmt3zvag",
+          "title": "브랜드 필름 〈△△〉",
+          "parts": "기획 · 촬영 · 색보정"
+        }
+      ],
+      "desc": "브랜드와 이야기를 담은 필름·드라마 작업. 기획·연출부터 촬영·색보정까지 하나의 흐름으로 완성합니다."
+    },
+    {
+      "key": "advertisement",
+      "title": "Advertisement",
+      "videos": [
+        {
+          "id": "fdv-0pa9wwA",
+          "title": "OO 브랜드 캠페인 광고",
+          "parts": "기획 · 촬영 · 편집"
+        },
+        {
+          "id": "xGnmC1ujFW0",
+          "title": "△△ 신제품 런칭 광고",
+          "parts": "촬영 · 색보정"
+        },
+        {
+          "id": "nOU01K35SVc",
+          "title": "□□ 앱 프로모션 영상",
+          "parts": "모션그래픽 · 편집"
+        },
+        {
+          "id": "nCoN0HPrR8Y",
+          "title": "◇◇ 뷰티 브랜드 TVC",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "p3od_uTnYeA",
+          "title": "☆☆ 식음료 브랜드 광고",
+          "parts": "기획 · 촬영"
+        },
+        {
+          "id": "SucKk5_LUms",
+          "title": "○○ 패션 룩북 필름",
+          "parts": "촬영 · 편집"
+        }
+      ],
+      "desc": "제품과 브랜드의 메시지를 또렷하게 전하는 광고 영상. 기획·촬영·편집·모션그래픽을 한 팀에서 책임집니다."
+    },
+    {
+      "key": "highlight-video",
+      "title": "Highlight Video",
+      "videos": [
+        {
+          "id": "kq8nZ11LvPU",
+          "title": "2025 SKARTE Film 하이라이트 릴",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "Q1ARupFFLqI",
+          "title": "OO 페스티벌 애프터무비",
+          "parts": "멀티캠 · 편집"
+        },
+        {
+          "id": "lnyRXiWcKIQ",
+          "title": "△△ 기업 행사 스케치",
+          "parts": "촬영 · 편집"
+        },
+        {
+          "id": "yL15xZtbd9w",
+          "title": "□□ 연말 결산 영상",
+          "parts": "편집 · 모션그래픽"
+        }
+      ],
+      "desc": "행사와 프로젝트의 핵심 순간만 모은 하이라이트·애프터무비. 짧지만 강한 한 편으로 분위기를 전합니다."
+    },
+    {
+      "key": "live-broadcast",
+      "title": "Live Broadcast",
+      "soon": true,
+      "videos": [],
+      "desc": "현장을 실시간으로 송출하는 라이브 중계. 안정적인 송출과 멀티캠 구성으로 생생함을 그대로 전합니다."
+    }
+  ],
+  "about": "skARTe Film(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다."
+};
+
+let data;
+const $=s=>document.querySelector(s);
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800);};
+const extractId=s=>{ s=(s||'').trim(); const m=s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/); return m?m[1]:s; };
+const slug=s=>(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||('cat'+Date.now());
+
+async function init(){
+  // 1순위: 클라우드(공개 최신본) → 2순위: 미리보기 localStorage → 3순위: works.json → 4순위: 기본값
+  try{ if(SB && SB.isConfigured()){ const c=await SB.loadWorks(); if(c){ data=c; } } }catch(e){}
+  if(!data){ try{ const l=localStorage.getItem(LS_KEY); if(l){ data=JSON.parse(l); } }catch(e){} }
+  if(!data){ try{ const r=await fetch('../works.json',{cache:'no-store'}); if(r.ok) data=await r.json(); }catch(e){} }
+  if(!data) data=structuredClone(DEFAULT_WORKS);
+  $('#hero').value=data.hero||'';
+  render();
+  refreshAuthUI();
+}
+$('#hero').addEventListener('input',e=>{ data.hero=extractId(e.target.value); });
+
+function render(){
+  const wrap=$('#cats'); wrap.innerHTML='';
+  data.categories.forEach((c,ci)=>{
+    const card=document.createElement('div'); card.className='card'; card.dataset.idx=ci;
+    card.innerHTML=`
+      <div class="cat-head">
+        <span class="num">${String(ci+1).padStart(2,'0')}</span>
+        <input class="grow" data-k="title" placeholder="카테고리 이름" value="${(c.title||'').replace(/"/g,'&quot;')}">
+        <label class="chk"><input type="checkbox" data-k="soon" ${c.soon?'checked':''}> 업로드 예정(soon)</label>
+        <button class="sm" data-act="up">↑</button>
+        <button class="sm" data-act="down">↓</button>
+        <button class="sm danger" data-act="delcat">카테고리 삭제</button>
+      </div>
+      <div class="field">
+        <label>카테고리 소개문 (카테고리 페이지 상단·홈 캡션에 표시)</label>
+        <textarea data-k="desc" placeholder="이 카테고리에 대한 한두 문장 소개">${(c.desc||'').replace(/</g,'&lt;')}</textarea>
+      </div>
+      <div class="vids"></div>
+      <button class="sm" data-act="addvid">+ 영상 추가</button>
+    `;
+    // 카테고리 필드
+    card.querySelector('[data-k="title"]').addEventListener('input',e=>{c.title=e.target.value;});
+    card.querySelector('[data-k="soon"]').addEventListener('change',e=>{c.soon=e.target.checked; if(!c.soon)delete c.soon;});
+    card.querySelector('[data-k="desc"]').addEventListener('input',e=>{ c.desc=e.target.value; });
+    card.querySelector('[data-act="up"]').onclick=()=>{ if(ci>0){[data.categories[ci-1],data.categories[ci]]=[data.categories[ci],data.categories[ci-1]];render();} };
+    card.querySelector('[data-act="down"]').onclick=()=>{ if(ci<data.categories.length-1){[data.categories[ci+1],data.categories[ci]]=[data.categories[ci],data.categories[ci+1]];render();} };
+    card.querySelector('[data-act="delcat"]').onclick=()=>{ if(confirm('이 카테고리를 삭제할까요?')){ data.categories.splice(ci,1); render(); } };
+    card.querySelector('[data-act="addvid"]').onclick=()=>{ (c.videos=c.videos||[]).push({id:'',title:'',parts:''}); render(); };
+
+    const vbox=card.querySelector('.vids');
+    (c.videos||[]).forEach((v,vi)=>{
+      const row=document.createElement('div'); row.className='vid';
+      row.innerHTML=`
+        <div class="vid-top">
+          <img class="thumb" src="${v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''}" alt="">
+          <div class="vid-fields">
+            <div class="field"><label>영상 ID / 링크</label><input data-vk="id" value="${(v.id||'').replace(/"/g,'&quot;')}" placeholder="유튜브 링크 또는 ID"></div>
+            <div class="field"><label>행사 제목</label><input data-vk="title" value="${(v.title||'').replace(/"/g,'&quot;')}" placeholder="예: 2025 OO 페스티벌"></div>
+            <div class="field"><label>참여 파트</label><textarea data-vk="parts" placeholder="예: 촬영 · 편집 · 송출">${(v.parts||'').replace(/</g,'&lt;')}</textarea></div>
+            <div class="field"><label>업로드일 (선택 · YYYY-MM-DD, 영상 SEO용)</label><input data-vk="date" value="${(v.date||'').replace(/"/g,'&quot;')}" placeholder="2025-06-01"></div>
+          </div>
+          <div class="vtools">
+            <button class="sm" data-act="vup">↑</button>
+            <button class="sm" data-act="vdown">↓</button>
+            <button class="sm danger" data-act="vdel">삭제</button>
+          </div>
+        </div>`;
+      const idInput=row.querySelector('[data-vk="id"]');
+      idInput.addEventListener('input',e=>{ v.id=extractId(e.target.value); });
+      idInput.addEventListener('blur',e=>{ e.target.value=v.id; row.querySelector('.thumb').src=v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''; });
+      row.querySelector('[data-vk="title"]').addEventListener('input',e=>{v.title=e.target.value;});
+      row.querySelector('[data-vk="parts"]').addEventListener('input',e=>{v.parts=e.target.value;});
+      row.querySelector('[data-vk="date"]').addEventListener('input',e=>{ const d=e.target.value.trim(); if(d)v.date=d; else delete v.date; });
+      row.querySelector('[data-act="vup"]').onclick=()=>{ if(vi>0){[c.videos[vi-1],c.videos[vi]]=[c.videos[vi],c.videos[vi-1]];render();} };
+      row.querySelector('[data-act="vdown"]').onclick=()=>{ if(vi<c.videos.length-1){[c.videos[vi+1],c.videos[vi]]=[c.videos[vi],c.videos[vi+1]];render();} };
+      row.querySelector('[data-act="vdel"]').onclick=()=>{ c.videos.splice(vi,1); render(); };
+      vbox.appendChild(row);
+    });
+    // 카테고리명 입력 시 탭 라벨도 갱신
+    card.querySelector('[data-k="title"]').addEventListener('input',e=>{ const t=document.querySelector('.cat-tab[data-idx="'+ci+'"] .tlabel'); if(t)t.textContent=e.target.value||'(이름 없음)'; });
+    wrap.appendChild(card);
+  });
+  if(activeIdx>=data.categories.length) activeIdx=data.categories.length-1;
+  if(activeIdx<0) activeIdx=0;
+  buildTabs(); showActive();
+}
+let activeIdx=0;
+function buildTabs(){
+  const t=$('#catTabs'); t.innerHTML='';
+  data.categories.forEach((c,i)=>{
+    const b=document.createElement('button'); b.className='cat-tab'+(i===activeIdx?' active':''); b.dataset.idx=i;
+    b.innerHTML='<span class="tnum">'+String(i+1).padStart(2,'0')+'</span><span class="tlabel">'+((c.title||'(이름 없음)')).replace(/</g,'&lt;')+'</span>'+(c.soon?' · soon':'');
+    b.onclick=()=>{ activeIdx=i; buildTabs(); showActive(); window.scrollTo({top:0,behavior:'smooth'}); };
+    t.appendChild(b);
+  });
+  const add=document.createElement('button'); add.className='cat-tab add'; add.textContent='+ 카테고리 추가';
+  add.onclick=()=>{ const tt='새 카테고리'; data.categories.push({key:slug(tt)+'-'+Date.now().toString(36).slice(-3),title:tt,videos:[]}); activeIdx=data.categories.length-1; render(); };
+  t.appendChild(add);
+}
+function showActive(){ document.querySelectorAll('#cats .card').forEach(card=>{ card.classList.toggle('show', +card.dataset.idx===activeIdx); }); }
+
+$('#addCat').onclick=()=>{ const t='새 카테고리'; data.categories.push({key:slug(t)+'-'+Date.now().toString(36).slice(-3),title:t,videos:[]}); render(); };
+
+function normalize(){
+  // key 자동 보정(빈 값/중복 방지)
+  const seen={};
+  data.categories.forEach(c=>{
+    let k=c.key||slug(c.title); if(seen[k]) k=k+'-'+Date.now().toString(36).slice(-3); seen[k]=1; c.key=k;
+    c.videos=(c.videos||[]).filter(v=>v.id);
+  });
+  data.hero=extractId(data.hero||'');
+}
+$('#previewBtn').onclick=()=>{ normalize(); localStorage.setItem(LS_KEY,JSON.stringify(data)); toast('미리보기 저장됨 — 사이트 새로고침'); };
+$('#cloudSaveBtn').onclick=async()=>{
+  if(!SB || !SB.isConfigured()){ alert('Supabase가 설정되지 않았습니다. supabase.js 에 URL/KEY를 입력하세요.'); return; }
+  if(!authToken){ alert('먼저 로그인하세요 (우측 상단).'); return; }
+  normalize();
+  const btn=$('#cloudSaveBtn'); const old=btn.textContent; btn.disabled=true; btn.textContent='저장 중…';
+  try{
+    await SB.saveWorks(data, authToken);
+    localStorage.setItem(LS_KEY,JSON.stringify(data)); // 로컬도 동기화
+    toast('☁ 클라우드 저장 완료 — 공개 사이트 반영됨');
+  }catch(err){
+    if(/401|403|JWT|token/i.test(err.message)){
+      authToken=null; try{ sessionStorage.removeItem(TOKEN_KEY); }catch(e){} refreshAuthUI();
+      alert('세션이 만료되었습니다. 다시 로그인 후 저장하세요.');
+    }else{
+      alert('클라우드 저장 실패: '+err.message);
+    }
+  }finally{ btn.disabled=false; btn.textContent=old; }
+};
+$('#downloadBtn').onclick=()=>{ normalize(); const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='works.json'; a.click(); toast('works.json 다운로드'); };
+$('#reloadDefault').onclick=()=>{ if(confirm('기본값으로 되돌릴까요? (저장 전까지 반영 안 됨)')){ data=structuredClone(DEFAULT_WORKS); $('#hero').value=data.hero; render(); } };
+$('#importBtn').onclick=()=>$('#importFile').click();
+$('#importFile').onchange=e=>{ const f=e.target.files[0]; if(!f)return; const r=new FileReader(); r.onload=()=>{ try{ data=JSON.parse(r.result); $('#hero').value=data.hero||''; render(); toast('가져오기 완료'); }catch(err){ alert('JSON 파싱 오류: '+err.message); } }; r.readAsText(f); };
+
+init();
+
+</script>
+</body>
+</html>
