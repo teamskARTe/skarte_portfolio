@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>skARTe Film | 영상 제작사 — 브랜드필름·광고·공연·하이라이트 영상</title>
+<script>
+try{ if(sessionStorage.getItem('skarte_intro_seen')) document.documentElement.classList.add('intro-seen'); }catch(e){}
+</script>
 <meta name="description" content="skARTe Film(skartefilms)는 인천 기반 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계 영상을 기획·촬영·편집합니다.">
 <meta name="theme-color" content="#000000">
 <link rel="canonical" href="https://skarte.kr/">
@@ -331,6 +334,7 @@ body.lock{overflow:hidden}
   display:flex;align-items:center;justify-content:center;cursor:pointer;
   transition:background-color .55s ease .2s;
 }
+html.intro-seen #intro{display:none!important;animation:none!important;transition:none!important}
 #intro.toNav{background-color:transparent;pointer-events:none}
 #intro.skip{animation:none;transition:opacity .35s;opacity:0;pointer-events:none}
 #introSkip{position:absolute;right:24px;bottom:22px;z-index:5001;background:none;border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.82);font:inherit;font-size:12px;letter-spacing:.18em;padding:9px 16px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
@@ -564,7 +568,7 @@ body.lock{overflow:hidden}
 <script>
 /* 인트로 시퀀스 종료 처리 */
 const intro = document.getElementById('intro');
-if (intro && sessionStorage.getItem('skarte_intro_seen')) {
+if (intro && document.documentElement.classList.contains('intro-seen')) {
   intro.remove();
 } else if (intro) {
   sessionStorage.setItem('skarte_intro_seen', '1');
