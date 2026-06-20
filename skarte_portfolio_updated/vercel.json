@@ -3,17 +3,6 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.skarte.kr"
-        }
-      ],
-      "destination": "https://skarte.kr/:path*",
-      "permanent": true
-    },
-    {
       "source": "/works/ad",
       "destination": "/works/advertisement",
       "permanent": true
