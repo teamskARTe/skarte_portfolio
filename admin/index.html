@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>skARTe · Admin</title>
+<title>skARTe Film · Admin</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
@@ -86,22 +86,33 @@ hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
 <body>
 <header>
   <div class="brand">
-    <img src="/favicon.svg" alt="skARTe">
-    <div class="bt"><b>skARTe</b><small>Works Admin</small></div>
+    <img src="/favicon.svg" alt="skARTe Film">
+    <div class="bt"><b>skARTe Film</b><small>Works Admin</small></div>
   </div>
   <div class="actions">
     <button id="reloadDefault">기본값</button>
     <button id="importBtn">JSON 가져오기</button>
     <input type="file" id="importFile" accept="application/json" hidden>
     <button id="previewBtn">미리보기 저장</button>
-    <button class="primary" id="downloadBtn">works.json 다운로드</button>
+    <button id="downloadBtn">works.json 다운로드</button>
+    <button class="primary" id="cloudSaveBtn">☁ 클라우드 저장(공개 반영)</button>
   </div>
 </header>
+<div id="authbar" style="position:sticky;top:69px;z-index:15;background:#0e0e0e;border-bottom:1px solid var(--line);padding:11px 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px">
+  <span id="authStatus" style="color:var(--mut)">클라우드: 확인 중…</span>
+  <span style="flex:1"></span>
+  <input id="authEmail" type="email" placeholder="관리자 이메일" autocomplete="username"
+    style="font:inherit;color:var(--tx);padding:7px 11px;border:1px solid var(--line);background:#0a0a0a;width:200px">
+  <input id="authPw" type="password" placeholder="비밀번호" autocomplete="current-password"
+    style="font:inherit;color:var(--tx);padding:7px 11px;border:1px solid var(--line);background:#0a0a0a;width:150px">
+  <button class="sm" id="loginBtn">로그인</button>
+  <button class="sm" id="logoutBtn" hidden>로그아웃</button>
 <main>
   <div class="hint">
     <b>사용법</b> — 카테고리·영상을 편집한 뒤,<br>
-    ① <b>미리보기 저장</b>: 이 브라우저에서 사이트를 열면 바로 반영(공개 사이트는 아직 그대로).<br>
-    ② <b>works.json 다운로드</b> → 받은 파일을 배포 폴더 루트의 <b>works.json</b>으로 교체하고 다시 배포(git push)하면 <b>모든 방문자에게 반영</b>됩니다.<br>
+    ① <b>로그인</b>(우측 상단): Supabase 관리자 계정으로 로그인하면 클라우드 저장이 가능합니다.<br>
+    ② <b>☁ 클라우드 저장</b>: 변경 내용이 <b>모든 방문자에게 바로 공개 반영</b>됩니다 (재배포 불필요).<br>
+    ③ <b>미리보기 저장</b>: 이 브라우저에서만 임시로 확인 (공개 사이트는 그대로).<br>
     <span class="muted">영상 ID는 유튜브 링크의 v= 뒤 또는 youtu.be/ 뒤 11자리입니다. 전체 링크를 붙여넣어도 자동으로 ID만 추출합니다.</span>
   </div>
 
@@ -119,9 +130,60 @@ hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
 </main>
 <div class="toast" id="toast"></div>
 
+<script src="/supabase.js"></script>
 <script>
 
 const LS_KEY='skarte_works';
+
+/* ===== Supabase 클라우드 연동 ===== */
+const SB = window.SKARTE_SUPABASE;
+const TOKEN_KEY = 'skarte_admin_token';
+let authToken = null;
+try{ authToken = sessionStorage.getItem(TOKEN_KEY) || null; }catch(e){}
+
+function refreshAuthUI(){
+  const st=document.getElementById('authStatus');
+  const loginBtn=document.getElementById('loginBtn');
+  const logoutBtn=document.getElementById('logoutBtn');
+  const emailIn=document.getElementById('authEmail');
+  const pwIn=document.getElementById('authPw');
+  const cloudBtn=document.getElementById('cloudSaveBtn');
+  if(!SB || !SB.isConfigured()){
+    st.textContent='클라우드: Supabase 미설정 (supabase.js 에 URL/KEY 입력 필요)';
+    st.style.color='#ff6b5e';
+    loginBtn.disabled=true; cloudBtn.disabled=true;
+    return;
+  }
+  if(authToken){
+    st.textContent='클라우드: 로그인됨 ✓ — 저장 시 공개 사이트에 즉시 반영';
+    st.style.color='#7CFFB0';
+    loginBtn.hidden=true; logoutBtn.hidden=false; emailIn.hidden=true; pwIn.hidden=true;
+    cloudBtn.disabled=false;
+  }else{
+    st.textContent='클라우드: 로그아웃 상태 — 저장하려면 로그인하세요';
+    st.style.color='var(--mut)';
+    loginBtn.hidden=false; logoutBtn.hidden=true; emailIn.hidden=false; pwIn.hidden=false;
+    cloudBtn.disabled=false; // 누르면 로그인 안내
+  }
+}
+
+document.getElementById('loginBtn').onclick=async()=>{
+  const email=document.getElementById('authEmail').value.trim();
+  const pw=document.getElementById('authPw').value;
+  if(!email||!pw){ toast('이메일과 비밀번호를 입력하세요'); return; }
+  try{
+    const res=await SB.signIn(email,pw);
+    authToken=res.access_token;
+    try{ sessionStorage.setItem(TOKEN_KEY,authToken); }catch(e){}
+    document.getElementById('authPw').value='';
+    toast('로그인 성공'); refreshAuthUI();
+  }catch(err){ alert('로그인 실패: '+err.message); }
+};
+document.getElementById('logoutBtn').onclick=()=>{
+  authToken=null; try{ sessionStorage.removeItem(TOKEN_KEY); }catch(e){}
+  toast('로그아웃됨'); refreshAuthUI();
+};
+
 const DEFAULT_WORKS={
   "hero": "kq8nZ11LvPU",
   "categories": [
@@ -212,7 +274,7 @@ const DEFAULT_WORKS={
       "videos": [
         {
           "id": "kq8nZ11LvPU",
-          "title": "2025 SKARTE 하이라이트 릴",
+          "title": "2025 SKARTE Film 하이라이트 릴",
           "parts": "촬영 · 편집"
         },
         {
@@ -241,7 +303,7 @@ const DEFAULT_WORKS={
       "desc": "현장을 실시간으로 송출하는 라이브 중계. 안정적인 송출과 멀티캠 구성으로 생생함을 그대로 전합니다."
     }
   ],
-  "about": "skARTe(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다."
+  "about": "skARTe Film(skartefilms)는 인천을 기반으로 활동하는 영상 제작사입니다. 공연·브랜드필름·광고·하이라이트·라이브 중계까지, 기획부터 촬영·편집·송출을 한 팀에서 책임집니다. 브랜드와 무대의 순간을 또렷한 영상으로 남깁니다."
 };
 
 let data;
@@ -251,11 +313,14 @@ const extractId=s=>{ s=(s||'').trim(); const m=s.match(/(?:v=|youtu\.be\/|embed\
 const slug=s=>(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||('cat'+Date.now());
 
 async function init(){
-  try{ const l=localStorage.getItem(LS_KEY); if(l){ data=JSON.parse(l); } }catch(e){}
+  // 1순위: 클라우드(공개 최신본) → 2순위: 미리보기 localStorage → 3순위: works.json → 4순위: 기본값
+  try{ if(SB && SB.isConfigured()){ const c=await SB.loadWorks(); if(c){ data=c; } } }catch(e){}
+  if(!data){ try{ const l=localStorage.getItem(LS_KEY); if(l){ data=JSON.parse(l); } }catch(e){} }
   if(!data){ try{ const r=await fetch('../works.json',{cache:'no-store'}); if(r.ok) data=await r.json(); }catch(e){} }
   if(!data) data=structuredClone(DEFAULT_WORKS);
   $('#hero').value=data.hero||'';
   render();
+  refreshAuthUI();
 }
 $('#hero').addEventListener('input',e=>{ data.hero=extractId(e.target.value); });
 
@@ -352,6 +417,24 @@ function normalize(){
   data.hero=extractId(data.hero||'');
 }
 $('#previewBtn').onclick=()=>{ normalize(); localStorage.setItem(LS_KEY,JSON.stringify(data)); toast('미리보기 저장됨 — 사이트 새로고침'); };
+$('#cloudSaveBtn').onclick=async()=>{
+  if(!SB || !SB.isConfigured()){ alert('Supabase가 설정되지 않았습니다. supabase.js 에 URL/KEY를 입력하세요.'); return; }
+  if(!authToken){ alert('먼저 로그인하세요 (우측 상단).'); return; }
+  normalize();
+  const btn=$('#cloudSaveBtn'); const old=btn.textContent; btn.disabled=true; btn.textContent='저장 중…';
+  try{
+    await SB.saveWorks(data, authToken);
+    localStorage.setItem(LS_KEY,JSON.stringify(data)); // 로컬도 동기화
+    toast('☁ 클라우드 저장 완료 — 공개 사이트 반영됨');
+  }catch(err){
+    if(/401|403|JWT|token/i.test(err.message)){
+      authToken=null; try{ sessionStorage.removeItem(TOKEN_KEY); }catch(e){} refreshAuthUI();
+      alert('세션이 만료되었습니다. 다시 로그인 후 저장하세요.');
+    }else{
+      alert('클라우드 저장 실패: '+err.message);
+    }
+  }finally{ btn.disabled=false; btn.textContent=old; }
+};
 $('#downloadBtn').onclick=()=>{ normalize(); const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='works.json'; a.click(); toast('works.json 다운로드'); };
 $('#reloadDefault').onclick=()=>{ if(confirm('기본값으로 되돌릴까요? (저장 전까지 반영 안 됨)')){ data=structuredClone(DEFAULT_WORKS); $('#hero').value=data.hero; render(); } };
 $('#importBtn').onclick=()=>$('#importFile').click();
