@@ -8,8 +8,8 @@
    ▶ anon 키는 공개되어도 안전합니다 (RLS 로 쓰기를 막아둠).
    ===================================================================== */
 window.SKARTE_SUPABASE = {
-  url:  "https://YOUR-PROJECT-ref.supabase.co",
-  anon: "YOUR-ANON-PUBLIC-KEY",
+  url:  "https://qgblqeftvegolvospsyv.supabase.co",
+  anon: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFnYmxxZWZ0dmVnb2x2b3Nwc3l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0MDM0MDYsImV4cCI6MjA5Njk3OTQwNn0.mKHwmIae1mtKfM9W5ct1GYpnPi0GRNaR4Q5JWgYcH8E",
   // works 데이터를 저장하는 site_data 테이블의 key
   worksKey: "works"
 };
