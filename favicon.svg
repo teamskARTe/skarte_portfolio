@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" shape-rendering="geometricPrecision">
 <rect width="100" height="100" rx="20" fill="#fff"/>
-<g transform="translate(19.00,26.73) scale(0.12890)"><path d="M1,1 L1,360 L200,359 L200,113 L335,360 L480,360 L285,5 L276,1Z M324,298 L429,298 L452,343 L349,343Z M292,237 L397,237 L420,282 L317,282Z M259,175 L364,175 L387,220 L284,220Z M227,114 L332,114 L355,159 L252,159Z" fill="#000" fill-rule="evenodd"/></g>
+<g transform="translate(14.517,13.852) scale(0.14784)"><path d="M1,1 L2,360 L200,359 L200,112 L335,360 L479,360 L292,14 L284,5 L273,1Z M324,298 L429,298 L452,343 L349,343Z M288,230 L393,230 L416,275 L313,275Z M252,162 L357,162 L380,207 L277,207Z M212,94 L317,94 L340,139 L237,139Z" fill="#000" fill-rule="evenodd"/><circle cx="432.12" cy="440.14" r="48.13" fill="#000"/><circle cx="304.12" cy="440.15" r="48.13" fill="#000"/><circle cx="176.12" cy="440.15" r="48.13" fill="#000"/><circle cx="48.16" cy="440.13" r="48.09" fill="#000"/></g>
 </svg>
