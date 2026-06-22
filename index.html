@@ -376,10 +376,19 @@ html.intro-seen #intro{display:none!important;animation:none!important}
   left:21.439%;top:21.494%;width:60.085%;height:45.032%;
   transform-origin:50% 50%;
   transform:translateY(-24%) rotate(-90deg);
-  animation:bodyTurn .7s cubic-bezier(.68,0,.22,1) 1.8s forwards;
+  animation:bodyTurn .7s cubic-bezier(.68,0,.22,1) 1.8s forwards,
+            clapClip 1.1s steps(1) 1.05s forwards;
   /* 클립을 본체(.clap) 로컬좌표로 걸어, 본체와 함께 회전.
-     본체 윗변(로컬 top -0.3%) 위로 삐져나오는 날 꼬리만 제거 — 본체가 -90°일 때 화면 왼쪽 = 본체 윗변 */
-  clip-path:polygon(-200% -0.3%, 300% -0.3%, 300% 300%, -200% 300%);
+     본체 윗변(로컬 top -0.3%) 위로 삐져나오는 날 꼬리만 제거 — 본체가 -90°일 때 화면 왼쪽 = 본체 윗변.
+     날 각도가 양수인 구간(착!~+2°)에서만 ON, 음수 구간(들어올림/반동)은 OFF.
+     %는 slateGo(dur 1.1s/delay 1.05s)와 동일 타임라인 — 0교차: 46.5% / 61.6% / 74.5% */
+}
+@keyframes clapClip{
+  0%    {clip-path:none}                                                  /* 음수 이전 */
+  46.5% {clip-path:polygon(-200% -0.3%, 300% -0.3%, 300% 300%, -200% 300%)} /* 양수 진입(착!) */
+  61.6% {clip-path:none}                                                  /* 음수(반동) 진입 */
+  74.5% {clip-path:polygon(-200% -0.3%, 300% -0.3%, 300% 300%, -200% 300%)} /* 다시 양수 */
+  100%  {clip-path:polygon(-200% -0.3%, 300% -0.3%, 300% 300%, -200% 300%)} /* 0°까지 양수 유지 */
 }
 @keyframes bodyTurn{
   to{transform:translateY(0) rotate(0deg)}
