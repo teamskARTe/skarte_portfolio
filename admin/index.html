@@ -9,78 +9,158 @@
 <style>
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
 :root{
-  --bg:#0a0a0a; --panel:#121212; --panel2:#171717;
+  --bg:#0a0a0a; --panel:#131313; --panel2:#1a1a1a; --panel3:#0e0e0e;
   --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.07);
-  --tx:#f2f2f2; --mut:#8a8a8a; --acc:#fff;
+  --tx:#f2f2f2; --mut:#8a8a8a; --mut2:#6a6a6a; --acc:#fff;
+  --ok:#7CFFB0; --warn:#ff6b5e;
+  --hdr-h:68px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;-webkit-font-smoothing:antialiased}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:#fff;color:#000}
 
-header{position:sticky;top:0;z-index:20;background:rgba(10,10,10,.86);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px}
+/* ===== Header ===== */
+header{position:sticky;top:0;z-index:20;background:rgba(10,10,10,.9);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;flex:none}
 .brand img{width:30px;height:30px;border-radius:0}
 .brand .bt{display:flex;flex-direction:column;line-height:1.1}
-.brand .bt b{font-size:16px;font-weight:800;letter-spacing:.02em}
-.brand .bt small{font-size:9.5px;letter-spacing:.28em;color:var(--mut);text-transform:uppercase;margin-top:2px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
+.brand .bt b{font-size:15px;font-weight:800;letter-spacing:.02em}
+.brand .bt small{font-size:9px;letter-spacing:.26em;color:var(--mut);text-transform:uppercase;margin-top:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
 button{font:inherit;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--tx);
-  padding:9px 16px;border-radius:0;letter-spacing:.04em;transition:background .25s,color .25s,border-color .25s}
+  padding:9px 15px;border-radius:0;letter-spacing:.03em;font-size:13.5px;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
 button:hover{background:#fff;color:#000;border-color:#fff}
-button.primary{background:#fff;color:#000;border-color:#fff}
+button:active{transform:translateY(1px)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:disabled:hover{background:transparent;color:var(--tx);border-color:var(--line)}
+button.primary{background:#fff;color:#000;border-color:#fff;font-weight:700}
 button.primary:hover{background:#d8d8d8;border-color:#d8d8d8}
-button.sm{padding:5px 11px;font-size:12.5px;border-radius:0}
-button.danger{color:#ff6b5e;border-color:rgba(255,107,94,.45)}
-button.danger:hover{background:#ff6b5e;color:#0a0a0a;border-color:#ff6b5e}
+button.sm{padding:6px 11px;font-size:12.5px}
+button.icon{padding:6px 10px;min-width:34px;font-size:14px;color:var(--mut)}
+button.icon:hover{color:#000}
+button.danger{color:var(--warn);border-color:rgba(255,107,94,.4)}
+button.danger:hover{background:var(--warn);color:#0a0a0a;border-color:var(--warn)}
 
-main{max-width:940px;margin:0 auto;padding:30px 24px 90px}
-.hint{background:linear-gradient(180deg,#141414,#101010);border:1px solid var(--line);border-radius:0;padding:16px 18px;margin-bottom:26px;font-size:13.5px;color:#c7c7c7}
+/* ===== Auth bar ===== */
+#authbar{position:sticky;top:var(--hdr-h);z-index:15;background:var(--panel3);border-bottom:1px solid var(--line);
+  padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px}
+#authbar .auth-status{color:var(--mut);flex:1 1 auto;min-width:180px}
+#authbar .auth-inputs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#authbar input{font:inherit;font-size:13px;color:var(--tx);padding:7px 11px;border:1px solid var(--line);background:#070707;border-radius:0}
+#authbar input:focus{outline:none;border-color:rgba(255,255,255,.4)}
+#authbar #authEmail{width:190px;max-width:46vw}
+#authbar #authPw{width:140px;max-width:34vw}
+
+/* ===== Layout ===== */
+main{max-width:1040px;margin:0 auto;padding:24px 24px 100px}
+.hint{background:linear-gradient(180deg,#161616,#101010);border:1px solid var(--line);border-left:3px solid rgba(255,255,255,.35);
+  border-radius:0;padding:15px 18px;margin-bottom:24px;font-size:13px;color:#c7c7c7;line-height:1.7}
 .hint b{color:#fff}
 .hint .muted{color:var(--mut)}
 
-.eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mut);margin:30px 2px 12px}
+.eyebrow{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin:26px 2px 12px;display:flex;align-items:center;gap:12px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line2)}
 
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
-.field label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
-.field input,.field textarea{font:inherit;color:var(--tx);padding:10px 12px;border:1px solid var(--line);border-radius:0;background:#0e0e0e;width:100%;transition:border-color .2s}
-.field input:focus,.field textarea:focus{outline:none;border-color:rgba(255,255,255,.45)}
-.field textarea{resize:vertical;min-height:56px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:500}
+.field input,.field textarea{font:inherit;font-size:14px;color:var(--tx);padding:10px 12px;border:1px solid var(--line);border-radius:0;background:var(--panel3);width:100%;transition:border-color .2s,background .2s}
+.field input:focus,.field textarea:focus{outline:none;border-color:rgba(255,255,255,.5);background:#0a0a0a}
+.field input::placeholder,.field textarea::placeholder{color:var(--mut2)}
+.field textarea{resize:vertical;min-height:54px;line-height:1.5}
 
-.card{background:var(--panel);border:1px solid var(--line);border-radius:0;padding:18px;margin-bottom:18px}
-.cat-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-.cat-head .num{font-size:13px;letter-spacing:.18em;color:var(--mut);min-width:26px}
-.cat-head .grow{flex:1;min-width:150px;font-size:17px;font-weight:700;font-family:inherit;color:#fff;
-  background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:6px 2px}
-.cat-head .grow:focus{outline:none;border-bottom-color:rgba(255,255,255,.55)}
-.cat-head label.chk{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#bdbdbd;flex:none;letter-spacing:.02em}
-.cat-head input[type=checkbox]{accent-color:#fff;width:15px;height:15px}
+/* Hero card */
+.hero-card{background:var(--panel);border:1px solid var(--line);padding:18px 20px;margin-bottom:8px;max-width:480px}
 
-.vid{border:1px solid var(--line2);border-radius:0;padding:13px;margin-bottom:11px;background:var(--panel2)}
-.vid .vid-top{display:flex;gap:13px;align-items:flex-start}
-.vid .thumb{width:130px;aspect-ratio:16/9;object-fit:cover;border-radius:0;background:#000;border:1px solid var(--line2);flex:none}
-.vid .vid-fields{flex:1;display:flex;flex-direction:column;gap:9px;min-width:0}
-.vid .vid-fields .field{margin:0}
-.vid .vtools{display:flex;flex-direction:column;gap:7px;flex:none}
+/* ===== Category card ===== */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:0;padding:0;margin-bottom:18px;overflow:hidden}
+.cat-head{display:flex;align-items:center;gap:12px;padding:16px 20px;background:linear-gradient(180deg,#171717,#131313);
+  border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cat-head .num{font-size:13px;letter-spacing:.16em;color:var(--mut);min-width:24px;font-weight:600}
+.cat-head .grow{flex:1;min-width:150px;font-size:18px;font-weight:700;font-family:inherit;color:#fff;
+  background:transparent;border:0;border-bottom:1px solid transparent;border-radius:0;padding:5px 2px;transition:border-color .2s}
+.cat-head .grow:hover{border-bottom-color:var(--line)}
+.cat-head .grow:focus{outline:none;border-bottom-color:rgba(255,255,255,.6)}
+.cat-head label.chk{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#bdbdbd;flex:none;letter-spacing:.02em;cursor:pointer;user-select:none}
+.cat-head input[type=checkbox]{accent-color:#fff;width:15px;height:15px;cursor:pointer}
+.cat-head .head-tools{display:flex;gap:6px;flex:none}
+.cat-body{padding:18px 20px 20px}
+.cat-body>.field{margin-bottom:18px}
+
+.vids-label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:6px 0 12px;display:flex;align-items:center;gap:8px}
+.vids-label .cnt{color:#fff;background:rgba(255,255,255,.1);padding:1px 8px;font-size:11px;letter-spacing:.05em}
+
+/* ===== Video row ===== */
+.vid{border:1px solid var(--line2);border-radius:0;padding:14px;margin-bottom:12px;background:var(--panel2);position:relative;transition:border-color .2s}
+.vid:hover{border-color:rgba(255,255,255,.16)}
+.vid .vid-top{display:grid;grid-template-columns:148px 1fr auto;gap:16px;align-items:start}
+.vid .thumb-wrap{position:relative;flex:none}
+.vid .thumb{width:148px;aspect-ratio:16/9;object-fit:cover;border-radius:0;background:#000;border:1px solid var(--line2);display:block}
+.vid .thumb-wrap .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.1em;color:var(--mut2);text-transform:uppercase;pointer-events:none}
+.vid .vid-fields{min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:11px 14px}
+.vid .vid-fields .field.full{grid-column:1/-1}
+.vid .vtools{display:flex;flex-direction:column;gap:6px;flex:none}
 
 .muted{color:var(--mut);font-size:13px}
-hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
 
+/* ===== Toast ===== */
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(8px);background:#fff;color:#000;
-  padding:11px 20px;border-radius:0;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;font-size:14px;font-weight:600;letter-spacing:.02em}
+  padding:11px 22px;border-radius:0;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;font-size:14px;font-weight:600;letter-spacing:.02em;z-index:50;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:90vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-.cat-tabs{position:sticky;top:69px;z-index:9;display:flex;gap:8px;flex-wrap:wrap;padding:12px 0 16px;background:var(--bg)}
+/* ===== Category tabs ===== */
+.cat-tabs{position:sticky;top:calc(var(--hdr-h) + 41px);z-index:9;display:flex;gap:8px;flex-wrap:wrap;padding:14px 0 16px;background:var(--bg);margin:0 -4px}
 .cat-tab{font:inherit;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--mut);
-  padding:8px 15px;border-radius:0;font-size:13px;letter-spacing:.03em;transition:all .2s;display:flex;align-items:center;gap:7px}
+  padding:8px 14px;border-radius:0;font-size:13px;letter-spacing:.02em;transition:all .2s;display:flex;align-items:center;gap:7px}
 .cat-tab:hover{color:#fff;border-color:rgba(255,255,255,.4)}
-.cat-tab.active{background:#fff;color:#000;border-color:#fff}
-.cat-tab .tnum{font-size:11px;opacity:.6}
+.cat-tab.active{background:#fff;color:#000;border-color:#fff;font-weight:600}
+.cat-tab .tnum{font-size:11px;opacity:.55}
 .cat-tab.add{border-style:dashed;color:#bdbdbd}
+.cat-tab.add:hover{color:#fff;border-color:rgba(255,255,255,.5)}
 #cats .card{display:none}
 #cats .card.show{display:block}
 #addCat{display:none}
+
+/* ===== Mobile (≤720px) ===== */
+@media (max-width:720px){
+  :root{--hdr-h:auto}
+  header{padding:12px 16px;gap:12px}
+  header .brand{flex:1 1 100%}
+  .actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .actions button{width:100%;font-size:12.5px;padding:11px 8px;text-align:center}
+  .actions button.primary{grid-column:1/-1}
+  #authbar{position:static;padding:12px 16px;flex-direction:column;align-items:stretch}
+  #authbar .auth-status{min-width:0;flex:none}
+  #authbar .auth-inputs{flex-direction:column;align-items:stretch}
+  #authbar input,#authbar #authEmail,#authbar #authPw{width:100%;max-width:none}
+  #authbar .auth-inputs button{width:100%}
+  main{padding:18px 16px 80px}
+  .hint{padding:14px;font-size:12.5px}
+  .hero-card{padding:16px}
+  .cat-tabs{position:static;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:10px 16px 14px}
+  .cat-tabs::-webkit-scrollbar{display:none}
+  .cat-tab{flex:none;white-space:nowrap}
+  .cat-head{padding:14px 16px;gap:10px}
+  .cat-head .grow{font-size:16px;flex:1 1 100%;order:-1}
+  .cat-head .num{order:-2}
+  .cat-head label.chk{flex:1 1 auto}
+  .cat-head .head-tools{margin-left:auto}
+  .cat-body{padding:16px}
+  .vid{padding:12px}
+  .vid .vid-top{grid-template-columns:1fr;gap:12px}
+  .vid .thumb,.vid .thumb-wrap{width:100%}
+  .vid .thumb{aspect-ratio:16/9}
+  .vid .vid-fields{grid-template-columns:1fr;gap:11px}
+  .vid .vtools{flex-direction:row;justify-content:flex-end}
+  .vid .vtools button{flex:1}
+  .vid .vtools button.danger{flex:0 0 auto}
+}
+@media (max-width:420px){
+  .actions{grid-template-columns:1fr}
+  .actions button.primary{grid-column:auto}
+}
 </style>
 </head>
 <body>
@@ -98,15 +178,15 @@ hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
     <button class="primary" id="cloudSaveBtn">☁ 클라우드 저장(공개 반영)</button>
   </div>
 </header>
-<div id="authbar" style="position:sticky;top:69px;z-index:15;background:#0e0e0e;border-bottom:1px solid var(--line);padding:11px 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px">
-  <span id="authStatus" style="color:var(--mut)">클라우드: 확인 중…</span>
-  <span style="flex:1"></span>
-  <input id="authEmail" type="email" placeholder="관리자 이메일" autocomplete="username"
-    style="font:inherit;color:var(--tx);padding:7px 11px;border:1px solid var(--line);background:#0a0a0a;width:200px">
-  <input id="authPw" type="password" placeholder="비밀번호" autocomplete="current-password"
-    style="font:inherit;color:var(--tx);padding:7px 11px;border:1px solid var(--line);background:#0a0a0a;width:150px">
-  <button class="sm" id="loginBtn">로그인</button>
-  <button class="sm" id="logoutBtn" hidden>로그아웃</button>
+<div id="authbar">
+  <span id="authStatus" class="auth-status">클라우드: 확인 중…</span>
+  <div class="auth-inputs">
+    <input id="authEmail" type="email" placeholder="관리자 이메일" autocomplete="username">
+    <input id="authPw" type="password" placeholder="비밀번호" autocomplete="current-password">
+    <button class="sm" id="loginBtn">로그인</button>
+    <button class="sm" id="logoutBtn" hidden>로그아웃</button>
+  </div>
+</div>
 <main>
   <div class="hint">
     <b>사용법</b> — 카테고리·영상을 편집한 뒤,<br>
@@ -116,14 +196,15 @@ hr{border:0;border-top:1px solid var(--line2);margin:0 0 14px}
     <span class="muted">영상 ID는 유튜브 링크의 v= 뒤 또는 youtu.be/ 뒤 11자리입니다. 전체 링크를 붙여넣어도 자동으로 ID만 추출합니다.</span>
   </div>
 
-  <div class="card">
-    <div class="field" style="max-width:360px;margin:0">
+  <p class="eyebrow">메인 영상</p>
+  <div class="hero-card">
+    <div class="field">
       <label>히어로(메인) 대표영상 ID 또는 링크</label>
       <input id="hero" placeholder="예: kq8nZ11LvPU">
     </div>
   </div>
 
-  <p class="eyebrow">Categories</p>
+  <p class="eyebrow">카테고리</p>
   <div id="catTabs" class="cat-tabs"></div>
   <div id="cats"></div>
   <button class="sm" id="addCat">+ 카테고리 추가</button>
@@ -328,21 +409,27 @@ function render(){
   const wrap=$('#cats'); wrap.innerHTML='';
   data.categories.forEach((c,ci)=>{
     const card=document.createElement('div'); card.className='card'; card.dataset.idx=ci;
+    const vcount=(c.videos||[]).length;
     card.innerHTML=`
       <div class="cat-head">
         <span class="num">${String(ci+1).padStart(2,'0')}</span>
         <input class="grow" data-k="title" placeholder="카테고리 이름" value="${(c.title||'').replace(/"/g,'&quot;')}">
         <label class="chk"><input type="checkbox" data-k="soon" ${c.soon?'checked':''}> 업로드 예정(soon)</label>
-        <button class="sm" data-act="up">↑</button>
-        <button class="sm" data-act="down">↓</button>
-        <button class="sm danger" data-act="delcat">카테고리 삭제</button>
+        <div class="head-tools">
+          <button class="icon" data-act="up" title="위로">↑</button>
+          <button class="icon" data-act="down" title="아래로">↓</button>
+          <button class="sm danger" data-act="delcat">삭제</button>
+        </div>
       </div>
-      <div class="field">
-        <label>카테고리 소개문 (카테고리 페이지 상단·홈 캡션에 표시)</label>
-        <textarea data-k="desc" placeholder="이 카테고리에 대한 한두 문장 소개">${(c.desc||'').replace(/</g,'&lt;')}</textarea>
+      <div class="cat-body">
+        <div class="field">
+          <label>카테고리 소개문 (카테고리 페이지 상단·홈 캡션에 표시)</label>
+          <textarea data-k="desc" placeholder="이 카테고리에 대한 한두 문장 소개">${(c.desc||'').replace(/</g,'&lt;')}</textarea>
+        </div>
+        <div class="vids-label">영상 목록 <span class="cnt">${vcount}</span></div>
+        <div class="vids"></div>
+        <button class="sm" data-act="addvid">+ 영상 추가</button>
       </div>
-      <div class="vids"></div>
-      <button class="sm" data-act="addvid">+ 영상 추가</button>
     `;
     // 카테고리 필드
     card.querySelector('[data-k="title"]').addEventListener('input',e=>{c.title=e.target.value;});
@@ -358,22 +445,25 @@ function render(){
       const row=document.createElement('div'); row.className='vid';
       row.innerHTML=`
         <div class="vid-top">
-          <img class="thumb" src="${v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''}" alt="">
+          <div class="thumb-wrap">
+            <img class="thumb" src="${v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''}" alt="">
+            ${v.id?'':'<span class="ph">미리보기</span>'}
+          </div>
           <div class="vid-fields">
-            <div class="field"><label>영상 ID / 링크</label><input data-vk="id" value="${(v.id||'').replace(/"/g,'&quot;')}" placeholder="유튜브 링크 또는 ID"></div>
-            <div class="field"><label>행사 제목</label><input data-vk="title" value="${(v.title||'').replace(/"/g,'&quot;')}" placeholder="예: 2025 OO 페스티벌"></div>
-            <div class="field"><label>참여 파트</label><textarea data-vk="parts" placeholder="예: 촬영 · 편집 · 송출">${(v.parts||'').replace(/</g,'&lt;')}</textarea></div>
-            <div class="field"><label>업로드일 (선택 · YYYY-MM-DD, 영상 SEO용)</label><input data-vk="date" value="${(v.date||'').replace(/"/g,'&quot;')}" placeholder="2025-06-01"></div>
+            <div class="field full"><label>영상 ID / 링크</label><input data-vk="id" value="${(v.id||'').replace(/"/g,'&quot;')}" placeholder="유튜브 링크 또는 ID"></div>
+            <div class="field full"><label>행사 제목</label><input data-vk="title" value="${(v.title||'').replace(/"/g,'&quot;')}" placeholder="예: 2025 OO 페스티벌"></div>
+            <div class="field"><label>참여 파트</label><input data-vk="parts" value="${(v.parts||'').replace(/"/g,'&quot;')}" placeholder="예: 촬영 · 편집 · 송출"></div>
+            <div class="field"><label>업로드일 (선택 · YYYY-MM-DD)</label><input data-vk="date" value="${(v.date||'').replace(/"/g,'&quot;')}" placeholder="2025-06-01"></div>
           </div>
           <div class="vtools">
-            <button class="sm" data-act="vup">↑</button>
-            <button class="sm" data-act="vdown">↓</button>
+            <button class="icon" data-act="vup" title="위로">↑</button>
+            <button class="icon" data-act="vdown" title="아래로">↓</button>
             <button class="sm danger" data-act="vdel">삭제</button>
           </div>
         </div>`;
       const idInput=row.querySelector('[data-vk="id"]');
       idInput.addEventListener('input',e=>{ v.id=extractId(e.target.value); });
-      idInput.addEventListener('blur',e=>{ e.target.value=v.id; row.querySelector('.thumb').src=v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''; });
+      idInput.addEventListener('blur',e=>{ e.target.value=v.id; row.querySelector('.thumb').src=v.id?`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`:''; const ph=row.querySelector('.ph'); if(ph)ph.style.display=v.id?'none':'flex'; });
       row.querySelector('[data-vk="title"]').addEventListener('input',e=>{v.title=e.target.value;});
       row.querySelector('[data-vk="parts"]').addEventListener('input',e=>{v.parts=e.target.value;});
       row.querySelector('[data-vk="date"]').addEventListener('input',e=>{ const d=e.target.value.trim(); if(d)v.date=d; else delete v.date; });
