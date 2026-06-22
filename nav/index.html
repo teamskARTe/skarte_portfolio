@@ -375,7 +375,7 @@ html.intro-seen #intro{display:none!important;animation:none!important;transitio
   transform:translateY(-24%) rotate(-90deg);
   animation:bodyTurn .7s cubic-bezier(.68,0,.22,1) 1.8s forwards;
   /* 클랩/반동 시 슬레이트 날 꼬리가 보드 왼쪽으로 삐져나오는 것 방지 (보드 왼쪽 모서리만 클리핑) */
-  clip-path:polygon(-500% -0.3%, 600% -0.3%, 600% 600%, -500% 600%);
+  clip-path:inset(-200% -200% -200% 0.208%);
 }
 @keyframes bodyTurn{
   to{transform:translateY(0) rotate(0deg)}
@@ -385,7 +385,7 @@ html.intro-seen #intro{display:none!important;animation:none!important;transitio
 /* 3) 슬레이트 스틱 — 들어올림 → 4) 클랩 (바퀴 도착 직후) */
 #intro .slate{
   left:28.991%;top:0.000%;width:71.009%;
-  transform-origin:39.88% 0.28%;
+  transform-origin:18.35% 31.61%;
   animation:slateGo 1.1s 1.05s forwards, swapHide .01s linear 2.56s forwards;
 }
 @keyframes slateGo{
