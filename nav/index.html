@@ -346,7 +346,8 @@ html.intro-seen #intro{display:none!important;animation:none!important;transitio
 }
 @keyframes flash{12%{opacity:.85}100%{opacity:0}}
 
-#introLogo{position:relative;width:min(56vmin,400px);aspect-ratio:1418/1419;animation:clapShake .34s linear 1.62s;transition:transform .85s cubic-bezier(.76,0,.18,1),opacity .3s ease;will-change:transform}
+#introLogo{position:relative;width:min(56vmin,400px);aspect-ratio:1418/1419;animation:clapShake .34s linear 1.62s;transition:transform .85s cubic-bezier(.76,0,.18,1),opacity .3s ease;will-change:transform;
+  clip-path:polygon(21.56% 0, 200% 0, 200% 200%, -200% 200%, -200% 68%, 21.56% 68%);}
 #introLogo img{position:absolute;display:block;height:auto}
 @keyframes clapShake{
   0%,100%{transform:none}
@@ -374,8 +375,6 @@ html.intro-seen #intro{display:none!important;animation:none!important;transitio
   transform-origin:50% 50%;
   transform:translateY(-24%) rotate(-90deg);
   animation:bodyTurn .7s cubic-bezier(.68,0,.22,1) 1.8s forwards;
-  /* 클랩/반동 시 슬레이트 날 꼬리가 보드 왼쪽으로 삐져나오는 것 방지 (보드 왼쪽 모서리만 클리핑) */
-  clip-path:inset(-200% -200% -200% 0.208%);
 }
 @keyframes bodyTurn{
   to{transform:translateY(0) rotate(0deg)}

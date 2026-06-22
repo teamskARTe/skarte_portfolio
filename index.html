@@ -349,7 +349,11 @@ html.intro-seen #intro{display:none!important;animation:none!important}
 }
 @keyframes flash{12%{opacity:.85}100%{opacity:0}}
 
-#introLogo{position:relative;width:min(56vmin,400px);aspect-ratio:1418/1419;animation:clapShake .34s linear 1.62s}
+#introLogo{position:relative;width:min(56vmin,400px);aspect-ratio:1418/1419;animation:clapShake .34s linear 1.62s;
+  /* 날이 클랩/반동할 때 본체 좌측 라인 왼쪽 위로 삐져나오는 꼬리를 잘라냄.
+     ㄱ자 영역: 본체 좌측라인(21.56%) 왼쪽의 위쪽(68% 위)만 비표시 — 바퀴(70%~)는 보존 */
+  clip-path:polygon(21.56% 0, 200% 0, 200% 200%, -200% 200%, -200% 68%, 21.56% 68%);
+}
 #introLogo img{position:absolute;display:block;height:auto}
 @keyframes clapShake{
   0%,100%{transform:none}
@@ -377,9 +381,6 @@ html.intro-seen #intro{display:none!important;animation:none!important}
   transform-origin:50% 50%;
   transform:translateY(-24%) rotate(-90deg);
   animation:bodyTurn .7s cubic-bezier(.68,0,.22,1) 1.8s forwards;
-  /* 본체 좌측 라인보다 왼쪽을 잘라냄 — .clap과 함께 회전하므로 항상 본체 좌측 라인을 따라감.
-     날이 클랩할 때 보드 왼쪽으로 삐져나오는 꼬리만 비표시. */
-  clip-path:inset(-200% -200% -200% 0.208%);
 }
 @keyframes bodyTurn{
   to{transform:translateY(0) rotate(0deg)}
