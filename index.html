@@ -383,8 +383,9 @@ html.intro-seen #intro{display:none!important;animation:none!important}
      slate/body transform이 서로 다른 합성 레이어에서 1프레임 어긋나며(GPU 합성 desync)
      반동 순간 날 왼쪽이 순간적으로 튀어나오는 프레임이 발생함.
      정적 고정 시 클립값이 매 프레임 동일 → transform과 어긋날 수 없어 누출 프레임 소멸.
-     실측: -0.3% 클립은 본체 0°(완성 로고)에서 로고 손실 1px로 무해, 모든 날 각도에서 누출 0px. */
-  clip-path:polygon(-200% -0.3%, 300% -0.3%, 300% 300%, -200% 300%);
+     실측: -0.15% 클립선이 본체 왼쪽 끝과 정렬차 1px(사실상 일치), 완성 로고(본체0°) 손실 1px로 무해.
+     (-0.3%는 본체끝보다 2px 바깥이라 날이 살짝 튀어나와 보였고, 0.0%↑는 완성로고를 88px+ 깎음) */
+  clip-path:polygon(-200% -0.15%, 300% -0.15%, 300% 300%, -200% 300%);
 }
 @keyframes bodyTurn{
   to{transform:translateY(0) rotate(0deg)}
