@@ -78,4 +78,70 @@ window.SKARTE_SUPABASE = {
     if (!r.ok) throw new Error(j.error_description || j.msg || "로그인 실패");
     return j; // { access_token, refresh_token, user, ... }
   };
+
+  /* --- 구글 OAuth 로그인 ---------------------------------------------
+     Supabase 의 authorize 엔드포인트로 리다이렉트한다.
+     redirectTo 는 현재 admin 페이지로 돌아오게 설정.
+     로그인 완료 후 #access_token=... 형태로 해시에 토큰이 붙어 돌아온다. */
+  CFG.signInWithGoogle = function (redirectTo) {
+    if (!configured) throw new Error("Supabase 설정이 비어 있습니다.");
+    var ret = redirectTo || window.location.href.split('#')[0];
+    var url = CFG.url + "/auth/v1/authorize?provider=google&redirect_to=" +
+              encodeURIComponent(ret);
+    window.location.href = url;
+  };
+
+  /* --- OAuth 콜백 해시에서 토큰 회수 ---------------------------------
+     리다이렉트로 돌아왔을 때 URL 해시(#access_token=...&...)를 파싱.
+     성공 시 { access_token, refresh_token, expires_at } 반환, 없으면 null.
+     파싱 후 해시는 깨끗하게 지운다. */
+  CFG.readOAuthHash = function () {
+    var h = window.location.hash || "";
+    if (h.indexOf("access_token=") === -1) {
+      // 에러로 돌아온 경우도 처리
+      if (h.indexOf("error=") !== -1) {
+        var ep = new URLSearchParams(h.replace(/^#/, ""));
+        var em = ep.get("error_description") || ep.get("error") || "로그인 오류";
+        try { history.replaceState(null, "", window.location.pathname + window.location.search); } catch (e) {}
+        throw new Error(decodeURIComponent(em));
+      }
+      return null;
+    }
+    var p = new URLSearchParams(h.replace(/^#/, ""));
+    var out = {
+      access_token: p.get("access_token"),
+      refresh_token: p.get("refresh_token"),
+      expires_at: p.get("expires_at")
+    };
+    try { history.replaceState(null, "", window.location.pathname + window.location.search); } catch (e) {}
+    return out.access_token ? out : null;
+  };
+
+  /* --- 토큰으로 현재 사용자 정보 조회 (이메일 확인용) ----------------
+     화이트리스트 검증에 사용. 실패 시 null. */
+  CFG.getUser = async function (accessToken) {
+    if (!configured || !accessToken) return null;
+    try {
+      var r = await fetch(CFG.url + "/auth/v1/user", {
+        headers: { apikey: CFG.anon, Authorization: "Bearer " + accessToken }
+      });
+      if (!r.ok) return null;
+      return await r.json(); // { id, email, ... }
+    } catch (e) { return null; }
+  };
+
+  /* --- refresh_token 으로 세션 갱신 ----------------------------------
+     access_token 만료(보통 1시간) 시 재로그인 없이 갱신. 실패 시 null. */
+  CFG.refreshSession = async function (refreshToken) {
+    if (!configured || !refreshToken) return null;
+    try {
+      var r = await fetch(CFG.url + "/auth/v1/token?grant_type=refresh_token", {
+        method: "POST",
+        headers: { apikey: CFG.anon, "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh_token: refreshToken })
+      });
+      if (!r.ok) return null;
+      return await r.json(); // { access_token, refresh_token, ... }
+    } catch (e) { return null; }
+  };
 })();

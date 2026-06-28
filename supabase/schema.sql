@@ -43,6 +43,31 @@ create policy "authenticated write site_data"
   with check (auth.role() = 'authenticated');
 
 -- ============================================================
+-- [선택·권장] 이메일 화이트리스트로 쓰기 제한 (서버 방어선)
+-- ------------------------------------------------------------
+-- 위 (b) 정책은 "로그인한 누구나" 쓰기가 됩니다. 단일 관리자 서비스라면
+-- '지정한 관리자 이메일'만 쓰기 가능하게 좁히는 것을 권장합니다.
+-- 이렇게 하면 관리자 이메일이 클라이언트 코드에 없어도(서버 정책에만 존재)
+-- 권한 통제가 됩니다.
+--
+-- 사용법: 위 (b) 블록 대신 아래를 실행하세요. (이메일을 관리자 것으로 교체)
+-- ------------------------------------------------------------
+-- drop policy if exists "authenticated write site_data" on public.site_data;
+-- drop policy if exists "whitelist write site_data" on public.site_data;
+-- create policy "whitelist write site_data"
+--   on public.site_data for all
+--   using (
+--     auth.role() = 'authenticated'
+--     and lower(auth.jwt() ->> 'email') in ('admin@skarte.kr')
+--   )
+--   with check (
+--     auth.role() = 'authenticated'
+--     and lower(auth.jwt() ->> 'email') in ('admin@skarte.kr')
+--   );
+-- 여러 명이면: in ('a@skarte.kr','b@skarte.kr')
+-- ============================================================
+
+-- ============================================================
 -- 참고:
 --  - anon(공개) 키로는 읽기만 됩니다. 안전합니다.
 --  - 관리자 저장은 Supabase Auth 로그인 후 authenticated 키로 동작합니다.
